@@ -1,0 +1,40 @@
+{
+  "backend": {
+    "_target_": "cotlab.backends.TransformersBackend",
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "enable_hooks": true,
+    "trust_remote_code": true
+  },
+  "model": {
+    "name": "allenai/Olmo-3.1-32B-Think",
+    "variant": "32b",
+    "max_new_tokens": 2048,
+    "temperature": 0.7,
+    "top_p": 0.9
+  },
+  "prompt": {
+    "_target_": "cotlab.prompts.ChainOfThoughtStrategy",
+    "name": "chain_of_thought",
+    "system_role": "You are a medical expert. Think through problems carefully and\nexplain your reasoning step by step before giving your final answer.\n",
+    "include_examples": false,
+    "cot_trigger": "Let's think through this step by step:"
+  },
+  "dataset": {
+    "_target_": "cotlab.datasets.RadiologyDataset",
+    "name": "radiology",
+    "path": "data/Radiology_Synthetic_Data.csv",
+    "text_column": "Synthetic",
+    "label_column": "Flag"
+  },
+  "experiment": {
+    "_target_": "cotlab.experiments.LogitLensExperiment",
+    "name": "logit_lens",
+    "description": "Visualize layer-by-layer token predictions",
+    "top_k": 5,
+    "question": "Patient presents with chest pain, sweating, and shortness of breath. What is the diagnosis?"
+  },
+  "seed": 42,
+  "verbose": true,
+  "dry_run": false
+}

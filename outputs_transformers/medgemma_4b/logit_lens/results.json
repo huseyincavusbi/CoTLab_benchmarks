@@ -1,0 +1,637 @@
+{
+  "metadata": {
+    "config": {
+      "backend": {
+        "_target_": "cotlab.backends.TransformersBackend",
+        "device": "cuda",
+        "dtype": "bfloat16",
+        "enable_hooks": true,
+        "trust_remote_code": true
+      },
+      "model": {
+        "name": "google/medgemma-4b-it",
+        "variant": "4b",
+        "max_new_tokens": 512,
+        "temperature": 0.7,
+        "top_p": 0.9
+      },
+      "prompt": {
+        "_target_": "cotlab.prompts.ChainOfThoughtStrategy",
+        "name": "chain_of_thought",
+        "system_role": "You are a medical expert. Think through problems carefully and\nexplain your reasoning step by step before giving your final answer.\n",
+        "include_examples": false,
+        "cot_trigger": "Let's think through this step by step:"
+      },
+      "dataset": {
+        "_target_": "cotlab.datasets.PediatricsDataset",
+        "name": "pediatrics",
+        "path": "data/Pediatrics_Synthetic_Data.csv",
+        "text_column": "Scenario",
+        "label_column": "Diagnosis"
+      },
+      "experiment": {
+        "_target_": "cotlab.experiments.LogitLensExperiment",
+        "name": "logit_lens",
+        "description": "Visualize layer-by-layer token predictions",
+        "top_k": 5,
+        "question": "Patient presents with chest pain, sweating, and shortness of breath. What is the diagnosis?"
+      },
+      "seed": 42,
+      "verbose": true,
+      "dry_run": false
+    },
+    "start_time": "2025-12-17T17:48:59.900259"
+  },
+  "experiment": "logit_lens",
+  "model": "google/medgemma-4b-it",
+  "prompt_strategy": "chain_of_thought",
+  "metrics": {
+    "final_prediction": "1",
+    "num_layers_analyzed": 34,
+    "emergence_layer": 27
+  },
+  "raw_outputs": [
+    {
+      "layer": 0,
+      "top_tokens": [
+        " \u0434\u0440\u0443\u0433\u0438",
+        "\u0938\u094d\u091f",
+        " \u0440\u0430\u0437\u043b\u0438\u0447\u043d\u0438",
+        " coveted",
+        "formerly"
+      ],
+      "top_probs": [
+        0.60546875,
+        0.28515625,
+        0.06396484375,
+        0.01422119140625,
+        0.01422119140625
+      ]
+    },
+    {
+      "layer": 1,
+      "top_tokens": [
+        "\u488c",
+        " \u0a1c",
+        "<unused332>",
+        "<unused1170>",
+        "\ueb9a"
+      ],
+      "top_probs": [
+        0.00040435791015625,
+        0.000347137451171875,
+        0.00030517578125,
+        0.0002956390380859375,
+        0.0002880096435546875
+      ]
+    },
+    {
+      "layer": 2,
+      "top_tokens": [
+        "the",
+        " The",
+        " the",
+        " \u0924\u094d\u092f\u093e\u0902\u091a\u094d\u092f\u093e",
+        "The"
+      ],
+      "top_probs": [
+        0.0322265625,
+        0.006744384765625,
+        0.00634765625,
+        0.005615234375,
+        0.00494384765625
+      ]
+    },
+    {
+      "layer": 3,
+      "top_tokens": [
+        "<unused201>",
+        "<unused687>",
+        "<unused192>",
+        "<unused1077>",
+        "<unused1166>"
+      ],
+      "top_probs": [
+        0.76171875,
+        0.169921875,
+        0.0625,
+        0.00311279296875,
+        0.00089263916015625
+      ]
+    },
+    {
+      "layer": 4,
+      "top_tokens": [
+        "<unused201>",
+        "<unused687>",
+        "<unused1166>",
+        "<unused192>",
+        "<unused720>"
+      ],
+      "top_probs": [
+        0.46875,
+        0.28515625,
+        0.1728515625,
+        0.049560546875,
+        0.005218505859375
+      ]
+    },
+    {
+      "layer": 5,
+      "top_tokens": [
+        "<unused687>",
+        "<unused192>",
+        "<unused201>",
+        "<unused1166>",
+        "<unused1170>"
+      ],
+      "top_probs": [
+        0.91015625,
+        0.07470703125,
+        0.0166015625,
+        6.818771362304688e-05,
+        4.124641418457031e-05
+      ]
+    },
+    {
+      "layer": 6,
+      "top_tokens": [
+        "\ua5dc",
+        "<unused338>",
+        " \u0434\u0440\u0443\u0433\u0438",
+        " PLDNN",
+        "MalayMarks"
+      ],
+      "top_probs": [
+        0.91796875,
+        0.0458984375,
+        0.0216064453125,
+        0.01019287109375,
+        0.00107574462890625
+      ]
+    },
+    {
+      "layer": 7,
+      "top_tokens": [
+        " \u0434\u0440\u0443\u0433\u0438",
+        " \u0442\u044f\u0445",
+        "\ua5dc",
+        " chatbots",
+        "\ud808\ude76"
+      ],
+      "top_probs": [
+        0.97265625,
+        0.00958251953125,
+        0.003997802734375,
+        0.00213623046875,
+        0.00188446044921875
+      ]
+    },
+    {
+      "layer": 8,
+      "top_tokens": [
+        "\ua5dc",
+        "\ud808\ude76",
+        " PLDNN",
+        "odikwa",
+        "MalayMarks"
+      ],
+      "top_probs": [
+        1.0,
+        2.3245294578089215e-16,
+        3.144186300207963e-17,
+        4.255493527005605e-18,
+        1.4227506535912076e-21
+      ]
+    },
+    {
+      "layer": 9,
+      "top_tokens": [
+        "<unused687>",
+        "\ufffd",
+        "<unused201>",
+        "<unused1170>",
+        "<unused720>"
+      ],
+      "top_probs": [
+        0.51171875,
+        0.3984375,
+        0.0419921875,
+        0.019775390625,
+        0.019775390625
+      ]
+    },
+    {
+      "layer": 10,
+      "top_tokens": [
+        "\ua5dc",
+        " PLDNN",
+        "odikwa",
+        "\ud808\ude76",
+        " viewership"
+      ],
+      "top_probs": [
+        1.0,
+        1.1864468014524018e-27,
+        2.1693674893577825e-29,
+        2.9335764912906377e-30,
+        5.39260384428426e-32
+      ]
+    },
+    {
+      "layer": 11,
+      "top_tokens": [
+        "\ua5dc",
+        " PLDNN",
+        "\ud808\ude76",
+        "odikwa",
+        "<pad>"
+      ],
+      "top_probs": [
+        1.0,
+        1.8055593228630336e-35,
+        9.183549615799121e-41,
+        9.183549615799121e-41,
+        0.0
+      ]
+    },
+    {
+      "layer": 12,
+      "top_tokens": [
+        "\uf0b3",
+        " \u0443\u0432\u0435\u043b\u0438\u0447\u0435\u043d\u0438\u0435",
+        "suff",
+        "Del",
+        "VAE"
+      ],
+      "top_probs": [
+        0.3203125,
+        0.25,
+        0.25,
+        0.091796875,
+        0.0263671875
+      ]
+    },
+    {
+      "layer": 13,
+      "top_tokens": [
+        "\ua5dc",
+        " PLDNN",
+        "\ud808\ude76",
+        " viewership",
+        "odikwa"
+      ],
+      "top_probs": [
+        1.0,
+        2.540190280342358e-13,
+        3.441691376337985e-14,
+        2.3245294578089215e-16,
+        4.255493527005605e-18
+      ]
+    },
+    {
+      "layer": 14,
+      "top_tokens": [
+        " viewership",
+        "\"/>",
+        "\ua5dc",
+        "\ud83c\udff5",
+        " protruding"
+      ],
+      "top_probs": [
+        0.9921875,
+        0.006683349609375,
+        0.0003337860107421875,
+        2.250075340270996e-06,
+        8.270144462585449e-07
+      ]
+    },
+    {
+      "layer": 15,
+      "top_tokens": [
+        "\ua5dc",
+        "\ud808\ude76",
+        " PLDNN",
+        "odikwa",
+        "<unused338>"
+      ],
+      "top_probs": [
+        1.0,
+        2.3245294578089215e-16,
+        2.3245294578089215e-16,
+        5.759824041329242e-19,
+        1.053497228147536e-20
+      ]
+    },
+    {
+      "layer": 16,
+      "top_tokens": [
+        " \u09ac\u09c7\u09b6\u09bf\u09b0",
+        " plethora",
+        " \u0e42",
+        " \u0ab6\u0aac\u0acd",
+        " protruding"
+      ],
+      "top_probs": [
+        1.0,
+        1.6689300537109375e-05,
+        5.617039278149605e-09,
+        7.566995918750763e-10,
+        6.314393452555578e-16
+      ]
+    },
+    {
+      "layer": 17,
+      "top_tokens": [
+        "\ua5dc",
+        "odikwa",
+        " PLDNN",
+        " viewership",
+        "\ud808\ude76"
+      ],
+      "top_probs": [
+        1.0,
+        9.870390964984584e-34,
+        1.8055593228630336e-35,
+        6.06114274642742e-39,
+        9.183549615799121e-41
+      ]
+    },
+    {
+      "layer": 18,
+      "top_tokens": [
+        "\ua5dc",
+        " acrob",
+        " PLDNN",
+        "\"/>",
+        "\ud808\ude76"
+      ],
+      "top_probs": [
+        1.0,
+        8.543513119185775e-17,
+        1.1546753136970622e-17,
+        5.759824041329242e-19,
+        2.1175823681357508e-19
+      ]
+    },
+    {
+      "layer": 19,
+      "top_tokens": [
+        "Liqu",
+        " \u0915\u0925\u0928",
+        "\u091c\u0928",
+        "Tell",
+        "Arguments"
+      ],
+      "top_probs": [
+        0.99609375,
+        0.002471923828125,
+        4.1211023926734924e-08,
+        1.525040715932846e-08,
+        1.0231815394945443e-10
+      ]
+    },
+    {
+      "layer": 20,
+      "top_tokens": [
+        "\u2022",
+        " \u0926\u093f\u0938\u0924\u0947",
+        "First",
+        "Ob",
+        "romad"
+      ],
+      "top_probs": [
+        0.984375,
+        0.006622314453125,
+        0.006622314453125,
+        0.00244140625,
+        7.457856554538012e-10
+      ]
+    },
+    {
+      "layer": 21,
+      "top_tokens": [
+        "Tight",
+        " Tight",
+        "Gre",
+        "lgan",
+        " sagen"
+      ],
+      "top_probs": [
+        1.0,
+        6.139278411865234e-06,
+        8.307397365570068e-07,
+        9.370282327836321e-14,
+        9.370282327836321e-14
+      ]
+    },
+    {
+      "layer": 22,
+      "top_tokens": [
+        " -",
+        "<bos>",
+        "<pad>",
+        "<unk>",
+        "<eos>"
+      ],
+      "top_probs": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "layer": 23,
+      "top_tokens": [
+        "*",
+        "\ufffd",
+        "while",
+        "<unused201>",
+        " \u2013"
+      ],
+      "top_probs": [
+        1.0,
+        0.000335693359375,
+        1.126900315284729e-07,
+        1.525040715932846e-08,
+        2.066371962428093e-09
+      ]
+    },
+    {
+      "layer": 24,
+      "top_tokens": [
+        " first",
+        "first",
+        "First",
+        " First",
+        " primeiro"
+      ],
+      "top_probs": [
+        1.0,
+        9.370282327836321e-14,
+        3.144186300207963e-17,
+        2.9335764912906377e-30,
+        9.870390964984584e-34
+      ]
+    },
+    {
+      "layer": 25,
+      "top_tokens": [
+        "based",
+        "Based",
+        " Based",
+        " based",
+        " basado"
+      ],
+      "top_probs": [
+        0.5,
+        0.5,
+        6.328271240363392e-15,
+        1.1622647289044608e-16,
+        1.6530389308438418e-37
+      ]
+    },
+    {
+      "layer": 26,
+      "top_tokens": [
+        "   ",
+        "<unused429>",
+        "\u00e2",
+        " \u0915\u094d",
+        "kran"
+      ],
+      "top_probs": [
+        1.0,
+        1.525040715932846e-08,
+        2.3245294578089215e-16,
+        2.3245294578089215e-16,
+        1.9273308272485545e-22
+      ]
+    },
+    {
+      "layer": 27,
+      "top_tokens": [
+        "1",
+        "<bos>",
+        "<pad>",
+        "<unk>",
+        "<eos>"
+      ],
+      "top_probs": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "layer": 28,
+      "top_tokens": [
+        "\ua5dc",
+        "<bos>",
+        "<pad>",
+        "<unk>",
+        "<eos>"
+      ],
+      "top_probs": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "layer": 29,
+      "top_tokens": [
+        " \u9ad8",
+        " \u09ac\u09c3\u09b9",
+        " \u043e\u043a\u0440\u0435",
+        " \u0c38\u0c4d\u0c1f\u0c47",
+        "levance"
+      ],
+      "top_probs": [
+        1.0,
+        2.1693674893577825e-29,
+        2.9335764912906377e-30,
+        3.975119405215255e-31,
+        5.39260384428426e-32
+      ]
+    },
+    {
+      "layer": 30,
+      "top_tokens": [
+        "stere",
+        " \u0d2e\u0d41\u0d16",
+        "\u05e6\u05d9",
+        "\u30d7\u30ec\u30bc",
+        " keywords"
+      ],
+      "top_probs": [
+        1.0,
+        4.5299530029296875e-05,
+        1.126900315284729e-07,
+        2.066371962428093e-09,
+        2.066371962428093e-09
+      ]
+    },
+    {
+      "layer": 31,
+      "top_tokens": [
+        "pronged",
+        " \u0441\u043f\u0435\u0446\u0438\u0444\u0438",
+        " indiqu",
+        "<unused338>",
+        "<unused429>"
+      ],
+      "top_probs": [
+        1.0,
+        1.126900315284729e-07,
+        9.370282327836321e-14,
+        3.144186300207963e-17,
+        5.759824041329242e-19
+      ]
+    },
+    {
+      "layer": 32,
+      "top_tokens": [
+        "<unused338>",
+        "\ufffd",
+        "<bos>",
+        "<eos>",
+        "<pad>"
+      ],
+      "top_probs": [
+        1.0,
+        4.255493527005605e-18,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "layer": 33,
+      "top_tokens": [
+        "-*",
+        "-",
+        "\ud83d\ude2d",
+        ".</",
+        "\u2010"
+      ],
+      "top_probs": [
+        1.0,
+        7.792703114739563e-20,
+        4.782137916322191e-25,
+        1.601387637598654e-28,
+        5.39260384428426e-32
+      ]
+    }
+  ],
+  "num_samples": 0,
+  "samples": [],
+  "end_time": "2025-12-17T17:49:06.087204",
+  "duration_seconds": 6.186947
+}

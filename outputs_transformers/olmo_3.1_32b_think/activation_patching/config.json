@@ -1,0 +1,44 @@
+{
+  "backend": {
+    "_target_": "cotlab.backends.TransformersBackend",
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "enable_hooks": true,
+    "trust_remote_code": true
+  },
+  "model": {
+    "name": "allenai/Olmo-3.1-32B-Think",
+    "variant": "32b",
+    "max_new_tokens": 2048,
+    "temperature": 0.7,
+    "top_p": 0.9
+  },
+  "prompt": {
+    "_target_": "cotlab.prompts.ChainOfThoughtStrategy",
+    "name": "chain_of_thought",
+    "system_role": "You are a medical expert. Think through problems carefully and\nexplain your reasoning step by step before giving your final answer.\n",
+    "include_examples": false,
+    "cot_trigger": "Let's think through this step by step:"
+  },
+  "dataset": {
+    "_target_": "cotlab.datasets.PatchingPairsDataset",
+    "name": "patching_pairs",
+    "path": "data/Patching_Pairs_Data.csv"
+  },
+  "experiment": {
+    "_target_": "cotlab.experiments.ActivationPatchingExperiment",
+    "name": "activation_patching",
+    "description": "Layer-wise causal interventions to study CoT importance",
+    "patching": {
+      "sweep_all_layers": true,
+      "target_positions": null,
+      "intervention_types": [
+        "patch",
+        "zero"
+      ]
+    }
+  },
+  "seed": 42,
+  "verbose": true,
+  "dry_run": false
+}

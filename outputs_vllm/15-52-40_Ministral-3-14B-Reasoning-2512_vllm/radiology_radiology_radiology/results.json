@@ -1,0 +1,199 @@
+{
+  "metadata": {
+    "config": {
+      "backend": {
+        "_target_": "cotlab.backends.VLLMBackend",
+        "tensor_parallel_size": 1,
+        "dtype": "bfloat16",
+        "trust_remote_code": true,
+        "max_model_len": 4096
+      },
+      "model": {
+        "name": "mistralai/Ministral-3-14B-Reasoning-2512",
+        "variant": "14b",
+        "max_new_tokens": 2048,
+        "temperature": 0.7,
+        "top_p": 0.9
+      },
+      "prompt": {
+        "_target_": "cotlab.prompts.RadiologyPromptStrategy",
+        "name": "radiology"
+      },
+      "dataset": {
+        "_target_": "cotlab.datasets.RadiologyDataset",
+        "name": "radiology",
+        "path": "data/Radiology_Synthetic_Data.csv",
+        "text_column": "Synthetic",
+        "label_column": "Flag"
+      },
+      "experiment": {
+        "_target_": "cotlab.experiments.RadiologyExperiment",
+        "name": "radiology",
+        "description": "Pathological fracture detection from radiology reports"
+      },
+      "seed": 42,
+      "verbose": true,
+      "dry_run": false
+    },
+    "start_time": "2025-12-16T16:03:42.861497"
+  },
+  "experiment": "radiology",
+  "model": "mistralai/Ministral-3-14B-Reasoning-2512",
+  "prompt_strategy": "radiology",
+  "metrics": {
+    "correct": 7,
+    "incorrect": 1,
+    "true_positives": 3,
+    "true_negatives": 4,
+    "false_positives": 0,
+    "false_negatives": 1,
+    "parse_errors": 1,
+    "accuracy": 0.875,
+    "parse_error_rate": 0.1111111111111111,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571
+  },
+  "num_samples": 9,
+  "samples": [
+    {
+      "sample_idx": 0,
+      "input": "22/09/2025, 11:40, XR FEMUR LEFT 22/09/2025, 11:32, XR TIBIA AND FIBULA LEFT\n\nCase History:\n\nReason for Request: New onset pain / guarding/ resisting movement of left leg - painful on examination of lower tibia and ankle (left)\n\n? Fracture, New onset pain / guarding/ resisting movement of left leg - painful on examination of lower tibia and ankle (left) ? Fracture From clinical notes: Osteogenesis imperfecta type III. Secondary hyperparathyroidism. Previous multiple fractures. Chronic kidney dis...",
+      "response": "```\n\n```json\n{\n    \"fracture_mentioned\": true,\n    \"pathological_fracture\": true,\n    \"evidence\": {\n        \"report_findings\": [\"transverse fractures of the distal left femur, proximal and distal left tibia and fibula\"],\n        \"rationale\": \"The report explicitly mentions transverse fractures of the distal left femur, proximal and distal left tibia and fibula. Additionally, it states that these fractures represent pathological fractures in a patient with pre-existing metabolic bone disease, including hyperparathyroidism and osteogenesis imperfecta type III. The presence of adjacent periosteal reaction further supports the pathological nature of these fractures.\"\n    }\n}\n```",
+      "predicted": true,
+      "ground_truth": true,
+      "correct": true,
+      "reasoning": "The report explicitly mentions transverse fractures of the distal left femur, proximal and distal left tibia and fibula. Additionally, it states that these fractures represent pathological fractures in a patient with pre-existing metabolic bone disease, including hyperparathyroidism and osteogenesis imperfecta type III. The presence of adjacent periosteal reaction further supports the pathological nature of these fractures.",
+      "findings": [
+        "transverse fractures of the distal left femur, proximal and distal left tibia and fibula"
+      ],
+      "fracture_mentioned": true,
+      "idx": 0,
+      "timestamp": "2025-12-16T16:03:47.778215"
+    },
+    {
+      "sample_idx": 1,
+      "input": "03/08/2025, 09:15, XR CHEST\n\nCase History:\n\nReason for Request: new CVL LIJ Findings: Compared to 01/08/2025. Left IJV CVC projected at the junction with the brachiocephalic vein. ET tube projected slightly high at T1 level. Oesophageal temperature probe in the distal oesophagus. NG tube tip in the stomach. Pacing wires projected across the chest. Right chest drain and mediastinal drain noted. There remains bilateral perihilar bronchial wall thickening with right retrocardiac atelectasis. No mea...",
+      "response": "```\n\n### Analysis:\n\n1. **Fracture Mention**:\n   - The report mentions an \"old right posterior ninth rib healing fracture.\" This indicates the presence of a bone fracture.\n\n2. **Pathological Nature**:\n   - The report describes the fracture as \"healing,\" which suggests it is in the process of healing, typically associated with non-pathological fractures.\n   - There is no mention of any pathological features such as periosteal reaction, abnormal bone formation, or other signs that would suggest a pathological fracture (e.g., lytic or sclerotic lesions, abnormal bone density, or associated soft tissue abnormalities).\n   - The report does not provide any direct or explicit indication that this fracture is pathological. It is described in a manner consistent with a typical, non-pathological healing fracture.\n\n### Output:\n```json\n{\n    \"fracture_mentioned\": true,\n    \"pathological_fracture\": false,\n    \"evidence\": {\n        \"report_findings\": [\"old right posterior ninth rib healing fracture\"],\n        \"rationale\": \"The report mentions an old right posterior ninth rib healing fracture. The description of the fracture as 'healing' is consistent with a non-pathological fracture. There is no mention of pathological features such as periosteal reaction or abnormal bone formation, nor any explicit indication that the fracture is pathological.\"\n    }\n}\n```",
+      "predicted": false,
+      "ground_truth": false,
+      "correct": true,
+      "reasoning": "The report mentions an old right posterior ninth rib healing fracture. The description of the fracture as 'healing' is consistent with a non-pathological fracture. There is no mention of pathological features such as periosteal reaction or abnormal bone formation, nor any explicit indication that the fracture is pathological.",
+      "findings": [
+        "old right posterior ninth rib healing fracture"
+      ],
+      "fracture_mentioned": true,
+      "idx": 1,
+      "timestamp": "2025-12-16T16:03:47.778241"
+    },
+    {
+      "sample_idx": 2,
+      "input": "15/07/2025, 14:22, XR PELVIS AND HIPS BOTH\n\nCase History:\n\nReason for Request: Patient with known osteoporosis presenting with acute onset right hip pain following minor fall. Unable to weight bear. ? Fracture\n\nFrom clinical notes: Type 2 diabetes mellitus. Chronic kidney disease stage 3. Vitamin D deficiency.\n\nFindings: Compared to 10/05/2025. There is generalised osteopenia throughout the visualised bones consistent with known metabolic bone disease. A non-displaced fracture is identified thro...",
+      "response": "```\n\n```json\n{\n    \"fracture_mentioned\": true,\n    \"pathological_fracture\": true,\n    \"evidence\": {\n        \"report_findings\": [\"non-displaced fracture through the right femoral neck\", \"surrounding sclerosis suggesting chronicity of approximately 2-3 weeks\", \"generalised osteopenia throughout the visualised bones consistent with known metabolic bone disease\", \"reduced bone density with compression deformity of L4 vertebral body\"],\n        \"rationale\": \"The report explicitly mentions a non-displaced fracture through the right femoral neck. It also describes surrounding sclerosis, which suggests chronicity, and generalised osteopenia consistent with known metabolic bone disease. Additionally, there is a mention of reduced bone density with compression deformity of L4, indicating underlying bone pathology. These findings strongly suggest that the femoral neck fracture is pathological in nature, likely due to the patient's known osteoporosis and metabolic bone disease.\"\n    }\n}\n```",
+      "predicted": true,
+      "ground_truth": true,
+      "correct": true,
+      "reasoning": "The report explicitly mentions a non-displaced fracture through the right femoral neck. It also describes surrounding sclerosis, which suggests chronicity, and generalised osteopenia consistent with known metabolic bone disease. Additionally, there is a mention of reduced bone density with compression deformity of L4, indicating underlying bone pathology. These findings strongly suggest that the femoral neck fracture is pathological in nature, likely due to the patient's known osteoporosis and metabolic bone disease.",
+      "findings": [
+        "non-displaced fracture through the right femoral neck",
+        "surrounding sclerosis suggesting chronicity of approximately 2-3 weeks",
+        "generalised osteopenia throughout the visualised bones consistent with known metabolic bone disease",
+        "reduced bone density with compression deformity of L4 vertebral body"
+      ],
+      "fracture_mentioned": true,
+      "idx": 2,
+      "timestamp": "2025-12-16T16:03:47.778266"
+    },
+    {
+      "sample_idx": 3,
+      "input": "12/06/2025, 10:22, XR FOOT RIGHT\n\nCase History:\n\nReason for Request: Small swelling over medial dorsal side right foot and along 1st metatarsal of great toe; pain upon palpation of this area. Known reduced bone density, previous fracture in arm - rule out fracture\n\nFindings: There is moderate osteopenia. There is a possible Salter Harris II fracture of the proximal lateral aspect of the 1st metatarsal although this is not clearly shown on the lateral view. An oblique view may help to clarify.\n\nD...",
+      "response": "```\n\n```json\n{\n    \"fracture_mentioned\": true,\n    \"pathological_fracture\": true,\n    \"evidence\": {\n        \"report_findings\": [\"possible Salter Harris II fracture of the proximal lateral aspect of the 1st metatarsal\"],\n        \"rationale\": \"The report mentions a possible Salter Harris II fracture of the proximal lateral aspect of the 1st metatarsal. The case history includes 'Known reduced bone density,' which is a strong indicator of pathological fracture. Additionally, the report mentions a previous fracture in the arm, which may suggest an underlying condition affecting bone integrity.\"\n    }\n}\n```",
+      "predicted": true,
+      "ground_truth": true,
+      "correct": true,
+      "reasoning": "The report mentions a possible Salter Harris II fracture of the proximal lateral aspect of the 1st metatarsal. The case history includes 'Known reduced bone density,' which is a strong indicator of pathological fracture. Additionally, the report mentions a previous fracture in the arm, which may suggest an underlying condition affecting bone integrity.",
+      "findings": [
+        "possible Salter Harris II fracture of the proximal lateral aspect of the 1st metatarsal"
+      ],
+      "fracture_mentioned": true,
+      "idx": 3,
+      "timestamp": "2025-12-16T16:03:47.778295"
+    },
+    {
+      "sample_idx": 4,
+      "input": "18/07/2025, 09:30, CT THORAX WITH CONTRAST\n\nCase History:\n\nReason for Request: Discussion in MDT regarding Lung Pathology\n\nFindings: ASD and VSD noted, with markedly dilated right atrium. Pulmonary veins are broadly patent. The lungs are of large volume. There are bands of atelectasis in both lower lobes. There is slight hyperlucency of the left lung apex with slight rightward displacement of the anterior junction line suggesting some localised overinflation. The central airways are patent. No l...",
+      "response": "```json\n{\n    \"fracture_mentioned\": true,\n    \"pathological_fracture\": false,\n    \"evidence\": {\n        \"report_findings\": [\"healing fracture of the right 9th posterolateral rib\", \"subtle callus formation is probably visible on chest radiograph dated 16/07/2025, but not on prior radiographs\"],\n        \"rationale\": \"The report describes a healing fracture of the right 9th rib with subtle callus formation. While it mentions the timing of the fracture (likely sustained during the current admission), there is no indication that the fracture is pathological in nature. The description focuses on the fracture's timing and healing process, without any mention of underlying bone pathology or abnormal bone characteristics.\"\n    }\n}\n```",
+      "predicted": false,
+      "ground_truth": true,
+      "correct": false,
+      "reasoning": "The report describes a healing fracture of the right 9th rib with subtle callus formation. While it mentions the timing of the fracture (likely sustained during the current admission), there is no indication that the fracture is pathological in nature. The description focuses on the fracture's timing and healing process, without any mention of underlying bone pathology or abnormal bone characteristics.",
+      "findings": [
+        "healing fracture of the right 9th posterolateral rib",
+        "subtle callus formation is probably visible on chest radiograph dated 16/07/2025, but not on prior radiographs"
+      ],
+      "fracture_mentioned": true,
+      "idx": 4,
+      "timestamp": "2025-12-16T16:03:47.778316"
+    },
+    {
+      "sample_idx": 5,
+      "input": "14/09/2025, 11:35, XR HUMERUS LEFT 14/09/2025, 11:34, XR HUMERUS RIGHT\n\nCase History:\n\nReason for Request: reduced range of motion, new per physiotherapist concern, ? fracture, Rt arm stricture? injury, weakness, to rule out fracture\n\nFindings: Symmetrical appearances with broad-based diaphyseal periosteal reaction bilaterally of both humeri, likely physiological. There are similar findings in the proximal right radius and ulna. The proximal humeral ossification centre appears symmetrical. No ac...",
+      "response": "```json\n```",
+      "predicted": null,
+      "ground_truth": false,
+      "correct": null,
+      "reasoning": "```json\n```",
+      "findings": [],
+      "fracture_mentioned": null,
+      "idx": 5,
+      "timestamp": "2025-12-16T16:03:47.778337"
+    },
+    {
+      "sample_idx": 6,
+      "input": "25/08/2025, 13:45, XR ABDOMEN\n\nCase History:\n\nReason for Request: Abdominal distention and worsening discomfort /pain over the last 24 hrs related to feeds - BG : day 5 post PEG insertion\n\nFindings: Gastrostomy noted. Right-sided VP shunt tubing coiled within the abdomen with tip projected over the right flank, no kink or fracture demonstrated. Bowel gas pattern is unremarkable with no evidence of obstruction. No definitive pneumatasis or free intraperitoneal gas.\n\nDr Laura Bennett, Consultant P...",
+      "response": "```\n\n```json\n{\n    \"fracture_mentioned\": false,\n    \"pathological_fracture\": false,\n    \"evidence\": {\n        \"report_findings\": [\"No kink or fracture demonstrated\"],\n        \"rationale\": \"The report states 'No kink or fracture demonstrated,' which explicitly indicates the absence of any fractures, including pathological ones.\"\n    }\n}\n```",
+      "predicted": false,
+      "ground_truth": false,
+      "correct": true,
+      "reasoning": "The report states 'No kink or fracture demonstrated,' which explicitly indicates the absence of any fractures, including pathological ones.",
+      "findings": [
+        "No kink or fracture demonstrated"
+      ],
+      "fracture_mentioned": false,
+      "idx": 6,
+      "timestamp": "2025-12-16T16:03:47.778350"
+    },
+    {
+      "sample_idx": 7,
+      "input": "19/10/2025, 14:25, CT HEAD\n\nCase History:\n\nReason for Request: 18 mo, drowsy, drop GCS 12/15 - ? changes ICP - bradycardia, hypertension and reduced conscious level\n\nFindings and interpretation: Non-contrast CT head. No previous relevant imaging available for comparison at time of reporting. The patient was scanned using a vacuum immobilisation bag due to motion concerns. This results in a linear artefact in the anteroposterior direction, most evident at the level of the corona radiata and poste...",
+      "response": "```\n\n```json\n{\n    \"fracture_mentioned\": false,\n    \"pathological_fracture\": false,\n    \"evidence\": {\n        \"report_findings\": [\"No acute calvarial fracture is identified.\"],\n        \"rationale\": \"The report explicitly states that no acute calvarial fracture is identified, which means there is no mention of any bone fracture, pathological or otherwise.\"\n    }\n}\n```",
+      "predicted": false,
+      "ground_truth": false,
+      "correct": true,
+      "reasoning": "The report explicitly states that no acute calvarial fracture is identified, which means there is no mention of any bone fracture, pathological or otherwise.",
+      "findings": [
+        "No acute calvarial fracture is identified."
+      ],
+      "fracture_mentioned": false,
+      "idx": 7,
+      "timestamp": "2025-12-16T16:03:47.778370"
+    },
+    {
+      "sample_idx": 8,
+      "input": "07/11/2025, 08:15, XR CEREBRO-SPINAL FLUID SHUNT\n\nCase History:\n\nReason for Request: Dry shunt tap, to assess shunt system prior to surgical exploration\n\nFindings: VP shunt tubing position as demonstrated no evidence of kink or fracture. No other significant abnormality.\n\nDr Sophie Richardson, Consultant Paediatric Radiologist GMC 5938274 07/11/2025, 12:30",
+      "response": "```\n\n```json\n{\n    \"fracture_mentioned\": false,\n    \"pathological_fracture\": false,\n    \"evidence\": {\n        \"report_findings\": [\"No evidence of kink or fracture.\"],\n        \"rationale\": \"The report does not mention any bone fracture. It only mentions the absence of a fracture in the shunt tubing, which is not a bone fracture. Therefore, I cannot conclude that a bone fracture is present or that it is pathological.\"\n    }\n}\n```",
+      "predicted": false,
+      "ground_truth": false,
+      "correct": true,
+      "reasoning": "The report does not mention any bone fracture. It only mentions the absence of a fracture in the shunt tubing, which is not a bone fracture. Therefore, I cannot conclude that a bone fracture is present or that it is pathological.",
+      "findings": [
+        "No evidence of kink or fracture."
+      ],
+      "fracture_mentioned": false,
+      "idx": 8,
+      "timestamp": "2025-12-16T16:03:47.778384"
+    }
+  ],
+  "end_time": "2025-12-16T16:03:47.778520",
+  "duration_seconds": 4.917024
+}
