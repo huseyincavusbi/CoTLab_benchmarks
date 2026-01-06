@@ -1,0 +1,91 @@
+{
+  "metadata": {
+    "config": {
+      "backend": {
+        "_target_": "cotlab.backends.TransformersBackend",
+        "device": "cuda",
+        "dtype": "bfloat16",
+        "enable_hooks": true,
+        "trust_remote_code": true
+      },
+      "model": {
+        "name": "google/medgemma-27b-text-it",
+        "variant": "27b-text",
+        "max_new_tokens": 512,
+        "temperature": 0.7,
+        "top_p": 0.9
+      },
+      "prompt": {
+        "_target_": "cotlab.prompts.length_matched_strategies.ContrarianMatchedStrategy",
+        "name": "contrarian_matched"
+      },
+      "dataset": {
+        "_target_": "cotlab.datasets.PatchingPairsDataset",
+        "name": "patching_pairs",
+        "path": "data/Patching_Pairs_Data.csv"
+      },
+      "experiment": {
+        "_target_": "cotlab.experiments.ProbingClassifierExperiment",
+        "name": "probing_classifier",
+        "description": "Train linear probes on hidden states",
+        "target_layers": [
+          30,
+          40,
+          50,
+          58
+        ],
+        "num_samples": 100,
+        "label_field": "category"
+      },
+      "seed": 42,
+      "verbose": true,
+      "dry_run": false
+    },
+    "start_time": "2025-12-26T16:29:30.351146"
+  },
+  "experiment": "probing_classifier",
+  "model": "google/medgemma-27b-text-it",
+  "prompt_strategy": "contrarian_matched",
+  "metrics": {
+    "num_samples": 96,
+    "num_layers_probed": 4,
+    "num_classes": 18,
+    "best_layer": 58,
+    "best_test_accuracy": 0.42105263157894735,
+    "label_field": "category"
+  },
+  "raw_outputs": [
+    {
+      "layer": 30,
+      "train_accuracy": 1.0,
+      "test_accuracy": 0.2631578947368421,
+      "n_train": 77,
+      "n_test": 19
+    },
+    {
+      "layer": 40,
+      "train_accuracy": 1.0,
+      "test_accuracy": 0.21052631578947367,
+      "n_train": 77,
+      "n_test": 19
+    },
+    {
+      "layer": 50,
+      "train_accuracy": 1.0,
+      "test_accuracy": 0.2631578947368421,
+      "n_train": 77,
+      "n_test": 19
+    },
+    {
+      "layer": 58,
+      "train_accuracy": 1.0,
+      "test_accuracy": 0.42105263157894735,
+      "n_train": 77,
+      "n_test": 19
+    }
+  ],
+  "num_samples": 0,
+  "samples": [],
+  "end_time": "2025-12-26T16:39:40.818216",
+  "duration_seconds": 610.467082
+}

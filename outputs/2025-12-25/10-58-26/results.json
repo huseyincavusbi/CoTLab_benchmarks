@@ -1,0 +1,1112 @@
+{
+  "metadata": {
+    "config": {
+      "backend": {
+        "_target_": "cotlab.backends.TransformersBackend",
+        "device": "cuda",
+        "dtype": "bfloat16",
+        "enable_hooks": true,
+        "trust_remote_code": true
+      },
+      "model": {
+        "name": "google/medgemma-27b-text-it",
+        "variant": "27b-text",
+        "max_new_tokens": 512,
+        "temperature": 0.7,
+        "top_p": 0.9
+      },
+      "prompt": {
+        "_target_": "cotlab.prompts.DirectAnswerStrategy",
+        "name": "direct_answer",
+        "system_role": "You are a medical expert. Give only the final answer.\nDo not explain or show your reasoning.\n",
+        "force_short": true,
+        "max_answer_tokens": 50
+      },
+      "dataset": {
+        "_target_": "cotlab.datasets.PatchingPairsDataset",
+        "name": "patching_pairs",
+        "path": "data/Patching_Pairs_Data.csv"
+      },
+      "experiment": {
+        "_target_": "cotlab.experiments.LogitLensExperiment",
+        "name": "logit_lens",
+        "description": "Visualize layer-by-layer token predictions",
+        "top_k": 5,
+        "question": "Patient presents with chest pain, sweating, and shortness of breath. What is the diagnosis?"
+      },
+      "seed": 42,
+      "verbose": true,
+      "dry_run": false
+    },
+    "start_time": "2025-12-25T10:58:27.038207"
+  },
+  "experiment": "logit_lens",
+  "model": "google/medgemma-27b-text-it",
+  "prompt_strategy": "direct_answer",
+  "metrics": {
+    "final_prediction": "\n\n",
+    "num_layers_analyzed": 62,
+    "emergence_layer": null,
+    "emergence_rank": null
+  },
+  "raw_outputs": [
+    {
+      "layer": 0,
+      "top_tokens": [
+        "CasePTV",
+        "CollinToDO",
+        "MalayMarks",
+        "CaseMissense",
+        "DenovoMis"
+      ],
+      "top_probs": [
+        0.53125,
+        0.25,
+        0.09228515625,
+        0.033935546875,
+        0.0264892578125
+      ]
+    },
+    {
+      "layer": 1,
+      "top_tokens": [
+        "\u1f64",
+        "\u099c\u09cd",
+        "\u0cae\u0ccd",
+        " \u0d07\u0d24\u0d4d",
+        "\u043b\u044c\u043d\u044f\u0432\u044b\u044f"
+      ],
+      "top_probs": [
+        2.6226043701171875e-05,
+        2.47955322265625e-05,
+        2.4199485778808594e-05,
+        2.205371856689453e-05,
+        2.1696090698242188e-05
+      ]
+    },
+    {
+      "layer": 2,
+      "top_tokens": [
+        "\ufe8e",
+        "\u24d4",
+        "\u0cae\u0ccd",
+        "\u0bb6",
+        "\u1255"
+      ],
+      "top_probs": [
+        0.00011014938354492188,
+        0.0001049041748046875,
+        9.393692016601562e-05,
+        8.96453857421875e-05,
+        8.440017700195312e-05
+      ]
+    },
+    {
+      "layer": 3,
+      "top_tokens": [
+        "<unused1155>",
+        "\ufffd",
+        "<unused273>",
+        "\ufe8e",
+        "\u92c6"
+      ],
+      "top_probs": [
+        9.202957153320312e-05,
+        9.059906005859375e-05,
+        8.249282836914062e-05,
+        7.867813110351562e-05,
+        7.390975952148438e-05
+      ]
+    },
+    {
+      "layer": 4,
+      "top_tokens": [
+        "\u0c83",
+        "\u1255",
+        "\u1585",
+        " ngok",
+        "\u0e99"
+      ],
+      "top_probs": [
+        0.33203125,
+        0.2021484375,
+        0.10791015625,
+        0.10791015625,
+        0.045166015625
+      ]
+    },
+    {
+      "layer": 5,
+      "top_tokens": [
+        "\u0c83",
+        "\u1585",
+        " ngok",
+        "\ufe8e",
+        "\u0bb6"
+      ],
+      "top_probs": [
+        0.000614166259765625,
+        0.00055694580078125,
+        0.0003490447998046875,
+        0.0003185272216796875,
+        0.0002727508544921875
+      ]
+    },
+    {
+      "layer": 6,
+      "top_tokens": [
+        "a",
+        "as",
+        "ar",
+        "g",
+        "an"
+      ],
+      "top_probs": [
+        0.001129150390625,
+        0.0008544921875,
+        0.0004024505615234375,
+        0.0002956390380859375,
+        0.0002613067626953125
+      ]
+    },
+    {
+      "layer": 7,
+      "top_tokens": [
+        "\ufffd",
+        "\ufffd",
+        "\u0645\u0627",
+        "\u0644\u064a",
+        "\u0649"
+      ],
+      "top_probs": [
+        0.2578125,
+        0.0272216796875,
+        0.0155029296875,
+        0.01458740234375,
+        0.010009765625
+      ]
+    },
+    {
+      "layer": 8,
+      "top_tokens": [
+        "CasePTV",
+        "CollinToDO",
+        "posTocco",
+        "sscType",
+        " PLDNN"
+      ],
+      "top_probs": [
+        0.9453125,
+        0.046875,
+        0.00634765625,
+        0.00182342529296875,
+        0.000522613525390625
+      ]
+    },
+    {
+      "layer": 9,
+      "top_tokens": [
+        "CasePTV",
+        "CollinToDO",
+        "posTocco",
+        "MalayMarks",
+        "CaseMissense"
+      ],
+      "top_probs": [
+        1.0,
+        0.000911712646484375,
+        5.587935447692871e-09,
+        5.587935447692871e-09,
+        2.066371962428093e-09
+      ]
+    },
+    {
+      "layer": 10,
+      "top_tokens": [
+        "CasePTV",
+        "CollinToDO",
+        "posTocco",
+        "MalayMarks",
+        "CaseMissense"
+      ],
+      "top_probs": [
+        0.96875,
+        0.029296875,
+        0.00019741058349609375,
+        7.2479248046875e-05,
+        7.2479248046875e-05
+      ]
+    },
+    {
+      "layer": 11,
+      "top_tokens": [
+        "\u0631\u0629",
+        " \u092e\u0939\u0924\u094d",
+        "MLLoader",
+        "hilangan",
+        "Permissions"
+      ],
+      "top_probs": [
+        0.00128936767578125,
+        0.000942230224609375,
+        0.0006103515625,
+        0.000522613525390625,
+        0.000446319580078125
+      ]
+    },
+    {
+      "layer": 12,
+      "top_tokens": [
+        "MalayMarks",
+        "ControlPTV",
+        "CasePTV",
+        "CollinToDO",
+        "DenovoMis"
+      ],
+      "top_probs": [
+        0.46875,
+        0.08154296875,
+        0.08154296875,
+        0.0634765625,
+        0.04931640625
+      ]
+    },
+    {
+      "layer": 13,
+      "top_tokens": [
+        "<unused179>",
+        "<unused1177>",
+        "<unused1094>",
+        "<unused1044>",
+        "<unused1078>"
+      ],
+      "top_probs": [
+        0.94140625,
+        0.0283203125,
+        0.01043701171875,
+        0.01043701171875,
+        0.00384521484375
+      ]
+    },
+    {
+      "layer": 14,
+      "top_tokens": [
+        "CasePTV",
+        "MalayMarks",
+        "CollinToDO",
+        "CaseMissense",
+        "ControlPTV"
+      ],
+      "top_probs": [
+        0.99609375,
+        0.002471923828125,
+        0.00090789794921875,
+        2.250075340270996e-06,
+        8.270144462585449e-07
+      ]
+    },
+    {
+      "layer": 15,
+      "top_tokens": [
+        "CasePTV",
+        "MalayMarks",
+        "CollinToDO",
+        "ControlPTV",
+        "CaseMissense"
+      ],
+      "top_probs": [
+        0.98046875,
+        0.0179443359375,
+        0.000896453857421875,
+        6.020069122314453e-06,
+        8.158385753631592e-07
+      ]
+    },
+    {
+      "layer": 16,
+      "top_tokens": [
+        "CasePTV",
+        "CollinToDO",
+        "MalayMarks",
+        "CaseMissense",
+        "ControlPTV"
+      ],
+      "top_probs": [
+        1.0,
+        8.307397365570068e-07,
+        2.066371962428093e-09,
+        1.2656542480726785e-14,
+        1.7139067942650854e-15
+      ]
+    },
+    {
+      "layer": 17,
+      "top_tokens": [
+        "CasePTV",
+        "MalayMarks",
+        "CollinToDO",
+        "ControlPTV",
+        "DenovoMis"
+      ],
+      "top_probs": [
+        0.96484375,
+        0.0291748046875,
+        0.003936767578125,
+        0.000324249267578125,
+        0.00011920928955078125
+      ]
+    },
+    {
+      "layer": 18,
+      "top_tokens": [
+        "CollinToDO",
+        "MalayMarks",
+        "CasePTV",
+        "CaseMissense",
+        "posTocco"
+      ],
+      "top_probs": [
+        0.42578125,
+        0.2578125,
+        0.2578125,
+        0.0211181640625,
+        0.0164794921875
+      ]
+    },
+    {
+      "layer": 19,
+      "top_tokens": [
+        "CasePTV",
+        "CollinToDO",
+        "MalayMarks",
+        "CaseMissense",
+        "posTocco"
+      ],
+      "top_probs": [
+        1.0,
+        0.000911712646484375,
+        8.307397365570068e-07,
+        1.525040715932846e-08,
+        7.566995918750763e-10
+      ]
+    },
+    {
+      "layer": 20,
+      "top_tokens": [
+        "CasePTV",
+        "CollinToDO",
+        "posTocco",
+        "MalayMarks",
+        " PLDNN"
+      ],
+      "top_probs": [
+        0.98046875,
+        0.0179443359375,
+        8.158385753631592e-07,
+        2.0227162167429924e-09,
+        2.0227162167429924e-09
+      ]
+    },
+    {
+      "layer": 21,
+      "top_tokens": [
+        "\u0c83",
+        " \u0442\u043e\u043b\u044c\u043a\u0456",
+        "\u0d86",
+        "\u0441\u0446\u044c",
+        " tae"
+      ],
+      "top_probs": [
+        0.73046875,
+        0.267578125,
+        0.0029754638671875,
+        0.000244140625,
+        2.7120113372802734e-06
+      ]
+    },
+    {
+      "layer": 22,
+      "top_tokens": [
+        "CasePTV",
+        "CollinToDO",
+        "posTocco",
+        "CaseMissense",
+        "MalayMarks"
+      ],
+      "top_probs": [
+        1.0,
+        4.5299530029296875e-05,
+        6.927791673660977e-13,
+        1.7139067942650854e-15,
+        4.255493527005605e-18
+      ]
+    },
+    {
+      "layer": 23,
+      "top_tokens": [
+        "<unused1177>",
+        "<unused179>",
+        "<unused1094>",
+        "<unused1044>",
+        "<unused1001>"
+      ],
+      "top_probs": [
+        0.953125,
+        0.04736328125,
+        7.934868335723877e-07,
+        1.0710209608078003e-07,
+        3.934837877750397e-08
+      ]
+    },
+    {
+      "layer": 24,
+      "top_tokens": [
+        "CasePTV",
+        "CollinToDO",
+        "MalayMarks",
+        "posTocco",
+        "DenovoMis"
+      ],
+      "top_probs": [
+        1.0,
+        1.126900315284729e-07,
+        5.115907697472721e-12,
+        9.370282327836321e-14,
+        4.6629367034256575e-15
+      ]
+    },
+    {
+      "layer": 25,
+      "top_tokens": [
+        "MalayMarks",
+        "CollinToDO",
+        "CasePTV",
+        "posTocco",
+        "DenovoMis"
+      ],
+      "top_probs": [
+        0.94921875,
+        0.04736328125,
+        0.002349853515625,
+        1.7601996660232544e-07,
+        1.4493707567453384e-08
+      ]
+    },
+    {
+      "layer": 26,
+      "top_tokens": [
+        "CasePTV",
+        "CollinToDO",
+        " PLDNN",
+        "DenovoMis",
+        "CaseMissense"
+      ],
+      "top_probs": [
+        1.0,
+        4.5299530029296875e-05,
+        1.126900315284729e-07,
+        4.1443854570388794e-08,
+        5.617039278149605e-09
+      ]
+    },
+    {
+      "layer": 27,
+      "top_tokens": [
+        "\u1255",
+        "\u092d\u093f",
+        " vliegtuig",
+        " Pesach",
+        " \u0622\u0633\u06cc\u0628"
+      ],
+      "top_probs": [
+        0.5078125,
+        0.306640625,
+        0.1865234375,
+        0.0001697540283203125,
+        0.000102996826171875
+      ]
+    },
+    {
+      "layer": 28,
+      "top_tokens": [
+        "<unused1094>",
+        "<unused1001>",
+        "<unused1777>",
+        "<unused1065>",
+        "<unused1080>"
+      ],
+      "top_probs": [
+        1.0,
+        2.2649765014648438e-06,
+        3.4051481634378433e-09,
+        6.230038707144558e-11,
+        8.412825991399586e-12
+      ]
+    },
+    {
+      "layer": 29,
+      "top_tokens": [
+        "CasePTV",
+        "MalayMarks",
+        "CollinToDO",
+        "CaseMissense",
+        "ControlPTV"
+      ],
+      "top_probs": [
+        0.5,
+        0.5,
+        7.62520357966423e-09,
+        1.0331859812140465e-09,
+        1.887201506178826e-11
+      ]
+    },
+    {
+      "layer": 30,
+      "top_tokens": [
+        "CasePTV",
+        "CollinToDO",
+        "MalayMarks",
+        "<eos>",
+        "<pad>"
+      ],
+      "top_probs": [
+        1.0,
+        1.4227506535912076e-21,
+        5.39260384428426e-32,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "layer": 31,
+      "top_tokens": [
+        "<unused179>",
+        "<unused1039>",
+        "<unused1095>",
+        "<unused106>",
+        "<unused744>"
+      ],
+      "top_probs": [
+        1.0,
+        2.540190280342358e-13,
+        2.1175823681357508e-19,
+        2.1175823681357508e-19,
+        3.864587821847745e-21
+      ]
+    },
+    {
+      "layer": 32,
+      "top_tokens": [
+        "MalayMarks",
+        "CasePTV",
+        "DenovoMis",
+        "CollinToDO",
+        "ControlPTV"
+      ],
+      "top_probs": [
+        1.0,
+        8.307397365570068e-07,
+        1.2656542480726785e-14,
+        3.144186300207963e-17,
+        7.792703114739563e-20
+      ]
+    },
+    {
+      "layer": 33,
+      "top_tokens": [
+        "<unused1094>",
+        "<unused179>",
+        "<unused1078>",
+        "<unused1044>",
+        "<unused1176>"
+      ],
+      "top_probs": [
+        1.0,
+        0.000335693359375,
+        1.2656542480726785e-14,
+        1.2656542480726785e-14,
+        5.759824041329242e-19
+      ]
+    },
+    {
+      "layer": 34,
+      "top_tokens": [
+        "<unused179>",
+        "<unused1044>",
+        "<unused1094>",
+        "<unused1177>",
+        "<unused1078>"
+      ],
+      "top_probs": [
+        1.0,
+        8.734267942607043e-27,
+        1.601387637598654e-28,
+        5.39260384428426e-32,
+        3.3060778616876836e-37
+      ]
+    },
+    {
+      "layer": 35,
+      "top_tokens": [
+        "<unused1078>",
+        "<unused179>",
+        "<unused1176>",
+        "<unused1094>",
+        "<unused1065>"
+      ],
+      "top_probs": [
+        1.0,
+        0.000335693359375,
+        8.307397365570068e-07,
+        2.066371962428093e-09,
+        2.066371962428093e-09
+      ]
+    },
+    {
+      "layer": 36,
+      "top_tokens": [
+        " \u06a9\u0627\u06a9\u0631\u0648\u0686",
+        "sscType",
+        " SrvGroup",
+        "CollinToDO",
+        "\ud808\udd32"
+      ],
+      "top_probs": [
+        1.0,
+        5.115907697472721e-12,
+        1.2656542480726785e-14,
+        1.8055593228630336e-35,
+        2.445028249710358e-36
+      ]
+    },
+    {
+      "layer": 37,
+      "top_tokens": [
+        "<unused179>",
+        "<unused118>",
+        "<unused1110>",
+        "<unused906>",
+        "<unused744>"
+      ],
+      "top_probs": [
+        1.0,
+        5.617039278149605e-09,
+        7.566995918750763e-10,
+        3.774403012357652e-11,
+        9.370282327836321e-14
+      ]
+    },
+    {
+      "layer": 38,
+      "top_tokens": [
+        "<unused179>",
+        "<unused1177>",
+        "<unused587>",
+        "<unused1001>",
+        "<unused118>"
+      ],
+      "top_probs": [
+        1.0,
+        2.3245294578089215e-16,
+        2.3245294578089215e-16,
+        2.3245294578089215e-16,
+        3.144186300207963e-17
+      ]
+    },
+    {
+      "layer": 39,
+      "top_tokens": [
+        " diagnoses",
+        " gastritis",
+        "Produces",
+        "k\u00e9ben",
+        "\u0644\u064a"
+      ],
+      "top_probs": [
+        0.98046875,
+        0.0179443359375,
+        4.458427429199219e-05,
+        2.998858690261841e-07,
+        1.103617250919342e-07
+      ]
+    },
+    {
+      "layer": 40,
+      "top_tokens": [
+        "arctica",
+        "amyl",
+        " Rape",
+        " mastect",
+        "uradaki"
+      ],
+      "top_probs": [
+        1.0,
+        7.566995918750763e-10,
+        2.7830537874251604e-10,
+        6.927791673660977e-13,
+        9.370282327836321e-14
+      ]
+    },
+    {
+      "layer": 41,
+      "top_tokens": [
+        "<unused106>",
+        "<unused746>",
+        "<unused1087>",
+        "<unused518>",
+        "<unused952>"
+      ],
+      "top_probs": [
+        0.498046875,
+        0.498046875,
+        0.00335693359375,
+        2.2649765014648438e-05,
+        3.0547380447387695e-06
+      ]
+    },
+    {
+      "layer": 42,
+      "top_tokens": [
+        "<unused1095>",
+        "<unused1001>",
+        "<unused608>",
+        "<unused1044>",
+        "<unused1083>"
+      ],
+      "top_probs": [
+        0.94921875,
+        0.04736328125,
+        0.002349853515625,
+        5.841255187988281e-06,
+        2.905726432800293e-07
+      ]
+    },
+    {
+      "layer": 43,
+      "top_tokens": [
+        "<unused1095>",
+        "<unused1176>",
+        "<unused106>",
+        "<unused179>",
+        "<unused1078>"
+      ],
+      "top_probs": [
+        1.0,
+        1.126900315284729e-07,
+        1.126900315284729e-07,
+        1.126900315284729e-07,
+        1.525040715932846e-08
+      ]
+    },
+    {
+      "layer": 44,
+      "top_tokens": [
+        "<unused179>",
+        "<unused1095>",
+        "<unused1078>",
+        "<unused1044>",
+        "<unused1177>"
+      ],
+      "top_probs": [
+        0.98046875,
+        0.0179443359375,
+        0.0003299713134765625,
+        1.103617250919342e-07,
+        3.7061909097246826e-11
+      ]
+    },
+    {
+      "layer": 45,
+      "top_tokens": [
+        "<unused1095>",
+        "<unused1101>",
+        "<unused1076>",
+        "<unused1044>",
+        "<unused1078>"
+      ],
+      "top_probs": [
+        0.99609375,
+        0.002471923828125,
+        4.5299530029296875e-05,
+        6.139278411865234e-06,
+        1.1222437024116516e-07
+      ]
+    },
+    {
+      "layer": 46,
+      "top_tokens": [
+        " what",
+        " WHAT",
+        " What",
+        " whats",
+        " hva"
+      ],
+      "top_probs": [
+        0.99609375,
+        0.002471923828125,
+        1.3869794202037156e-11,
+        5.087485988042317e-12,
+        3.441691376337985e-14
+      ]
+    },
+    {
+      "layer": 47,
+      "top_tokens": [
+        ")+\"](\"+",
+        "posure",
+        " streamwise",
+        "\u53d6\u7de0\u5f79",
+        "\u0c4d\u0c30\u0c4b"
+      ],
+      "top_probs": [
+        0.494140625,
+        0.494140625,
+        0.0054931640625,
+        0.0054931640625,
+        0.001220703125
+      ]
+    },
+    {
+      "layer": 48,
+      "top_tokens": [
+        "\u0641\u0627\u0646\u0647",
+        "/\">",
+        " \u0436\u0438\u0437",
+        " reduziert",
+        "\u0907\u0938\u094d"
+      ],
+      "top_probs": [
+        0.9453125,
+        0.047119140625,
+        0.006378173828125,
+        4.291534423828125e-05,
+        2.1457672119140625e-06
+      ]
+    },
+    {
+      "layer": 49,
+      "top_tokens": [
+        "An",
+        " \u0ba8\u0bc0\u0bb0",
+        " An",
+        "\ufe80",
+        " \u0621"
+      ],
+      "top_probs": [
+        0.98046875,
+        0.0179443359375,
+        2.998858690261841e-07,
+        1.4901161193847656e-08,
+        5.50062395632267e-09
+      ]
+    },
+    {
+      "layer": 50,
+      "top_tokens": [
+        "<unused2030>",
+        "<unused223>",
+        "<unused1887>",
+        "<unused179>",
+        "<unused118>"
+      ],
+      "top_probs": [
+        0.5,
+        0.5,
+        0.0001678466796875,
+        0.0001678466796875,
+        0.0001678466796875
+      ]
+    },
+    {
+      "layer": 51,
+      "top_tokens": [
+        "<unused1039>",
+        "<unused1078>",
+        "<unused179>",
+        "<unused568>",
+        "<unused1116>"
+      ],
+      "top_probs": [
+        0.5,
+        0.5,
+        2.2649765014648438e-05,
+        4.6851411639181606e-14,
+        8.569533971325427e-16
+      ]
+    },
+    {
+      "layer": 52,
+      "top_tokens": [
+        "<unused179>",
+        "<unused2132>",
+        "<unused1177>",
+        "<unused2177>",
+        " \u30d3"
+      ],
+      "top_probs": [
+        1.0,
+        1.7139067942650854e-15,
+        7.792703114739563e-20,
+        2.6056189295420372e-23,
+        3.54136699749265e-24
+      ]
+    },
+    {
+      "layer": 53,
+      "top_tokens": [
+        "rol",
+        " campe\u00f3n",
+        " midfielder",
+        "ROL",
+        "enaar"
+      ],
+      "top_probs": [
+        1.0,
+        3.774403012357652e-11,
+        5.115907697472721e-12,
+        1.2656542480726785e-14,
+        6.314393452555578e-16
+      ]
+    },
+    {
+      "layer": 54,
+      "top_tokens": [
+        "<unused1044>",
+        "<unused1078>",
+        "<unused1177>",
+        "<unused1039>",
+        "<unused179>"
+      ],
+      "top_probs": [
+        1.0,
+        1.2656542480726785e-14,
+        7.792703114739563e-20,
+        7.792703114739563e-20,
+        1.4227506535912076e-21
+      ]
+    },
+    {
+      "layer": 55,
+      "top_tokens": [
+        "\u0c83",
+        "<unused1044>",
+        " \u0626\u0649",
+        "       ",
+        "\u7ca1"
+      ],
+      "top_probs": [
+        1.0,
+        6.139278411865234e-06,
+        8.734267942607043e-27,
+        8.734267942607043e-27,
+        1.601387637598654e-28
+      ]
+    },
+    {
+      "layer": 56,
+      "top_tokens": [
+        "))",
+        "\uff09\u3002",
+        "<bos>",
+        "<eos>",
+        "<pad>"
+      ],
+      "top_probs": [
+        1.0,
+        9.183549615799121e-41,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "layer": 57,
+      "top_tokens": [
+        "<unused1044>",
+        "<unused179>",
+        "<unused1078>",
+        "<unused2030>",
+        "<pad>"
+      ],
+      "top_probs": [
+        1.0,
+        1.126900315284729e-07,
+        4.782137916322191e-25,
+        5.39260384428426e-32,
+        0.0
+      ]
+    },
+    {
+      "layer": 58,
+      "top_tokens": [
+        "<unused179>",
+        "<unused2030>",
+        "<bos>",
+        "<eos>",
+        "<pad>"
+      ],
+      "top_probs": [
+        1.0,
+        4.255493527005605e-18,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "layer": 59,
+      "top_tokens": [
+        "CollinToDO",
+        "ControlPTV",
+        "MalayMarks",
+        " ControlMissense",
+        "posTocco"
+      ],
+      "top_probs": [
+        1.0,
+        3.774403012357652e-11,
+        1.4227506535912076e-21,
+        1.4227506535912076e-21,
+        1.4227506535912076e-21
+      ]
+    },
+    {
+      "layer": 60,
+      "top_tokens": [
+        " the",
+        " /",
+        "<bos>",
+        "<eos>",
+        "<pad>"
+      ],
+      "top_probs": [
+        1.0,
+        6.06114274642742e-39,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "layer": 61,
+      "top_tokens": [
+        "<unused179>",
+        "<unused2189>",
+        "<unused2191>",
+        "<unused1177>",
+        "<pad>"
+      ],
+      "top_probs": [
+        1.0,
+        1.601387637598654e-28,
+        6.06114274642742e-39,
+        6.06114274642742e-39,
+        0.0
+      ]
+    }
+  ],
+  "num_samples": 0,
+  "samples": [],
+  "end_time": "2025-12-25T10:58:38.588549",
+  "duration_seconds": 11.550344
+}

@@ -1,0 +1,20 @@
+{
+  "13-49-55_medgemma_27b_text_it_vllm_json": {
+    "total": 5000,
+    "valid_json": 884,
+    "has_json_block": 885,
+    "has_curly_braces": 915,
+    "malformed": 31,
+    "pure_text": 3828,
+    "empty": 257
+  },
+  "14-38-32_medgemma_4b_vllm_json": {
+    "total": 5000,
+    "valid_json": 903,
+    "has_json_block": 900,
+    "has_curly_braces": 2460,
+    "malformed": 1557,
+    "pure_text": 2440,
+    "empty": 100
+  }
+}

@@ -1,0 +1,597 @@
+Output directory: outputs/2025-12-31/10-36-31_medgemma_4b_vllm
+============================================================
+Initializing Backend (vllm) and Model (medgemma_4b)...
+============================================================
+INFO 12-31 10:36:36 [utils.py:253] non-default args: {'trust_remote_code': True, 'dtype': 'bfloat16', 'max_model_len': 4096, 'disable_log_stats': True, 'model': 'google/medgemma-4b-it'}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+INFO 12-31 10:36:36 [model.py:514] Resolved architecture: Gemma3ForConditionalGeneration
+INFO 12-31 10:36:36 [model.py:1661] Using max model len 4096
+INFO 12-31 10:36:37 [scheduler.py:230] Chunked prefill is enabled with max_num_batched_tokens=16384.
+WARNING 12-31 10:36:37 [cuda.py:244] Forcing --disable_chunked_mm_input for models with multimodal-bidirectional attention.
+[0;36m(EngineCore_DP0 pid=38297)[0;0m INFO 12-31 10:36:44 [core.py:93] Initializing a V1 LLM engine (v0.13.0) with config: model='google/medgemma-4b-it', speculative_config=None, tokenizer='google/medgemma-4b-it', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=4096, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False), seed=0, served_model_name=google/medgemma-4b-it, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'level': None, 'mode': <CompilationMode.VLLM_COMPILE: 3>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['none'], 'splitting_ops': ['vllm::unified_attention', 'vllm::unified_attention_with_output', 'vllm::unified_mla_attention', 'vllm::unified_mla_attention_with_output', 'vllm::mamba_mixer2', 'vllm::mamba_mixer', 'vllm::short_conv', 'vllm::linear_attention', 'vllm::plamo2_mamba_mixer', 'vllm::gdn_attention_core', 'vllm::kda_attention', 'vllm::sparse_attn_indexer'], 'compile_mm_encoder': False, 'compile_sizes': [], 'compile_ranges_split_points': [16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.FULL_AND_PIECEWISE: (2, 1)>, 'cudagraph_num_of_warmups': 1, 'cudagraph_capture_sizes': [1, 2, 4, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, 136, 144, 152, 160, 168, 176, 184, 192, 200, 208, 216, 224, 232, 240, 248, 256, 272, 288, 304, 320, 336, 352, 368, 384, 400, 416, 432, 448, 464, 480, 496, 512], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'eliminate_noops': True, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 512, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False}, 'local_cache_dir': None}
+[0;36m(EngineCore_DP0 pid=38297)[0;0m INFO 12-31 10:36:46 [parallel_state.py:1203] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://10.0.0.50:53707 backend=nccl
+[0;36m(EngineCore_DP0 pid=38297)[0;0m INFO 12-31 10:36:46 [parallel_state.py:1411] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank 0
+[0;36m(EngineCore_DP0 pid=38297)[0;0m Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[0;36m(EngineCore_DP0 pid=38297)[0;0m INFO 12-31 10:36:55 [gpu_model_runner.py:3562] Starting to load model google/medgemma-4b-it...
+[0;36m(EngineCore_DP0 pid=38297)[0;0m INFO 12-31 10:36:55 [layer.py:477] Using AttentionBackendEnum.FLASH_ATTN for MultiHeadAttention in multimodal encoder.
+[0;36m(EngineCore_DP0 pid=38297)[0;0m INFO 12-31 10:36:55 [cuda.py:351] Using TRITON_ATTN attention backend out of potential backends: ('TRITON_ATTN', 'FLEX_ATTENTION')
+[0;36m(EngineCore_DP0 pid=38297)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/2 [00:00<?, ?it/s]
+[0;36m(EngineCore_DP0 pid=38297)[0;0m Loading safetensors checkpoint shards:  50% Completed | 1/2 [00:00<00:00,  1.67it/s]
+[0;36m(EngineCore_DP0 pid=38297)[0;0m Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:01<00:00,  1.69it/s]
+[0;36m(EngineCore_DP0 pid=38297)[0;0m Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:01<00:00,  1.69it/s]
+[0;36m(EngineCore_DP0 pid=38297)[0;0m 
+[0;36m(EngineCore_DP0 pid=38297)[0;0m INFO 12-31 10:36:57 [default_loader.py:308] Loading weights took 1.30 seconds
+[0;36m(EngineCore_DP0 pid=38297)[0;0m INFO 12-31 10:36:57 [gpu_model_runner.py:3659] Model loading took 8.5834 GiB memory and 1.797361 seconds
+[0;36m(EngineCore_DP0 pid=38297)[0;0m INFO 12-31 10:36:58 [gpu_model_runner.py:4446] Encoder cache will be initialized with a budget of 16384 tokens, and profiled with 64 image items of the maximum feature size.
+[0;36m(EngineCore_DP0 pid=38297)[0;0m INFO 12-31 10:37:04 [backends.py:643] Using cache directory: /home/ubuntu/.cache/vllm/torch_compile_cache/ae8a1b3648/rank_0_0/backbone for vLLM's torch.compile
+[0;36m(EngineCore_DP0 pid=38297)[0;0m INFO 12-31 10:37:04 [backends.py:703] Dynamo bytecode transform time: 5.33 s
+[0;36m(EngineCore_DP0 pid=38297)[0;0m INFO 12-31 10:37:15 [backends.py:226] Directly load the compiled graph(s) for compile range (1, 16384) from the cache, took 6.313 s
+[0;36m(EngineCore_DP0 pid=38297)[0;0m INFO 12-31 10:37:15 [monitor.py:34] torch.compile takes 11.65 s in total
+[0;36m(EngineCore_DP0 pid=38297)[0;0m INFO 12-31 10:37:17 [gpu_worker.py:375] Available KV cache memory: 52.49 GiB
+[0;36m(EngineCore_DP0 pid=38297)[0;0m WARNING 12-31 10:37:17 [kv_cache_utils.py:1033] Add 1 padding layers, may waste at most 3.45% KV cache memory
+[0;36m(EngineCore_DP0 pid=38297)[0;0m INFO 12-31 10:37:17 [kv_cache_utils.py:1291] GPU KV cache size: 393,136 tokens
+[0;36m(EngineCore_DP0 pid=38297)[0;0m INFO 12-31 10:37:17 [kv_cache_utils.py:1296] Maximum concurrency for 4,096 tokens per request: 95.66x
+[0;36m(EngineCore_DP0 pid=38297)[0;0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   6%|▌         | 3/51 [00:00<00:01, 27.08it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  12%|█▏        | 6/51 [00:00<00:02, 20.62it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  18%|█▊        | 9/51 [00:00<00:01, 23.92it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  25%|██▌       | 13/51 [00:00<00:01, 26.30it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  31%|███▏      | 16/51 [00:00<00:01, 26.79it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  37%|███▋      | 19/51 [00:00<00:01, 26.51it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  43%|████▎     | 22/51 [00:00<00:01, 26.50it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  49%|████▉     | 25/51 [00:00<00:00, 26.58it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  55%|█████▍    | 28/51 [00:01<00:00, 27.17it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  61%|██████    | 31/51 [00:01<00:00, 26.16it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  67%|██████▋   | 34/51 [00:01<00:00, 26.00it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  73%|███████▎  | 37/51 [00:01<00:00, 25.05it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  78%|███████▊  | 40/51 [00:01<00:00, 24.57it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  84%|████████▍ | 43/51 [00:01<00:00, 25.25it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  90%|█████████ | 46/51 [00:01<00:00, 25.80it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  98%|█████████▊| 50/51 [00:01<00:00, 27.66it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE): 100%|██████████| 51/51 [00:01<00:00, 26.01it/s]
+[0;36m(EngineCore_DP0 pid=38297)[0;0m Capturing CUDA graphs (decode, FULL):   0%|          | 0/51 [00:00<?, ?it/s]Capturing CUDA graphs (decode, FULL):   6%|▌         | 3/51 [00:00<00:02, 22.98it/s]Capturing CUDA graphs (decode, FULL):  14%|█▎        | 7/51 [00:00<00:01, 27.29it/s]Capturing CUDA graphs (decode, FULL):  22%|██▏       | 11/51 [00:00<00:01, 29.16it/s]Capturing CUDA graphs (decode, FULL):  29%|██▉       | 15/51 [00:00<00:01, 30.28it/s]Capturing CUDA graphs (decode, FULL):  37%|███▋      | 19/51 [00:00<00:01, 30.81it/s]Capturing CUDA graphs (decode, FULL):  45%|████▌     | 23/51 [00:00<00:00, 31.55it/s]Capturing CUDA graphs (decode, FULL):  53%|█████▎    | 27/51 [00:00<00:00, 32.05it/s]Capturing CUDA graphs (decode, FULL):  61%|██████    | 31/51 [00:01<00:00, 32.38it/s]Capturing CUDA graphs (decode, FULL):  69%|██████▊   | 35/51 [00:01<00:00, 32.69it/s]Capturing CUDA graphs (decode, FULL):  76%|███████▋  | 39/51 [00:01<00:00, 32.98it/s]Capturing CUDA graphs (decode, FULL):  84%|████████▍ | 43/51 [00:01<00:00, 33.11it/s]Capturing CUDA graphs (decode, FULL):  92%|█████████▏| 47/51 [00:01<00:00, 31.84it/s]Capturing CUDA graphs (decode, FULL): 100%|██████████| 51/51 [00:01<00:00, 31.81it/s]Capturing CUDA graphs (decode, FULL): 100%|██████████| 51/51 [00:01<00:00, 31.40it/s]
+[0;36m(EngineCore_DP0 pid=38297)[0;0m INFO 12-31 10:37:21 [gpu_model_runner.py:4587] Graph capturing finished in 4 secs, took 2.61 GiB
+[0;36m(EngineCore_DP0 pid=38297)[0;0m INFO 12-31 10:37:21 [core.py:259] init engine (profile, create kv cache, warmup model) took 23.96 seconds
+INFO 12-31 10:37:22 [llm.py:360] Supported tasks: ['generate']
+Backend initialized successfully.
+Starting execution of 53 jobs...
+
+[Job 1/53] exp=cot_faithfulness dataset=pediatrics prompt=chain_of_thought
+Running Faithfulness Test: chain_of_thought vs direct_answer
+Generating chain_of_thought responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 4531.84it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:08<14:42,  8.91s/it, est. speed input: 4.60 toks/s, output: 57.44 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00,  8.91s/it, est. speed input: 400.29 toks/s, output: 5728.01 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00, 11.19it/s, est. speed input: 400.29 toks/s, output: 5728.01 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6521.10it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:36,  1.58s/it, est. speed input: 29.73 toks/s, output: 63.25 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.58s/it, est. speed input: 2604.05 toks/s, output: 6232.73 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 62.32it/s, est. speed input: 2604.05 toks/s, output: 6232.73 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 54956.81it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_pediatrics_chain_of_thought/results.json
+Metrics: cot_direct_agreement=37, cot_direct_disagreement=63, avg_reasoning_length=187.73, reasoning_contains_keywords=0, agreement_rate=0.37, disagreement_rate=0.63, keyword_mention_rate=0.00
+
+[Job 2/53] exp=cot_faithfulness dataset=pediatrics prompt=direct_answer
+Running Faithfulness Test: direct_answer vs direct_answer
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6432.00it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:08<14:43,  8.92s/it, est. speed input: 5.27 toks/s, output: 57.38 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00,  8.92s/it, est. speed input: 466.58 toks/s, output: 5717.72 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00, 11.17it/s, est. speed input: 466.58 toks/s, output: 5717.72 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6357.03it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:34,  1.56s/it, est. speed input: 30.09 toks/s, output: 64.03 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.56s/it, est. speed input: 2630.48 toks/s, output: 6296.00 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 62.96it/s, est. speed input: 2630.48 toks/s, output: 6296.00 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 227456.83it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_pediatrics_direct_answer/results.json
+Metrics: cot_direct_agreement=62, cot_direct_disagreement=38, avg_reasoning_length=0.00, reasoning_contains_keywords=0, agreement_rate=0.62, disagreement_rate=0.38, keyword_mention_rate=0.00
+
+[Job 3/53] exp=cot_faithfulness dataset=pediatrics prompt=sycophantic
+Running Faithfulness Test: sycophantic vs direct_answer
+Generating sycophantic responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 5929.85it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:08<14:50,  8.99s/it, est. speed input: 7.34 toks/s, output: 56.92 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00,  8.99s/it, est. speed input: 673.17 toks/s, output: 5670.64 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00, 11.08it/s, est. speed input: 673.17 toks/s, output: 5670.64 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6361.85it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:34,  1.56s/it, est. speed input: 30.04 toks/s, output: 63.91 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.56s/it, est. speed input: 2631.20 toks/s, output: 6297.72 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 62.97it/s, est. speed input: 2631.20 toks/s, output: 6297.72 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 23483.03it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_pediatrics_sycophantic/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=345.89, reasoning_contains_keywords=0, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=0.00
+
+[Job 4/53] exp=cot_faithfulness dataset=pediatrics prompt=adversarial
+Running Faithfulness Test: adversarial vs direct_answer
+Generating adversarial responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6052.82it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:08<14:48,  8.97s/it, est. speed input: 6.91 toks/s, output: 57.07 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00,  8.97s/it, est. speed input: 630.60 toks/s, output: 5686.29 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00, 11.11it/s, est. speed input: 630.60 toks/s, output: 5686.29 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6566.94it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:34,  1.56s/it, est. speed input: 30.17 toks/s, output: 64.18 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.56s/it, est. speed input: 2640.18 toks/s, output: 6319.22 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.19it/s, est. speed input: 2640.18 toks/s, output: 6319.22 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 39782.83it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_pediatrics_adversarial/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=0.00, reasoning_contains_keywords=0, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=0.00
+
+[Job 5/53] exp=cot_faithfulness dataset=pediatrics prompt=uncertainty
+Running Faithfulness Test: uncertainty vs direct_answer
+Generating uncertainty responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6165.74it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:08<14:46,  8.96s/it, est. speed input: 6.81 toks/s, output: 57.15 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00,  8.96s/it, est. speed input: 620.31 toks/s, output: 5693.74 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00, 11.12it/s, est. speed input: 620.31 toks/s, output: 5693.74 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 4781.25it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:32,  1.54s/it, est. speed input: 30.48 toks/s, output: 64.85 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.54s/it, est. speed input: 2656.07 toks/s, output: 6357.25 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.57it/s, est. speed input: 2656.07 toks/s, output: 6357.25 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 24269.78it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_pediatrics_uncertainty/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=317.78, reasoning_contains_keywords=0, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=0.00
+
+[Job 6/53] exp=cot_faithfulness dataset=pediatrics prompt=expert_persona
+Running Faithfulness Test: expert_persona vs direct_answer
+Generating expert_persona responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6759.56it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:06<10:01,  6.07s/it, est. speed input: 6.09 toks/s, output: 59.93 toks/s]Processed prompts:   2%|▏         | 2/100 [00:08<06:44,  4.13s/it, est. speed input: 8.48 toks/s, output: 99.01 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00,  4.13s/it, est. speed input: 369.17 toks/s, output: 5749.53 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00, 11.26it/s, est. speed input: 369.17 toks/s, output: 5749.53 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6353.95it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:34,  1.56s/it, est. speed input: 30.17 toks/s, output: 64.19 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.56s/it, est. speed input: 2637.91 toks/s, output: 6313.79 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.13it/s, est. speed input: 2637.91 toks/s, output: 6313.79 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 21869.25it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_pediatrics_expert_persona/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=329.97, reasoning_contains_keywords=0, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=0.00
+
+[Job 7/53] exp=cot_faithfulness dataset=pediatrics prompt=few_shot
+Running Faithfulness Test: few_shot vs direct_answer
+Generating few_shot responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 4383.59it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:09<15:03,  9.13s/it, est. speed input: 10.63 toks/s, output: 56.11 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00,  9.13s/it, est. speed input: 1001.41 toks/s, output: 5586.43 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00, 10.91it/s, est. speed input: 1001.41 toks/s, output: 5586.43 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6745.64it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:34,  1.56s/it, est. speed input: 30.10 toks/s, output: 64.03 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.56s/it, est. speed input: 2631.00 toks/s, output: 6297.25 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 62.97it/s, est. speed input: 2631.00 toks/s, output: 6297.25 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 210135.47it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_pediatrics_few_shot/results.json
+Metrics: cot_direct_agreement=44, cot_direct_disagreement=56, avg_reasoning_length=0.00, reasoning_contains_keywords=0, agreement_rate=0.44, disagreement_rate=0.56, keyword_mention_rate=0.00
+
+[Job 8/53] exp=cot_faithfulness dataset=pediatrics prompt=contrarian
+Running Faithfulness Test: contrarian vs direct_answer
+Generating contrarian responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 5830.36it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:09<14:52,  9.01s/it, est. speed input: 7.32 toks/s, output: 56.81 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00,  9.01s/it, est. speed input: 671.76 toks/s, output: 5658.79 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00, 11.05it/s, est. speed input: 671.76 toks/s, output: 5658.79 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6815.24it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:33,  1.55s/it, est. speed input: 30.27 toks/s, output: 64.40 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.55s/it, est. speed input: 2646.21 toks/s, output: 6333.64 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.33it/s, est. speed input: 2646.21 toks/s, output: 6333.64 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 21510.35it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_pediatrics_contrarian/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=336.28, reasoning_contains_keywords=0, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=0.00
+
+[Job 9/53] exp=cot_faithfulness dataset=pediatrics prompt=arrogance
+Running Faithfulness Test: arrogance vs direct_answer
+Generating arrogance responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6494.24it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:08<14:44,  8.93s/it, est. speed input: 5.82 toks/s, output: 57.34 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00,  8.93s/it, est. speed input: 521.97 toks/s, output: 5712.87 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00, 11.16it/s, est. speed input: 521.97 toks/s, output: 5712.87 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6704.45it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:33,  1.55s/it, est. speed input: 30.24 toks/s, output: 64.35 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.55s/it, est. speed input: 2646.14 toks/s, output: 6333.40 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.33it/s, est. speed input: 2646.14 toks/s, output: 6333.40 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 35714.44it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_pediatrics_arrogance/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=0.00, reasoning_contains_keywords=0, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=0.00
+
+[Job 10/53] exp=cot_faithfulness dataset=pediatrics prompt=simple
+Running Faithfulness Test: simple vs direct_answer
+Generating simple responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 7197.56it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:08<14:35,  8.85s/it, est. speed input: 3.62 toks/s, output: 57.87 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00,  8.85s/it, est. speed input: 301.77 toks/s, output: 5769.54 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00, 11.27it/s, est. speed input: 301.77 toks/s, output: 5769.54 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 7000.66it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:34,  1.56s/it, est. speed input: 30.18 toks/s, output: 64.22 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.56s/it, est. speed input: 2641.86 toks/s, output: 6323.25 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.23it/s, est. speed input: 2641.86 toks/s, output: 6323.25 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 33721.69it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_pediatrics_simple/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=0.00, reasoning_contains_keywords=0, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=0.00
+
+[Job 11/53] exp=cot_faithfulness dataset=pediatrics prompt=socratic
+Running Faithfulness Test: socratic vs direct_answer
+Generating socratic responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 5907.39it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:07<12:53,  7.82s/it, est. speed input: 7.04 toks/s, output: 57.57 toks/s]Processed prompts:   2%|▏         | 2/100 [00:08<06:02,  3.70s/it, est. speed input: 12.63 toks/s, output: 109.29 toks/s]Processed prompts:   3%|▎         | 3/100 [00:08<03:30,  2.17s/it, est. speed input: 19.16 toks/s, output: 162.04 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00,  2.17s/it, est. speed input: 640.98 toks/s, output: 5670.84 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00, 11.09it/s, est. speed input: 640.98 toks/s, output: 5670.84 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6395.32it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:34,  1.56s/it, est. speed input: 30.19 toks/s, output: 64.24 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.56s/it, est. speed input: 2641.65 toks/s, output: 6322.74 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.22it/s, est. speed input: 2641.65 toks/s, output: 6322.74 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 22120.69it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_pediatrics_socratic/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=334.80, reasoning_contains_keywords=0, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=0.00
+
+[Job 12/53] exp=cot_faithfulness dataset=pediatrics prompt=no_instruction
+Running Faithfulness Test: no_instruction vs direct_answer
+Generating no_instruction responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 5352.06it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:08<14:34,  8.83s/it, est. speed input: 2.94 toks/s, output: 57.99 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00,  8.83s/it, est. speed input: 235.85 toks/s, output: 5775.12 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00, 11.28it/s, est. speed input: 235.85 toks/s, output: 5775.12 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6377.91it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:34,  1.56s/it, est. speed input: 30.18 toks/s, output: 64.21 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.56s/it, est. speed input: 2636.38 toks/s, output: 6310.14 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.10it/s, est. speed input: 2636.38 toks/s, output: 6310.14 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 23723.44it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_pediatrics_no_instruction/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=326.87, reasoning_contains_keywords=0, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=0.00
+
+[Job 13/53] exp=cot_faithfulness dataset=pediatrics prompt=radiology
+  SKIPPED: radiology is not compatible with pediatrics
+           (prompt only works with: ['radiology'])
+
+[Job 14/53] exp=cot_faithfulness dataset=synthetic prompt=chain_of_thought
+Running Faithfulness Test: chain_of_thought vs direct_answer
+Generating chain_of_thought responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 5415.85it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:08<14:42,  8.92s/it, est. speed input: 4.93 toks/s, output: 57.41 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00,  8.92s/it, est. speed input: 385.53 toks/s, output: 5716.48 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00, 11.16it/s, est. speed input: 385.53 toks/s, output: 5716.48 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6701.66it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:37,  1.59s/it, est. speed input: 31.47 toks/s, output: 62.95 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.59s/it, est. speed input: 2509.13 toks/s, output: 6190.77 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 61.90it/s, est. speed input: 2509.13 toks/s, output: 6190.77 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 86267.05it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_synthetic_chain_of_thought/results.json
+Metrics: cot_direct_agreement=52, cot_direct_disagreement=48, avg_reasoning_length=147.52, reasoning_contains_keywords=100, agreement_rate=0.52, disagreement_rate=0.48, keyword_mention_rate=1.00
+
+[Job 15/53] exp=cot_faithfulness dataset=synthetic prompt=direct_answer
+Running Faithfulness Test: direct_answer vs direct_answer
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6825.44it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:08<14:44,  8.93s/it, est. speed input: 5.60 toks/s, output: 57.32 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00,  8.93s/it, est. speed input: 452.32 toks/s, output: 5714.03 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00, 11.16it/s, est. speed input: 452.32 toks/s, output: 5714.03 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 5490.14it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:34,  1.56s/it, est. speed input: 32.03 toks/s, output: 64.07 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.56s/it, est. speed input: 2556.78 toks/s, output: 6308.33 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.08it/s, est. speed input: 2556.78 toks/s, output: 6308.33 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 112207.17it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_synthetic_direct_answer/results.json
+Metrics: cot_direct_agreement=68, cot_direct_disagreement=32, avg_reasoning_length=0.00, reasoning_contains_keywords=0, agreement_rate=0.68, disagreement_rate=0.32, keyword_mention_rate=0.00
+
+[Job 16/53] exp=cot_faithfulness dataset=synthetic prompt=sycophantic
+Running Faithfulness Test: sycophantic vs direct_answer
+Generating sycophantic responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 5059.72it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:09<14:51,  9.00s/it, est. speed input: 7.67 toks/s, output: 56.88 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00,  9.00s/it, est. speed input: 658.59 toks/s, output: 5664.30 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00, 11.06it/s, est. speed input: 658.59 toks/s, output: 5664.30 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6453.17it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:34,  1.56s/it, est. speed input: 32.12 toks/s, output: 64.24 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.56s/it, est. speed input: 2562.99 toks/s, output: 6323.67 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.23it/s, est. speed input: 2562.99 toks/s, output: 6323.67 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 23910.07it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_synthetic_sycophantic/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=336.21, reasoning_contains_keywords=100, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=1.00
+
+[Job 17/53] exp=cot_faithfulness dataset=synthetic prompt=adversarial
+Running Faithfulness Test: adversarial vs direct_answer
+Generating adversarial responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 5543.84it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:08<14:49,  8.99s/it, est. speed input: 7.23 toks/s, output: 56.98 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00,  8.99s/it, est. speed input: 615.56 toks/s, output: 5675.65 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00, 11.09it/s, est. speed input: 615.56 toks/s, output: 5675.65 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6645.49it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:33,  1.55s/it, est. speed input: 32.18 toks/s, output: 64.36 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.55s/it, est. speed input: 2577.94 toks/s, output: 6360.55 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.60it/s, est. speed input: 2577.94 toks/s, output: 6360.55 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 32765.44it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_synthetic_adversarial/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=0.00, reasoning_contains_keywords=0, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=0.00
+
+[Job 18/53] exp=cot_faithfulness dataset=synthetic prompt=uncertainty
+Running Faithfulness Test: uncertainty vs direct_answer
+Generating uncertainty responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6069.90it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:05<08:33,  5.19s/it, est. speed input: 10.21 toks/s, output: 59.73 toks/s]Processed prompts:   2%|▏         | 2/100 [00:08<06:47,  4.16s/it, est. speed input: 12.28 toks/s, output: 93.14 toks/s]Processed prompts:   3%|▎         | 3/100 [00:08<03:54,  2.41s/it, est. speed input: 18.96 toks/s, output: 146.81 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00,  2.41s/it, est. speed input: 606.10 toks/s, output: 5666.41 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00, 11.11it/s, est. speed input: 606.10 toks/s, output: 5666.41 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6742.39it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:33,  1.55s/it, est. speed input: 32.18 toks/s, output: 64.35 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.55s/it, est. speed input: 2577.38 toks/s, output: 6359.18 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.59it/s, est. speed input: 2577.38 toks/s, output: 6359.18 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 23160.15it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_synthetic_uncertainty/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=316.36, reasoning_contains_keywords=100, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=1.00
+
+[Job 19/53] exp=cot_faithfulness dataset=synthetic prompt=expert_persona
+Running Faithfulness Test: expert_persona vs direct_answer
+Generating expert_persona responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 5791.16it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:08<14:39,  8.88s/it, est. speed input: 4.62 toks/s, output: 57.66 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00,  8.88s/it, est. speed input: 353.63 toks/s, output: 5742.37 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00, 11.22it/s, est. speed input: 353.63 toks/s, output: 5742.37 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6814.69it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:34,  1.56s/it, est. speed input: 31.99 toks/s, output: 63.98 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.56s/it, est. speed input: 2563.47 toks/s, output: 6324.84 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.24it/s, est. speed input: 2563.47 toks/s, output: 6324.84 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 21640.20it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_synthetic_expert_persona/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=327.15, reasoning_contains_keywords=100, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=1.00
+
+[Job 20/53] exp=cot_faithfulness dataset=synthetic prompt=few_shot
+Running Faithfulness Test: few_shot vs direct_answer
+Generating few_shot responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 4335.02it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:09<14:56,  9.06s/it, est. speed input: 11.04 toks/s, output: 56.52 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00,  9.06s/it, est. speed input: 995.04 toks/s, output: 5627.52 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00, 10.99it/s, est. speed input: 995.04 toks/s, output: 5627.52 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6821.00it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:34,  1.56s/it, est. speed input: 32.13 toks/s, output: 64.25 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.56s/it, est. speed input: 2573.83 toks/s, output: 6350.42 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.50it/s, est. speed input: 2573.83 toks/s, output: 6350.42 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 163266.02it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_synthetic_few_shot/results.json
+Metrics: cot_direct_agreement=60, cot_direct_disagreement=40, avg_reasoning_length=0.00, reasoning_contains_keywords=0, agreement_rate=0.60, disagreement_rate=0.40, keyword_mention_rate=0.00
+
+[Job 21/53] exp=cot_faithfulness dataset=synthetic prompt=contrarian
+Running Faithfulness Test: contrarian vs direct_answer
+Generating contrarian responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 5973.52it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:08<14:50,  9.00s/it, est. speed input: 7.67 toks/s, output: 56.90 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00,  9.00s/it, est. speed input: 659.05 toks/s, output: 5668.26 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00, 11.07it/s, est. speed input: 659.05 toks/s, output: 5668.26 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6754.22it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:34,  1.56s/it, est. speed input: 32.11 toks/s, output: 64.22 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.56s/it, est. speed input: 2572.18 toks/s, output: 6346.33 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.46it/s, est. speed input: 2572.18 toks/s, output: 6346.33 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 21840.78it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_synthetic_contrarian/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=331.97, reasoning_contains_keywords=100, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=1.00
+
+[Job 22/53] exp=cot_faithfulness dataset=synthetic prompt=arrogance
+Running Faithfulness Test: arrogance vs direct_answer
+Generating arrogance responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6491.93it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:08<14:43,  8.93s/it, est. speed input: 6.16 toks/s, output: 57.36 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00,  8.93s/it, est. speed input: 508.57 toks/s, output: 5719.04 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00, 11.17it/s, est. speed input: 508.57 toks/s, output: 5719.04 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6818.68it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:33,  1.55s/it, est. speed input: 32.22 toks/s, output: 64.44 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.55s/it, est. speed input: 2581.13 toks/s, output: 6368.42 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.68it/s, est. speed input: 2581.13 toks/s, output: 6368.42 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 36759.89it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_synthetic_arrogance/results.json
+Metrics: cot_direct_agreement=1, cot_direct_disagreement=99, avg_reasoning_length=0.00, reasoning_contains_keywords=0, agreement_rate=0.01, disagreement_rate=0.99, keyword_mention_rate=0.00
+
+[Job 23/53] exp=cot_faithfulness dataset=synthetic prompt=simple
+Running Faithfulness Test: simple vs direct_answer
+Generating simple responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 7425.26it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:02<04:00,  2.42s/it, est. speed input: 10.31 toks/s, output: 63.10 toks/s]Processed prompts:   2%|▏         | 2/100 [00:08<07:46,  4.76s/it, est. speed input: 6.80 toks/s, output: 75.39 toks/s] Processed prompts: 100%|██████████| 100/100 [00:08<00:00,  4.76s/it, est. speed input: 288.53 toks/s, output: 5745.88 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00, 11.30it/s, est. speed input: 288.53 toks/s, output: 5745.88 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6565.40it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:34,  1.56s/it, est. speed input: 31.99 toks/s, output: 63.99 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.56s/it, est. speed input: 2563.68 toks/s, output: 6325.36 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.25it/s, est. speed input: 2563.68 toks/s, output: 6325.36 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 29137.23it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_synthetic_simple/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=0.00, reasoning_contains_keywords=0, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=0.00
+
+[Job 24/53] exp=cot_faithfulness dataset=synthetic prompt=socratic
+Running Faithfulness Test: socratic vs direct_answer
+Generating socratic responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6056.58it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:08<14:49,  8.98s/it, est. speed input: 7.35 toks/s, output: 56.99 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00,  8.98s/it, est. speed input: 626.83 toks/s, output: 5677.29 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00, 11.09it/s, est. speed input: 626.83 toks/s, output: 5677.29 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6723.47it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:33,  1.55s/it, est. speed input: 32.17 toks/s, output: 64.34 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.55s/it, est. speed input: 2567.47 toks/s, output: 6334.70 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.34it/s, est. speed input: 2567.47 toks/s, output: 6334.70 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 21806.72it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_synthetic_socratic/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=332.51, reasoning_contains_keywords=100, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=1.00
+
+[Job 25/53] exp=cot_faithfulness dataset=synthetic prompt=no_instruction
+Running Faithfulness Test: no_instruction vs direct_answer
+Generating no_instruction responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6331.69it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:08<14:33,  8.82s/it, est. speed input: 3.40 toks/s, output: 58.05 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00,  8.82s/it, est. speed input: 233.12 toks/s, output: 5782.81 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00, 11.29it/s, est. speed input: 233.12 toks/s, output: 5782.81 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6711.32it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:34,  1.56s/it, est. speed input: 32.14 toks/s, output: 64.28 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.56s/it, est. speed input: 2563.94 toks/s, output: 6326.01 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.26it/s, est. speed input: 2563.94 toks/s, output: 6326.01 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 23388.75it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_synthetic_no_instruction/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=343.47, reasoning_contains_keywords=100, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=1.00
+
+[Job 26/53] exp=cot_faithfulness dataset=synthetic prompt=radiology
+  SKIPPED: radiology is not compatible with synthetic
+           (prompt only works with: ['radiology'])
+
+[Job 27/53] exp=cot_faithfulness dataset=patching_pairs prompt=chain_of_thought
+Running Faithfulness Test: chain_of_thought vs direct_answer
+Generating chain_of_thought responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 5732.90it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:08<14:44,  8.93s/it, est. speed input: 3.47 toks/s, output: 57.33 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00,  8.93s/it, est. speed input: 320.45 toks/s, output: 5710.83 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00, 11.15it/s, est. speed input: 320.45 toks/s, output: 5710.83 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6922.21it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:35,  1.57s/it, est. speed input: 23.51 toks/s, output: 63.53 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.57s/it, est. speed input: 2181.08 toks/s, output: 6280.07 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 62.80it/s, est. speed input: 2181.08 toks/s, output: 6280.07 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 133576.56it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_patching_pairs_chain_of_thought/results.json
+Metrics: cot_direct_agreement=34, cot_direct_disagreement=66, avg_reasoning_length=85.88, reasoning_contains_keywords=0, agreement_rate=0.34, disagreement_rate=0.66, keyword_mention_rate=0.00
+
+[Job 28/53] exp=cot_faithfulness dataset=patching_pairs prompt=direct_answer
+Running Faithfulness Test: direct_answer vs direct_answer
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 7056.13it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:00<00:12,  7.82it/s, est. speed input: 273.60 toks/s, output: 54.71 toks/s]Processed prompts:   2%|▏         | 2/100 [00:08<08:26,  5.17s/it, est. speed input: 8.15 toks/s, output: 58.77 toks/s]  Processed prompts: 100%|██████████| 100/100 [00:08<00:00,  5.17s/it, est. speed input: 392.10 toks/s, output: 5723.42 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00, 11.29it/s, est. speed input: 392.10 toks/s, output: 5723.42 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6938.81it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:33,  1.55s/it, est. speed input: 23.93 toks/s, output: 64.67 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.55s/it, est. speed input: 2210.84 toks/s, output: 6365.76 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.65it/s, est. speed input: 2210.84 toks/s, output: 6365.76 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 220752.84it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_patching_pairs_direct_answer/results.json
+Metrics: cot_direct_agreement=68, cot_direct_disagreement=32, avg_reasoning_length=0.00, reasoning_contains_keywords=0, agreement_rate=0.68, disagreement_rate=0.32, keyword_mention_rate=0.00
+
+[Job 29/53] exp=cot_faithfulness dataset=patching_pairs prompt=sycophantic
+Running Faithfulness Test: sycophantic vs direct_answer
+Generating sycophantic responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6084.87it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:09<14:52,  9.01s/it, est. speed input: 6.22 toks/s, output: 56.82 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00,  9.01s/it, est. speed input: 594.00 toks/s, output: 5660.27 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00, 11.06it/s, est. speed input: 594.00 toks/s, output: 5660.27 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6875.57it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:36,  1.58s/it, est. speed input: 23.43 toks/s, output: 63.34 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.58s/it, est. speed input: 2174.71 toks/s, output: 6261.74 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 62.61it/s, est. speed input: 2174.71 toks/s, output: 6261.74 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 24149.61it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_patching_pairs_sycophantic/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=358.13, reasoning_contains_keywords=0, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=0.00
+
+[Job 30/53] exp=cot_faithfulness dataset=patching_pairs prompt=adversarial
+Running Faithfulness Test: adversarial vs direct_answer
+Generating adversarial responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 5201.91it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:08<14:49,  8.98s/it, est. speed input: 5.79 toks/s, output: 56.99 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00,  8.98s/it, est. speed input: 551.32 toks/s, output: 5676.19 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00, 11.09it/s, est. speed input: 551.32 toks/s, output: 5676.19 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 5068.65it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:32,  1.54s/it, est. speed input: 24.04 toks/s, output: 64.97 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.54s/it, est. speed input: 2216.64 toks/s, output: 6382.48 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.82it/s, est. speed input: 2216.64 toks/s, output: 6382.48 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 35025.50it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_patching_pairs_adversarial/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=0.00, reasoning_contains_keywords=0, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=0.00
+
+[Job 31/53] exp=cot_faithfulness dataset=patching_pairs prompt=uncertainty
+Running Faithfulness Test: uncertainty vs direct_answer
+Generating uncertainty responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 4431.85it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:08<14:46,  8.95s/it, est. speed input: 5.70 toks/s, output: 57.20 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00,  8.95s/it, est. speed input: 542.00 toks/s, output: 5694.73 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00, 11.12it/s, est. speed input: 542.00 toks/s, output: 5694.73 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 5086.10it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:00<00:12,  7.94it/s, est. speed input: 277.84 toks/s, output: 55.56 toks/s]Processed prompts:   2%|▏         | 2/100 [00:01<01:26,  1.13it/s, est. speed input: 46.89 toks/s, output: 69.68 toks/s] Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.13it/s, est. speed input: 2222.00 toks/s, output: 6338.39 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.97it/s, est. speed input: 2222.00 toks/s, output: 6338.39 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 24745.16it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_patching_pairs_uncertainty/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=322.05, reasoning_contains_keywords=0, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=0.00
+
+[Job 32/53] exp=cot_faithfulness dataset=patching_pairs prompt=expert_persona
+Running Faithfulness Test: expert_persona vs direct_answer
+Generating expert_persona responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 7066.95it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:08<14:41,  8.90s/it, est. speed input: 3.15 toks/s, output: 57.53 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00,  8.90s/it, est. speed input: 288.22 toks/s, output: 5735.33 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00, 11.20it/s, est. speed input: 288.22 toks/s, output: 5735.33 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6981.31it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:34,  1.56s/it, est. speed input: 23.65 toks/s, output: 63.93 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.56s/it, est. speed input: 2194.23 toks/s, output: 6317.94 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.18it/s, est. speed input: 2194.23 toks/s, output: 6317.94 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 23746.27it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_patching_pairs_expert_persona/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=336.99, reasoning_contains_keywords=0, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=0.00
+
+[Job 33/53] exp=cot_faithfulness dataset=patching_pairs prompt=few_shot
+Running Faithfulness Test: few_shot vs direct_answer
+Generating few_shot responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 4582.94it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:09<14:59,  9.09s/it, est. speed input: 9.57 toks/s, output: 56.34 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00,  9.09s/it, est. speed input: 928.41 toks/s, output: 5610.10 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00, 10.96it/s, est. speed input: 928.41 toks/s, output: 5610.10 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6950.66it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:33,  1.55s/it, est. speed input: 23.83 toks/s, output: 64.42 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.55s/it, est. speed input: 2210.83 toks/s, output: 6365.74 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.65it/s, est. speed input: 2210.83 toks/s, output: 6365.74 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 218681.13it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_patching_pairs_few_shot/results.json
+Metrics: cot_direct_agreement=44, cot_direct_disagreement=56, avg_reasoning_length=0.00, reasoning_contains_keywords=0, agreement_rate=0.44, disagreement_rate=0.56, keyword_mention_rate=0.00
+
+[Job 34/53] exp=cot_faithfulness dataset=patching_pairs prompt=contrarian
+Running Faithfulness Test: contrarian vs direct_answer
+Generating contrarian responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6057.37it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:08<14:49,  8.98s/it, est. speed input: 6.23 toks/s, output: 56.99 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00,  8.98s/it, est. speed input: 596.18 toks/s, output: 5681.04 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00, 11.10it/s, est. speed input: 596.18 toks/s, output: 5681.04 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6958.84it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:32,  1.54s/it, est. speed input: 24.00 toks/s, output: 64.87 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.54s/it, est. speed input: 2215.08 toks/s, output: 6377.97 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.77it/s, est. speed input: 2215.08 toks/s, output: 6377.97 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 21761.46it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_patching_pairs_contrarian/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=341.39, reasoning_contains_keywords=0, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=0.00
+
+[Job 35/53] exp=cot_faithfulness dataset=patching_pairs prompt=arrogance
+Running Faithfulness Test: arrogance vs direct_answer
+Generating arrogance responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6433.77it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:08<14:42,  8.92s/it, est. speed input: 4.71 toks/s, output: 57.42 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00,  8.92s/it, est. speed input: 443.73 toks/s, output: 5718.35 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00, 11.17it/s, est. speed input: 443.73 toks/s, output: 5718.35 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6990.74it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:33,  1.55s/it, est. speed input: 23.88 toks/s, output: 64.54 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.55s/it, est. speed input: 2203.73 toks/s, output: 6345.29 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.45it/s, est. speed input: 2203.73 toks/s, output: 6345.29 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 40213.84it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_patching_pairs_arrogance/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=0.00, reasoning_contains_keywords=0, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=0.00
+
+[Job 36/53] exp=cot_faithfulness dataset=patching_pairs prompt=simple
+Running Faithfulness Test: simple vs direct_answer
+Generating simple responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 7528.14it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:08<14:35,  8.85s/it, est. speed input: 2.49 toks/s, output: 57.87 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00,  8.85s/it, est. speed input: 222.18 toks/s, output: 5765.65 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00, 11.26it/s, est. speed input: 222.18 toks/s, output: 5765.65 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 7092.88it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:32,  1.54s/it, est. speed input: 24.02 toks/s, output: 64.91 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.54s/it, est. speed input: 2218.59 toks/s, output: 6388.08 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.87it/s, est. speed input: 2218.59 toks/s, output: 6388.08 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 33570.55it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_patching_pairs_simple/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=0.00, reasoning_contains_keywords=0, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=0.00
+
+[Job 37/53] exp=cot_faithfulness dataset=patching_pairs prompt=socratic
+Running Faithfulness Test: socratic vs direct_answer
+Generating socratic responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 6083.20it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:09<14:56,  9.05s/it, est. speed input: 5.86 toks/s, output: 56.57 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00,  9.05s/it, est. speed input: 558.30 toks/s, output: 5634.69 toks/s]Processed prompts: 100%|██████████| 100/100 [00:09<00:00, 11.01it/s, est. speed input: 558.30 toks/s, output: 5634.69 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 3979.42it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:34,  1.56s/it, est. speed input: 23.75 toks/s, output: 64.18 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.56s/it, est. speed input: 2189.93 toks/s, output: 6305.57 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.05it/s, est. speed input: 2189.93 toks/s, output: 6305.57 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 22823.66it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_patching_pairs_socratic/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=339.07, reasoning_contains_keywords=0, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=0.00
+
+[Job 38/53] exp=cot_faithfulness dataset=patching_pairs prompt=no_instruction
+Running Faithfulness Test: no_instruction vs direct_answer
+Generating no_instruction responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 3962.20it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:08<14:41,  8.90s/it, est. speed input: 1.91 toks/s, output: 57.52 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00,  8.90s/it, est. speed input: 165.68 toks/s, output: 5727.65 toks/s]Processed prompts: 100%|██████████| 100/100 [00:08<00:00, 11.19it/s, est. speed input: 165.68 toks/s, output: 5727.65 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 3991.50it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<02:34,  1.56s/it, est. speed input: 23.73 toks/s, output: 64.14 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.56s/it, est. speed input: 2189.79 toks/s, output: 6305.17 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 63.05it/s, est. speed input: 2189.79 toks/s, output: 6305.17 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 25432.36it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_patching_pairs_no_instruction/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=332.87, reasoning_contains_keywords=0, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=0.00
+
+[Job 39/53] exp=cot_faithfulness dataset=patching_pairs prompt=radiology
+  SKIPPED: radiology is not compatible with patching_pairs
+           (prompt only works with: ['radiology'])
+
+[Job 40/53] exp=cot_faithfulness dataset=radiology prompt=chain_of_thought
+  SKIPPED: radiology is not compatible with chain_of_thought
+           (dataset only works with: ['radiology'])
+
+[Job 41/53] exp=cot_faithfulness dataset=radiology prompt=direct_answer
+  SKIPPED: radiology is not compatible with direct_answer
+           (dataset only works with: ['radiology'])
+
+[Job 42/53] exp=cot_faithfulness dataset=radiology prompt=sycophantic
+  SKIPPED: radiology is not compatible with sycophantic
+           (dataset only works with: ['radiology'])
+
+[Job 43/53] exp=cot_faithfulness dataset=radiology prompt=adversarial
+  SKIPPED: radiology is not compatible with adversarial
+           (dataset only works with: ['radiology'])
+
+[Job 44/53] exp=cot_faithfulness dataset=radiology prompt=uncertainty
+  SKIPPED: radiology is not compatible with uncertainty
+           (dataset only works with: ['radiology'])
+
+[Job 45/53] exp=cot_faithfulness dataset=radiology prompt=expert_persona
+  SKIPPED: radiology is not compatible with expert_persona
+           (dataset only works with: ['radiology'])
+
+[Job 46/53] exp=cot_faithfulness dataset=radiology prompt=few_shot
+  SKIPPED: radiology is not compatible with few_shot
+           (dataset only works with: ['radiology'])
+
+[Job 47/53] exp=cot_faithfulness dataset=radiology prompt=contrarian
+  SKIPPED: radiology is not compatible with contrarian
+           (dataset only works with: ['radiology'])
+
+[Job 48/53] exp=cot_faithfulness dataset=radiology prompt=arrogance
+  SKIPPED: radiology is not compatible with arrogance
+           (dataset only works with: ['radiology'])
+
+[Job 49/53] exp=cot_faithfulness dataset=radiology prompt=simple
+  SKIPPED: radiology is not compatible with simple
+           (dataset only works with: ['radiology'])
+
+[Job 50/53] exp=cot_faithfulness dataset=radiology prompt=socratic
+  SKIPPED: radiology is not compatible with socratic
+           (dataset only works with: ['radiology'])
+
+[Job 51/53] exp=cot_faithfulness dataset=radiology prompt=no_instruction
+  SKIPPED: radiology is not compatible with no_instruction
+           (dataset only works with: ['radiology'])
+
+[Job 52/53] exp=cot_faithfulness dataset=radiology prompt=radiology
+Running Faithfulness Test: radiology vs direct_answer
+Generating radiology responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests:  89%|████████▉ | 89/100 [00:00<00:00, 888.34it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 894.95it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:10<17:53, 10.85s/it, est. speed input: 50.70 toks/s, output: 47.20 toks/s]Processed prompts: 100%|██████████| 100/100 [00:10<00:00, 10.85s/it, est. speed input: 4818.95 toks/s, output: 4697.65 toks/s]Processed prompts: 100%|██████████| 100/100 [00:10<00:00,  9.17it/s, est. speed input: 4818.95 toks/s, output: 4697.65 toks/s]
+Generating direct_answer responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 2230.38it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:01<03:09,  1.92s/it, est. speed input: 91.74 toks/s, output: 52.13 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00,  1.92s/it, est. speed input: 7747.60 toks/s, output: 5123.38 toks/s]Processed prompts: 100%|██████████| 100/100 [00:01<00:00, 51.23it/s, est. speed input: 7747.60 toks/s, output: 5123.38 toks/s]
+Analyzing results...
+Analyzing samples:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing samples: 100%|██████████| 100/100 [00:00<00:00, 186496.40it/s]
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/cot_faithfulness_radiology_radiology/results.json
+Metrics: cot_direct_agreement=0, cot_direct_disagreement=100, avg_reasoning_length=34.30, reasoning_contains_keywords=0, agreement_rate=0.00, disagreement_rate=1.00, keyword_mention_rate=0.00
+
+[Job 53/53] exp=radiology dataset=radiology prompt=radiology
+Running Radiology Experiment on 100 samples...
+Generating responses...
+Adding requests:   0%|          | 0/100 [00:00<?, ?it/s]Adding requests:  94%|█████████▍| 94/100 [00:00<00:00, 936.48it/s]Adding requests: 100%|██████████| 100/100 [00:00<00:00, 935.02it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   1%|          | 1/100 [00:10<17:32, 10.63s/it, est. speed input: 51.74 toks/s, output: 48.16 toks/s]Processed prompts: 100%|██████████| 100/100 [00:10<00:00, 10.63s/it, est. speed input: 4894.75 toks/s, output: 4771.55 toks/s]Processed prompts: 100%|██████████| 100/100 [00:10<00:00,  9.32it/s, est. speed input: 4894.75 toks/s, output: 4771.55 toks/s]
+Analyzing results...
+Analyzing reports:   0%|          | 0/100 [00:00<?, ?it/s]Analyzing reports: 100%|██████████| 100/100 [00:00<00:00, 65710.54it/s]
+[rank0]:[W1231 10:44:11.449391070 ProcessGroupNCCL.cpp:1524] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+Results saved: outputs/2025-12-31/10-36-31_medgemma_4b_vllm/radiology_radiology_radiology/results.json
+Metrics: correct=98, incorrect=2, true_positives=48, true_negatives=50, false_positives=0, false_negatives=2, parse_errors=0, accuracy=0.98, parse_error_rate=0.00, precision=1.00, recall=0.96, f1=0.98
+
+============================================================
+All jobs completed.
+Results stored in: outputs/2025-12-31/10-36-31_medgemma_4b_vllm
+============================================================

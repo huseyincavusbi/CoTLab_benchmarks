@@ -1,0 +1,39 @@
+{
+  "backend": {
+    "_target_": "cotlab.backends.TransformersBackend",
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "enable_hooks": true,
+    "trust_remote_code": true
+  },
+  "model": {
+    "name": "google/medgemma-4b-it",
+    "variant": "4b",
+    "max_new_tokens": 512,
+    "temperature": 0.7,
+    "top_p": 0.9
+  },
+  "prompt": {
+    "_target_": "cotlab.prompts.length_matched_strategies.DirectAnswerMatchedStrategy",
+    "name": "direct_matched"
+  },
+  "dataset": {
+    "_target_": "cotlab.datasets.PatchingPairsDataset",
+    "name": "patching_pairs",
+    "path": "data/Patching_Pairs_Data.csv"
+  },
+  "experiment": {
+    "_target_": "cotlab.experiments.ProbingClassifierExperiment",
+    "name": "probing_classifier",
+    "description": "Train linear probes on hidden states",
+    "target_layers": [
+      27
+    ],
+    "num_samples": 100,
+    "label_field": "category",
+    "use_gpu_probe": true
+  },
+  "seed": 123,
+  "verbose": true,
+  "dry_run": false
+}
