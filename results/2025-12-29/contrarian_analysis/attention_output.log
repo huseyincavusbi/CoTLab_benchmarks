@@ -1,0 +1,131 @@
+`torch_dtype` is deprecated! Use `dtype` instead!
+Running attention...
+======================================================================
+Attention Pattern Analysis
+======================================================================
+GPU Memory: Allocated: 0.00GB, Reserved: 0.00GB, Total: 84.99GB
+Loading google/medgemma-27b-text-it...
+Device: cuda, Dtype: bfloat16
+Loading checkpoint shards:   0%|          | 0/11 [00:00<?, ?it/s]Loading checkpoint shards:  73%|███████▎  | 8/11 [00:00<00:00, 72.37it/s]Loading checkpoint shards: 100%|██████████| 11/11 [00:00<00:00, 80.10it/s]
+Loaded pretrained model google/medgemma-27b-text-it into HookedTransformer
+Model loaded. Layers: 62, Heads: 32
+Model has 32 attention heads per layer
+
+============================================================
+Analyzing: diabetes
+============================================================
+
+--- Attention Analysis: diabetes at Layer 18 ---
+
+contrarian:
+  Token count: 109
+  Attention to 'obvious': 0.0180
+  Attention to 'diagnosis': 0.0138
+  Attention to 'Question': 0.0115
+
+chain_of_thought:
+  Token count: 95
+  Attention to 'Question': 0.0102
+
+direct_answer:
+  Token count: 99
+Saved plot to /home/ubuntu/contrarian_analysis/plots/attention_keywords_diabetes_L18.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/attention_pattern_diabetes_contrarian_L18.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/attention_pattern_diabetes_chain_of_thought_L18.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/attention_pattern_diabetes_direct_answer_L18.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/attention_evolution_diabetes.png
+
+============================================================
+Analyzing: croup
+============================================================
+
+--- Attention Analysis: croup at Layer 18 ---
+
+contrarian:
+  Token count: 112
+  Attention to 'obvious': 0.0169
+  Attention to 'diagnosis': 0.0133
+  Attention to 'Question': 0.0103
+
+chain_of_thought:
+  Token count: 98
+
+direct_answer:
+  Token count: 102
+Saved plot to /home/ubuntu/contrarian_analysis/plots/attention_keywords_croup_L18.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/attention_pattern_croup_contrarian_L18.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/attention_pattern_croup_chain_of_thought_L18.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/attention_pattern_croup_direct_answer_L18.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/attention_evolution_croup.png
+
+============================================================
+Analyzing: appendicitis
+============================================================
+
+--- Attention Analysis: appendicitis at Layer 18 ---
+
+contrarian:
+  Token count: 125
+  Attention to 'obvious': 0.0155
+  Attention to 'diagnosis': 0.0134
+
+chain_of_thought:
+  Token count: 111
+
+direct_answer:
+  Token count: 115
+Saved plot to /home/ubuntu/contrarian_analysis/plots/attention_keywords_appendicitis_L18.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/attention_pattern_appendicitis_contrarian_L18.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/attention_pattern_appendicitis_chain_of_thought_L18.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/attention_pattern_appendicitis_direct_answer_L18.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/attention_evolution_appendicitis.png
+
+============================================================
+Analyzing: pneumonia
+============================================================
+
+--- Attention Analysis: pneumonia at Layer 18 ---
+
+contrarian:
+  Token count: 120
+  Attention to 'obvious': 0.0147
+  Attention to 'diagnosis': 0.0123
+  Attention to 'Question': 0.0111
+
+chain_of_thought:
+  Token count: 106
+
+direct_answer:
+  Token count: 110
+Saved plot to /home/ubuntu/contrarian_analysis/plots/attention_keywords_pneumonia_L18.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/attention_pattern_pneumonia_contrarian_L18.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/attention_pattern_pneumonia_chain_of_thought_L18.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/attention_pattern_pneumonia_direct_answer_L18.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/attention_evolution_pneumonia.png
+Saved results to /home/ubuntu/contrarian_analysis/results/attention_analysis_results.json
+
+======================================================================
+ATTENTION ANALYSIS SUMMARY
+======================================================================
+
+Key findings at Layer 18:
+
+Diabetes:
+  Contrarian attention to 'obvious': 0.0180
+  Contrarian attention to 'devil': 0.0044
+
+Croup:
+  Contrarian attention to 'obvious': 0.0169
+  Contrarian attention to 'devil': 0.0038
+
+Appendicitis:
+  Contrarian attention to 'obvious': 0.0155
+  Contrarian attention to 'devil': 0.0036
+
+Pneumonia:
+  Contrarian attention to 'obvious': 0.0147
+  Contrarian attention to 'devil': 0.0040
+
+======================================================================
+Attention analysis complete!
+======================================================================

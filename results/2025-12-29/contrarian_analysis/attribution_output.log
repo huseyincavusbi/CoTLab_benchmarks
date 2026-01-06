@@ -1,0 +1,254 @@
+`torch_dtype` is deprecated! Use `dtype` instead!
+Running attribution...
+======================================================================
+Direct Logit Attribution Analysis
+======================================================================
+GPU Memory: Allocated: 0.00GB, Reserved: 0.00GB, Total: 84.99GB
+Loading google/medgemma-27b-text-it...
+Device: cuda, Dtype: bfloat16
+Loading checkpoint shards:   0%|          | 0/11 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 11/11 [00:00<00:00, 129.27it/s]
+Loaded pretrained model google/medgemma-27b-text-it into HookedTransformer
+Model loaded. Layers: 62, Heads: 32
+
+============================================================
+Direct Logit Attribution: diabetes
+============================================================
+Answer tokens: ['diabetes', 'type', 'T', 'Diabetes', ' diabetes', 'DM', 'Type', ' Diabetes']
+
+--- contrarian ---
+
+Top positive contributors:
+  MLP57: 352.0000
+  MLP61: 225.0000
+  MLP58: 209.0000
+  MLP56: 72.0000
+  MLP24: 60.2500
+
+Top negative contributors:
+  MLP59: -227.0000
+  MLP30: -49.2500
+  MLP45: -47.7500
+  MLP36: -42.2500
+  MLP26: -36.7500
+
+--- chain_of_thought ---
+
+Top positive contributors:
+  MLP61: 258.0000
+  MLP58: 222.0000
+  MLP57: 171.0000
+  MLP54: 81.5000
+  MLP53: 78.0000
+
+Top negative contributors:
+  MLP59: -194.0000
+  MLP60: -162.0000
+  MLP45: -53.0000
+  MLP26: -46.0000
+  MLP36: -41.7500
+
+--- direct_answer ---
+
+Top positive contributors:
+  MLP61: 444.0000
+  MLP57: 152.0000
+  MLP58: 114.5000
+  MLP55: 103.0000
+  MLP53: 74.5000
+
+Top negative contributors:
+  MLP59: -185.0000
+  MLP60: -70.0000
+  MLP30: -51.0000
+  MLP45: -39.0000
+  MLP50: -36.7500
+Saved plot to /home/ubuntu/contrarian_analysis/plots/logit_attribution_diabetes.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/mlp_attribution_diabetes.png
+
+============================================================
+Direct Logit Attribution: croup
+============================================================
+Answer tokens: ['C', ' croup', 'l', 'c', ' C', 'L']
+
+--- contrarian ---
+
+Top positive contributors:
+  MLP54: 136.0000
+  MLP61: 92.0000
+  MLP52: 65.5000
+  MLP53: 49.7500
+  MLP46: 40.5000
+
+Top negative contributors:
+  MLP56: -129.0000
+  MLP41: -40.5000
+  MLP31: -24.5000
+  MLP45: -22.8750
+  MLP30: -21.5000
+
+--- chain_of_thought ---
+
+Top positive contributors:
+  MLP61: 172.0000
+  MLP54: 129.0000
+  MLP58: 127.5000
+  MLP52: 109.5000
+  MLP60: 101.0000
+
+Top negative contributors:
+  MLP57: -81.5000
+  MLP56: -57.5000
+  MLP41: -39.7500
+  MLP30: -38.5000
+  MLP45: -31.7500
+
+--- direct_answer ---
+
+Top positive contributors:
+  MLP61: 272.0000
+  MLP60: 149.0000
+  MLP54: 142.0000
+  MLP59: 125.0000
+  MLP52: 111.0000
+
+Top negative contributors:
+  MLP56: -140.0000
+  MLP48: -38.0000
+  MLP41: -37.5000
+  MLP30: -31.2500
+  MLP31: -27.3750
+Saved plot to /home/ubuntu/contrarian_analysis/plots/logit_attribution_croup.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/mlp_attribution_croup.png
+
+============================================================
+Direct Logit Attribution: appendicitis
+============================================================
+Answer tokens: ['Append', 'Acute', ' Append', 'acute', ' append', 'append']
+
+--- contrarian ---
+
+Top positive contributors:
+  MLP58: 183.0000
+  MLP59: 128.0000
+  MLP60: 111.0000
+  MLP57: 102.5000
+  MLP51: 54.2500
+
+Top negative contributors:
+  MLP53: -103.5000
+  MLP36: -64.0000
+  MLP30: -43.2500
+  MLP47: -22.7500
+  MLP48: -21.3750
+
+--- chain_of_thought ---
+
+Top positive contributors:
+  MLP60: 223.0000
+  MLP59: 156.0000
+  MLP58: 113.5000
+  MLP61: 99.0000
+  MLP33: 34.5000
+
+Top negative contributors:
+  MLP36: -77.5000
+  MLP47: -35.2500
+  MLP30: -34.0000
+  MLP54: -34.0000
+  MLP53: -33.7500
+
+--- direct_answer ---
+
+Top positive contributors:
+  MLP61: 207.0000
+  MLP60: 165.0000
+  MLP58: 62.0000
+  MLP27: 47.7500
+  MLP59: 39.5000
+
+Top negative contributors:
+  MLP55: -74.5000
+  MLP56: -74.0000
+  MLP52: -47.2500
+  MLP36: -46.7500
+  MLP30: -33.2500
+Saved plot to /home/ubuntu/contrarian_analysis/plots/logit_attribution_appendicitis.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/mlp_attribution_appendicitis.png
+
+============================================================
+Direct Logit Attribution: pneumonia
+============================================================
+Answer tokens: ['pneum', ' Pneum', 'Community', 'P', ' pneumonia', 'CAP', 'B']
+
+--- contrarian ---
+
+Top positive contributors:
+  MLP58: 196.0000
+  MLP36: 150.0000
+  MLP59: 120.5000
+  MLP54: 100.0000
+  MLP30: 76.5000
+
+Top negative contributors:
+  MLP61: -199.0000
+  MLP57: -163.0000
+  MLP60: -82.5000
+  MLP55: -60.0000
+  MLP24: -42.7500
+
+--- chain_of_thought ---
+
+Top positive contributors:
+  MLP59: 164.0000
+  MLP53: 145.0000
+  MLP36: 119.5000
+  MLP26: 63.0000
+  MLP29: 55.7500
+
+Top negative contributors:
+  MLP60: -172.0000
+  MLP57: -99.5000
+  MLP61: -77.5000
+  MLP50: -50.0000
+  MLP58: -47.2500
+
+--- direct_answer ---
+
+Top positive contributors:
+  MLP59: 180.0000
+  MLP36: 85.5000
+  MLP53: 81.0000
+  MLP54: 62.7500
+  MLP26: 55.0000
+
+Top negative contributors:
+  MLP60: -180.0000
+  MLP57: -145.0000
+  MLP61: -78.0000
+  MLP38: -55.5000
+  MLP58: -54.2500
+Saved plot to /home/ubuntu/contrarian_analysis/plots/logit_attribution_pneumonia.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/mlp_attribution_pneumonia.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/logit_attribution_aggregated.png
+
+======================================================================
+ATTRIBUTION SUMMARY
+======================================================================
+
+Contrarian:
+  Top positive contributing heads:
+  Top negative contributing heads:
+
+Chain Of Thought:
+  Top positive contributing heads:
+  Top negative contributing heads:
+
+Direct Answer:
+  Top positive contributing heads:
+  Top negative contributing heads:
+Saved results to /home/ubuntu/contrarian_analysis/results/logit_attribution_results.json
+Saved results to /home/ubuntu/contrarian_analysis/results/logit_attribution_comparison.json
+
+======================================================================
+Attribution analysis complete!
+======================================================================

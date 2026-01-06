@@ -1,0 +1,117 @@
+`torch_dtype` is deprecated! Use `dtype` instead!
+Running patching...
+======================================================================
+Activation Patching Experiment
+======================================================================
+GPU Memory: Allocated: 0.00GB, Reserved: 0.00GB, Total: 84.99GB
+Loading google/medgemma-27b-text-it...
+Device: cuda, Dtype: bfloat16
+Loading checkpoint shards:   0%|          | 0/11 [00:00<?, ?it/s]Loading checkpoint shards:  91%|█████████ | 10/11 [00:00<00:00, 93.19it/s]Loading checkpoint shards: 100%|██████████| 11/11 [00:00<00:00, 95.69it/s]
+Loaded pretrained model google/medgemma-27b-text-it into HookedTransformer
+Model loaded. Layers: 62, Heads: 32
+
+============================================================
+Patching Experiment: diabetes
+============================================================
+
+--- Patching Contrarian L18 -> CoT ---
+CoT baseline prob: 0.0001
+Contrarian prob: 0.0001
+CoT with L18 patch: 0.0000
+Improvement: -0.0001
+
+--- Patching Contrarian L18 -> Direct ---
+Direct baseline prob: 0.0003
+Direct with L18 patch: 0.0000
+Improvement: -0.0002
+
+--- Layer Sweep: Contrarian -> CoT ---
+Patching layers:   0%|          | 0/14 [00:00<?, ?it/s]Patching layers:   7%|▋         | 1/14 [00:00<00:06,  1.88it/s]Patching layers:  14%|█▍        | 2/14 [00:01<00:06,  1.89it/s]Patching layers:  21%|██▏       | 3/14 [00:01<00:05,  1.88it/s]Patching layers:  29%|██▊       | 4/14 [00:02<00:05,  1.88it/s]Patching layers:  36%|███▌      | 5/14 [00:02<00:04,  1.88it/s]Patching layers:  43%|████▎     | 6/14 [00:03<00:04,  1.88it/s]Patching layers:  50%|█████     | 7/14 [00:03<00:03,  1.89it/s]Patching layers:  57%|█████▋    | 8/14 [00:04<00:03,  1.89it/s]Patching layers:  64%|██████▍   | 9/14 [00:04<00:02,  1.89it/s]Patching layers:  71%|███████▏  | 10/14 [00:05<00:02,  1.89it/s]Patching layers:  79%|███████▊  | 11/14 [00:05<00:01,  1.89it/s]Patching layers:  86%|████████▌ | 12/14 [00:06<00:01,  1.86it/s]Patching layers:  93%|█████████▎| 13/14 [00:06<00:00,  1.86it/s]Patching layers: 100%|██████████| 14/14 [00:07<00:00,  1.88it/s]Patching layers: 100%|██████████| 14/14 [00:07<00:00,  1.88it/s]
+
+Best patching layer: 10
+Best improvement: -0.0001
+
+============================================================
+Patching Experiment: croup
+============================================================
+
+--- Patching Contrarian L18 -> CoT ---
+CoT baseline prob: 0.0002
+Contrarian prob: 0.0002
+CoT with L18 patch: 0.0000
+Improvement: -0.0002
+
+--- Patching Contrarian L18 -> Direct ---
+Direct baseline prob: 0.0003
+Direct with L18 patch: 0.0001
+Improvement: -0.0002
+
+--- Layer Sweep: Contrarian -> CoT ---
+Patching layers:   0%|          | 0/14 [00:00<?, ?it/s]Patching layers:   7%|▋         | 1/14 [00:00<00:07,  1.85it/s]Patching layers:  14%|█▍        | 2/14 [00:01<00:06,  1.86it/s]Patching layers:  21%|██▏       | 3/14 [00:01<00:05,  1.85it/s]Patching layers:  29%|██▊       | 4/14 [00:02<00:05,  1.85it/s]Patching layers:  36%|███▌      | 5/14 [00:02<00:04,  1.83it/s]Patching layers:  43%|████▎     | 6/14 [00:03<00:04,  1.85it/s]Patching layers:  50%|█████     | 7/14 [00:03<00:03,  1.86it/s]Patching layers:  57%|█████▋    | 8/14 [00:04<00:03,  1.86it/s]Patching layers:  64%|██████▍   | 9/14 [00:04<00:02,  1.87it/s]Patching layers:  71%|███████▏  | 10/14 [00:05<00:02,  1.84it/s]Patching layers:  79%|███████▊  | 11/14 [00:05<00:01,  1.82it/s]Patching layers:  86%|████████▌ | 12/14 [00:06<00:01,  1.82it/s]Patching layers:  93%|█████████▎| 13/14 [00:07<00:00,  1.82it/s]Patching layers: 100%|██████████| 14/14 [00:07<00:00,  1.83it/s]Patching layers: 100%|██████████| 14/14 [00:07<00:00,  1.84it/s]
+
+Best patching layer: 0
+Best improvement: -0.0002
+
+============================================================
+Patching Experiment: appendicitis
+============================================================
+
+--- Patching Contrarian L18 -> CoT ---
+CoT baseline prob: 0.0000
+Contrarian prob: 0.0000
+CoT with L18 patch: 0.0000
+Improvement: -0.0000
+
+--- Patching Contrarian L18 -> Direct ---
+Direct baseline prob: 0.0000
+Direct with L18 patch: 0.0000
+Improvement: -0.0000
+
+--- Layer Sweep: Contrarian -> CoT ---
+Patching layers:   0%|          | 0/14 [00:00<?, ?it/s]Patching layers:   7%|▋         | 1/14 [00:00<00:06,  1.87it/s]Patching layers:  14%|█▍        | 2/14 [00:01<00:08,  1.48it/s]Patching layers:  21%|██▏       | 3/14 [00:01<00:06,  1.62it/s]Patching layers:  29%|██▊       | 4/14 [00:02<00:05,  1.70it/s]Patching layers:  36%|███▌      | 5/14 [00:02<00:05,  1.75it/s]Patching layers:  43%|████▎     | 6/14 [00:03<00:04,  1.80it/s]Patching layers:  50%|█████     | 7/14 [00:04<00:03,  1.82it/s]Patching layers:  57%|█████▋    | 8/14 [00:04<00:03,  1.85it/s]Patching layers:  64%|██████▍   | 9/14 [00:05<00:02,  1.85it/s]Patching layers:  71%|███████▏  | 10/14 [00:05<00:02,  1.84it/s]Patching layers:  79%|███████▊  | 11/14 [00:06<00:01,  1.83it/s]Patching layers:  86%|████████▌ | 12/14 [00:06<00:01,  1.85it/s]Patching layers:  93%|█████████▎| 13/14 [00:07<00:00,  1.86it/s]Patching layers: 100%|██████████| 14/14 [00:07<00:00,  1.86it/s]Patching layers: 100%|██████████| 14/14 [00:07<00:00,  1.80it/s]
+
+Best patching layer: 10
+Best improvement: -0.0000
+
+============================================================
+Patching Experiment: pneumonia
+============================================================
+
+--- Patching Contrarian L18 -> CoT ---
+CoT baseline prob: 0.0002
+Contrarian prob: 0.0001
+CoT with L18 patch: 0.0000
+Improvement: -0.0001
+
+--- Patching Contrarian L18 -> Direct ---
+Direct baseline prob: 0.0001
+Direct with L18 patch: 0.0000
+Improvement: -0.0001
+
+--- Layer Sweep: Contrarian -> CoT ---
+Patching layers:   0%|          | 0/14 [00:00<?, ?it/s]Patching layers:   7%|▋         | 1/14 [00:00<00:06,  1.87it/s]Patching layers:  14%|█▍        | 2/14 [00:01<00:06,  1.85it/s]Patching layers:  21%|██▏       | 3/14 [00:01<00:05,  1.87it/s]Patching layers:  29%|██▊       | 4/14 [00:02<00:05,  1.88it/s]Patching layers:  36%|███▌      | 5/14 [00:02<00:04,  1.88it/s]Patching layers:  43%|████▎     | 6/14 [00:03<00:04,  1.88it/s]Patching layers:  50%|█████     | 7/14 [00:03<00:03,  1.84it/s]Patching layers:  57%|█████▋    | 8/14 [00:04<00:03,  1.85it/s]Patching layers:  64%|██████▍   | 9/14 [00:04<00:02,  1.86it/s]Patching layers:  71%|███████▏  | 10/14 [00:05<00:02,  1.83it/s]Patching layers:  79%|███████▊  | 11/14 [00:05<00:01,  1.84it/s]Patching layers:  86%|████████▌ | 12/14 [00:06<00:01,  1.84it/s]Patching layers:  93%|█████████▎| 13/14 [00:07<00:00,  1.84it/s]Patching layers: 100%|██████████| 14/14 [00:07<00:00,  1.84it/s]Patching layers: 100%|██████████| 14/14 [00:07<00:00,  1.85it/s]
+
+Best patching layer: 25
+Best improvement: -0.0001
+Saved plot to /home/ubuntu/contrarian_analysis/plots/patching_layer_sweep.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/patching_summary.png
+
+======================================================================
+PATCHING SUMMARY
+======================================================================
+
+Patching L18 Contrarian -> CoT:
+  Mean improvement: -0.0001 ± 0.0001
+
+Patching L18 Contrarian -> Direct:
+  Mean improvement: -0.0001 ± 0.0001
+
+Mean best patching layer: 11.2
+
+✗ HYPOTHESIS NOT SUPPORTED: Patching does not improve CoT probability
+Saved results to /home/ubuntu/contrarian_analysis/results/patching_full_results.json
+Saved results to /home/ubuntu/contrarian_analysis/results/patching_summary.json
+
+======================================================================
+Patching experiment complete!
+======================================================================

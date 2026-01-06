@@ -1,0 +1,48 @@
+{
+  "full": {
+    "mean_commitment_layer": -1,
+    "std_commitment_layer": 0,
+    "mean_final_probability": 9.077731628792662e-05,
+    "cases_with_commitment": 0,
+    "commitment_change_vs_full": 0,
+    "commitment_delayed": false
+  },
+  "no_devils_advocate": {
+    "mean_commitment_layer": -1,
+    "std_commitment_layer": 0,
+    "mean_final_probability": 0.00010758199732663343,
+    "cases_with_commitment": 0,
+    "commitment_change_vs_full": 0,
+    "commitment_delayed": false
+  },
+  "no_obvious": {
+    "mean_commitment_layer": -1,
+    "std_commitment_layer": 0,
+    "mean_final_probability": 7.767781664824724e-05,
+    "cases_with_commitment": 0,
+    "commitment_change_vs_full": 0,
+    "commitment_delayed": false
+  },
+  "no_argue_against": {
+    "mean_commitment_layer": -1,
+    "std_commitment_layer": 0,
+    "mean_final_probability": 0.00025446452673349995,
+    "cases_with_commitment": 0,
+    "commitment_change_vs_full": 0,
+    "commitment_delayed": false
+  },
+  "neutral_system": {
+    "mean_commitment_layer": -1,
+    "std_commitment_layer": 0,
+    "mean_final_probability": 0.00021000084097977378,
+    "cases_with_commitment": 0,
+    "commitment_change_vs_full": 0,
+    "commitment_delayed": false
+  },
+  "minimal": {
+    "mean_commitment_layer": 54.0,
+    "std_commitment_layer": 0.0,
+    "mean_final_probability": 0.00023137195330491522,
+    "cases_with_commitment": 1,
+    "commitment_change_vs_full": 55.0,
+    "commitment_delayed": 

@@ -1,0 +1,26 @@
+{
+  "contrarian": {
+    "mean_commitment_layer": -1,
+    "std_commitment_layer": 0,
+    "median_commitment_layer": -1,
+    "mean_final_probability": 9.077731628792662e-05,
+    "cases_with_commitment": 0,
+    "total_cases": 4
+  },
+  "chain_of_thought": {
+    "mean_commitment_layer": 13.0,
+    "std_commitment_layer": 0.0,
+    "median_commitment_layer": 13.0,
+    "mean_final_probability": 0.00012298318824832677,
+    "cases_with_commitment": 1,
+    "total_cases": 4
+  },
+  "direct_answer": {
+    "mean_commitment_layer": -1,
+    "std_commitment_layer": 0,
+    "median_commitment_layer": -1,
+    "mean_final_probability": 0.00017311295232502744,
+    "cases_with_commitment": 0,
+    "total_cases": 4
+  }
+}

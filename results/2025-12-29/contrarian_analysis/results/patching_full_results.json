@@ -1,0 +1,505 @@
+{
+  "diabetes": {
+    "case_name": "diabetes",
+    "answer_token_ids": [
+      143200,
+      2084,
+      236774,
+      155693,
+      15886,
+      23390,
+      2328,
+      51998
+    ],
+    "contrarian_to_cot": {
+      "base_probability": 0.00011331959649396595,
+      "source_probability": 9.689061261042298e-05,
+      "patched_probability": 1.006492311717011e-06,
+      "improvement": -0.00011231310418224894,
+      "normalized_improvement": 0
+    },
+    "contrarian_to_direct": {
+      "base_probability": 0.00025086355162784457,
+      "source_probability": 9.689061261042298e-05,
+      "patched_probability": 9.297888027504086e-06,
+      "improvement": -0.00024156566360034049,
+      "normalized_improvement": 0
+    },
+    "layer_sweep": {
+      "0": {
+        "base_probability": 0.00011331959649396595,
+        "source_probability": 9.689061261042298e-05,
+        "patched_probability": 1.0072999430121854e-06,
+        "improvement": -0.00011231229655095376,
+        "normalized_improvement": 0
+      },
+      "5": {
+        "base_probability": 0.00011331959649396595,
+        "source_probability": 9.689061261042298e-05,
+        "patched_probability": 1.0644744179444388e-06,
+        "improvement": -0.00011225512207602151,
+        "normalized_improvement": 0
+      },
+      "10": {
+        "base_probability": 0.00011331959649396595,
+        "source_probability": 9.689061261042298e-05,
+        "patched_probability": 1.1008542060153559e-06,
+        "improvement": -0.00011221874228795059,
+        "normalized_improvement": 0
+      },
+      "15": {
+        "base_probability": 0.00011331959649396595,
+        "source_probability": 9.689061261042298e-05,
+        "patched_probability": 1.0478852345841005e-06,
+        "improvement": -0.00011227171125938185,
+        "normalized_improvement": 0
+      },
+      "18": {
+        "base_probability": 0.00011331959649396595,
+        "source_probability": 9.689061261042298e-05,
+        "patched_probability": 1.006492311717011e-06,
+        "improvement": -0.00011231310418224894,
+        "normalized_improvement": 0
+      },
+      "20": {
+        "base_probability": 0.00011331959649396595,
+        "source_probability": 9.689061261042298e-05,
+        "patched_probability": 9.668328857515007e-07,
+        "improvement": -0.00011235276360821445,
+        "normalized_improvement": 0
+      },
+      "25": {
+        "base_probability": 0.00011331959649396595,
+        "source_probability": 9.689061261042298e-05,
+        "patched_probability": 1.0704552551032975e-06,
+        "improvement": -0.00011224914123886265,
+        "normalized_improvement": 0
+      },
+      "30": {
+        "base_probability": 0.00011331959649396595,
+        "source_probability": 9.689061261042298e-05,
+        "patched_probability": 9.842369763646275e-07,
+        "improvement": -0.00011233535951760132,
+        "normalized_improvement": 0
+      },
+      "35": {
+        "base_probability": 0.00011331959649396595,
+        "source_probability": 9.689061261042298e-05,
+        "patched_probability": 1.0523308446863666e-06,
+        "improvement": -0.00011226726564927958,
+        "normalized_improvement": 0
+      },
+      "40": {
+        "base_probability": 0.00011331959649396595,
+        "source_probability": 9.689061261042298e-05,
+        "patched_probability": 1.015116140479222e-06,
+        "improvement": -0.00011230448035348672,
+        "normalized_improvement": 0
+      },
+      "45": {
+        "base_probability": 0.00011331959649396595,
+        "source_probability": 9.689061261042298e-05,
+        "patched_probability": 1.0834355634870008e-06,
+        "improvement": -0.00011223616093047895,
+        "normalized_improvement": 0
+      },
+      "50": {
+        "base_probability": 0.00011331959649396595,
+        "source_probability": 9.689061261042298e-05,
+        "patched_probability": 1.0506719263503328e-06,
+        "improvement": -0.00011226892456761561,
+        "normalized_improvement": 0
+      },
+      "55": {
+        "base_probability": 0.00011331959649396595,
+        "source_probability": 9.689061261042298e-05,
+        "patched_probability": 1.0615367500577122e-06,
+        "improvement": -0.00011225805974390823,
+        "normalized_improvement": 0
+      },
+      "60": {
+        "base_probability": 0.00011331959649396595,
+        "source_probability": 9.689061261042298e-05,
+        "patched_probability": 1.0475887393113226e-06,
+        "improvement": -0.00011227200775465462,
+        "normalized_improvement": 0
+      }
+    }
+  },
+  "croup": {
+    "case_name": "croup",
+    "answer_token_ids": [
+      236780,
+      218382,
+      236752,
+      236755,
+      565,
+      236798
+    ],
+    "contrarian_to_cot": {
+      "base_probability": 0.00021295598708093166,
+      "source_probability": 0.0001593422239238862,
+      "patched_probability": 2.5713816285133362e-05,
+      "improvement": -0.0001872421707957983,
+      "normalized_improvement": 0
+    },
+    "contrarian_to_direct": {
+      "base_probability": 0.0002914622600656003,
+      "source_probability": 0.0001593422239238862,
+      "patched_probability": 8.478295058012009e-05,
+      "improvement": -0.0002066793094854802,
+      "normalized_improvement": 0
+    },
+    "layer_sweep": {
+      "0": {
+        "base_probability": 0.00021295598708093166,
+        "source_probability": 0.0001593422239238862,
+        "patched_probability": 2.5713816285133362e-05,
+        "improvement": -0.0001872421707957983,
+        "normalized_improvement": 0
+      },
+      "5": {
+        "base_probability": 0.00021295598708093166,
+        "source_probability": 0.0001593422239238862,
+        "patched_probability": 2.5713816285133362e-05,
+        "improvement": -0.0001872421707957983,
+        "normalized_improvement": 0
+      },
+      "10": {
+        "base_probability": 0.00021295598708093166,
+        "source_probability": 0.0001593422239238862,
+        "patched_probability": 2.5713816285133362e-05,
+        "improvement": -0.0001872421707957983,
+        "normalized_improvement": 0
+      },
+      "15": {
+        "base_probability": 0.00021295598708093166,
+        "source_probability": 0.0001593422239238862,
+        "patched_probability": 2.5713816285133362e-05,
+        "improvement": -0.0001872421707957983,
+        "normalized_improvement": 0
+      },
+      "18": {
+        "base_probability": 0.00021295598708093166,
+        "source_probability": 0.0001593422239238862,
+        "patched_probability": 2.5713816285133362e-05,
+        "improvement": -0.0001872421707957983,
+        "normalized_improvement": 0
+      },
+      "20": {
+        "base_probability": 0.00021295598708093166,
+        "source_probability": 0.0001593422239238862,
+        "patched_probability": 2.5713816285133362e-05,
+        "improvement": -0.0001872421707957983,
+        "normalized_improvement": 0
+      },
+      "25": {
+        "base_probability": 0.00021295598708093166,
+        "source_probability": 0.0001593422239238862,
+        "patched_probability": 2.5713816285133362e-05,
+        "improvement": -0.0001872421707957983,
+        "normalized_improvement": 0
+      },
+      "30": {
+        "base_probability": 0.00021295598708093166,
+        "source_probability": 0.0001593422239238862,
+        "patched_probability": 2.5713816285133362e-05,
+        "improvement": -0.0001872421707957983,
+        "normalized_improvement": 0
+      },
+      "35": {
+        "base_probability": 0.00021295598708093166,
+        "source_probability": 0.0001593422239238862,
+        "patched_probability": 2.5713816285133362e-05,
+        "improvement": -0.0001872421707957983,
+        "normalized_improvement": 0
+      },
+      "40": {
+        "base_probability": 0.00021295598708093166,
+        "source_probability": 0.0001593422239238862,
+        "patched_probability": 2.5713816285133362e-05,
+        "improvement": -0.0001872421707957983,
+        "normalized_improvement": 0
+      },
+      "45": {
+        "base_probability": 0.00021295598708093166,
+        "source_probability": 0.0001593422239238862,
+        "patched_probability": 2.5713816285133362e-05,
+        "improvement": -0.0001872421707957983,
+        "normalized_improvement": 0
+      },
+      "50": {
+        "base_probability": 0.00021295598708093166,
+        "source_probability": 0.0001593422239238862,
+        "patched_probability": 2.5713816285133362e-05,
+        "improvement": -0.0001872421707957983,
+        "normalized_improvement": 0
+      },
+      "55": {
+        "base_probability": 0.00021295598708093166,
+        "source_probability": 0.0001593422239238862,
+        "patched_probability": 2.5713816285133362e-05,
+        "improvement": -0.0001872421707957983,
+        "normalized_improvement": 0
+      },
+      "60": {
+        "base_probability": 0.00021295598708093166,
+        "source_probability": 0.0001593422239238862,
+        "patched_probability": 2.5713816285133362e-05,
+        "improvement": -0.0001872421707957983,
+        "normalized_improvement": 0
+      }
+    }
+  },
+  "appendicitis": {
+    "case_name": "appendicitis",
+    "answer_token_ids": [
+      45252,
+      217959,
+      81806,
+      10453,
+      17366,
+      3770
+    ],
+    "contrarian_to_cot": {
+      "base_probability": 6.444781320169568e-06,
+      "source_probability": 5.802958185086027e-06,
+      "patched_probability": 8.560346032027155e-07,
+      "improvement": -5.5887467169668525e-06,
+      "normalized_improvement": 0
+    },
+    "contrarian_to_direct": {
+      "base_probability": 1.4107325114309788e-05,
+      "source_probability": 5.802958185086027e-06,
+      "patched_probability": 7.689523044973612e-07,
+      "improvement": -1.3338372809812427e-05,
+      "normalized_improvement": 0
+    },
+    "layer_sweep": {
+      "0": {
+        "base_probability": 6.444781320169568e-06,
+        "source_probability": 5.802958185086027e-06,
+        "patched_probability": 9.176901585306041e-07,
+        "improvement": -5.527091161638964e-06,
+        "normalized_improvement": 0
+      },
+      "5": {
+        "base_probability": 6.444781320169568e-06,
+        "source_probability": 5.802958185086027e-06,
+        "patched_probability": 9.086634236155078e-07,
+        "improvement": -5.53611789655406e-06,
+        "normalized_improvement": 0
+      },
+      "10": {
+        "base_probability": 6.444781320169568e-06,
+        "source_probability": 5.802958185086027e-06,
+        "patched_probability": 9.674677130533382e-07,
+        "improvement": -5.47731360711623e-06,
+        "normalized_improvement": 0
+      },
+      "15": {
+        "base_probability": 6.444781320169568e-06,
+        "source_probability": 5.802958185086027e-06,
+        "patched_probability": 9.434816092834808e-07,
+        "improvement": -5.501299710886087e-06,
+        "normalized_improvement": 0
+      },
+      "18": {
+        "base_probability": 6.444781320169568e-06,
+        "source_probability": 5.802958185086027e-06,
+        "patched_probability": 8.560346032027155e-07,
+        "improvement": -5.5887467169668525e-06,
+        "normalized_improvement": 0
+      },
+      "20": {
+        "base_probability": 6.444781320169568e-06,
+        "source_probability": 5.802958185086027e-06,
+        "patched_probability": 9.610575943952426e-07,
+        "improvement": -5.4837237257743254e-06,
+        "normalized_improvement": 0
+      },
+      "25": {
+        "base_probability": 6.444781320169568e-06,
+        "source_probability": 5.802958185086027e-06,
+        "patched_probability": 7.696444299654104e-07,
+        "improvement": -5.675136890204158e-06,
+        "normalized_improvement": 0
+      },
+      "30": {
+        "base_probability": 6.444781320169568e-06,
+        "source_probability": 5.802958185086027e-06,
+        "patched_probability": 8.513297871104442e-07,
+        "improvement": -5.593451533059124e-06,
+        "normalized_improvement": 0
+      },
+      "35": {
+        "base_probability": 6.444781320169568e-06,
+        "source_probability": 5.802958185086027e-06,
+        "patched_probability": 9.149007382802665e-07,
+        "improvement": -5.5298805818893015e-06,
+        "normalized_improvement": 0
+      },
+      "40": {
+        "base_probability": 6.444781320169568e-06,
+        "source_probability": 5.802958185086027e-06,
+        "patched_probability": 8.696033546584658e-07,
+        "improvement": -5.575177965511102e-06,
+        "normalized_improvement": 0
+      },
+      "45": {
+        "base_probability": 6.444781320169568e-06,
+        "source_probability": 5.802958185086027e-06,
+        "patched_probability": 9.430150385014713e-07,
+        "improvement": -5.501766281668097e-06,
+        "normalized_improvement": 0
+      },
+      "50": {
+        "base_probability": 6.444781320169568e-06,
+        "source_probability": 5.802958185086027e-06,
+        "patched_probability": 9.101822797674686e-07,
+        "improvement": -5.5345990404020995e-06,
+        "normalized_improvement": 0
+      },
+      "55": {
+        "base_probability": 6.444781320169568e-06,
+        "source_probability": 5.802958185086027e-06,
+        "patched_probability": 9.007553671835922e-07,
+        "improvement": -5.544025952985976e-06,
+        "normalized_improvement": 0
+      },
+      "60": {
+        "base_probability": 6.444781320169568e-06,
+        "source_probability": 5.802958185086027e-06,
+        "patched_probability": 8.519682523910888e-07,
+        "improvement": -5.592813067778479e-06,
+        "normalized_improvement": 0
+      }
+    }
+  },
+  "pneumonia": {
+    "case_name": "pneumonia",
+    "answer_token_ids": [
+      214016,
+      127567,
+      46640,
+      236791,
+      53368,
+      31832,
+      236799
+    ],
+    "contrarian_to_cot": {
+      "base_probability": 0.0001592123880982399,
+      "source_probability": 0.0001010734704323113,
+      "patched_probability": 1.7177313566207886e-05,
+      "improvement": -0.000142035074532032,
+      "normalized_improvement": 0
+    },
+    "contrarian_to_direct": {
+      "base_probability": 0.0001360186724923551,
+      "source_probability": 0.0001010734704323113,
+      "patched_probability": 5.299487384036183e-06,
+      "improvement": -0.00013071918510831892,
+      "normalized_improvement": 0
+    },
+    "layer_sweep": {
+      "0": {
+        "base_probability": 0.0001592123880982399,
+        "source_probability": 0.0001010734704323113,
+        "patched_probability": 1.614331267774105e-05,
+        "improvement": -0.00014306907542049885,
+        "normalized_improvement": 0
+      },
+      "5": {
+        "base_probability": 0.0001592123880982399,
+        "source_probability": 0.0001010734704323113,
+        "patched_probability": 1.594692002981901e-05,
+        "improvement": -0.0001432654680684209,
+        "normalized_improvement": 0
+      },
+      "10": {
+        "base_probability": 0.0001592123880982399,
+        "source_probability": 0.0001010734704323113,
+        "patched_probability": 1.6612117178738117e-05,
+        "improvement": -0.00014260027091950178,
+        "normalized_improvement": 0
+      },
+      "15": {
+        "base_probability": 0.0001592123880982399,
+        "source_probability": 0.0001010734704323113,
+        "patched_probability": 1.5578465536236763e-05,
+        "improvement": -0.00014363392256200314,
+        "normalized_improvement": 0
+      },
+      "18": {
+        "base_probability": 0.0001592123880982399,
+        "source_probability": 0.0001010734704323113,
+        "patched_probability": 1.7177313566207886e-05,
+        "improvement": -0.000142035074532032,
+        "normalized_improvement": 0
+      },
+      "20": {
+        "base_probability": 0.0001592123880982399,
+        "source_probability": 0.0001010734704323113,
+        "patched_probability": 1.663132570683956e-05,
+        "improvement": -0.00014258106239140034,
+        "normalized_improvement": 0
+      },
+      "25": {
+        "base_probability": 0.0001592123880982399,
+        "source_probability": 0.0001010734704323113,
+        "patched_probability": 1.7558690160512924e-05,
+        "improvement": -0.00014165369793772697,
+        "normalized_improvement": 0
+      },
+      "30": {
+        "base_probability": 0.0001592123880982399,
+        "source_probability": 0.0001010734704323113,
+        "patched_probability": 1.6042613424360752e-05,
+        "improvement": -0.00014316977467387915,
+        "normalized_improvement": 0
+      },
+      "35": {
+        "base_probability": 0.0001592123880982399,
+        "source_probability": 0.0001010734704323113,
+        "patched_probability": 1.6588717699050903e-05,
+        "improvement": -0.000142623670399189,
+        "normalized_improvement": 0
+      },
+      "40": {
+        "base_probability": 0.0001592123880982399,
+        "source_probability": 0.0001010734704323113,
+        "patched_probability": 1.6619102098047733e-05,
+        "improvement": -0.00014259328600019217,
+        "normalized_improvement": 0
+      },
+      "45": {
+        "base_probability": 0.0001592123880982399,
+        "source_probability": 0.0001010734704323113,
+        "patched_probability": 1.6506877727806568e-05,
+        "improvement": -0.00014270551037043333,
+        "normalized_improvement": 0
+      },
+      "50": {
+        "base_probability": 0.0001592123880982399,
+        "source_probability": 0.0001010734704323113,
+        "patched_probability": 1.6306876204907894e-05,
+        "improvement": -0.000142905511893332,
+        "normalized_improvement": 0
+      },
+      "55": {
+        "base_probability": 0.0001592123880982399,
+        "source_probability": 0.0001010734704323113,
+        "patched_probability": 1.7414218746125698e-05,
+        "improvement": -0.0001417981693521142,
+        "normalized_improvement": 0
+      },
+      "60": {
+        "base_probability": 0.0001592123880982399,
+        "source_probability": 0.0001010734704323113,
+        "patched_probability": 1.699593849480152e-05,
+        "improvement": -0.00014221644960343838,
+        "normalized_improvement": 0
+      }
+    }
+  }
+}

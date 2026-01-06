@@ -1,0 +1,184 @@
+`torch_dtype` is deprecated! Use `dtype` instead!
+Running ablation...
+======================================================================
+Prompt Ablation Study
+======================================================================
+GPU Memory: Allocated: 0.00GB, Reserved: 0.00GB, Total: 84.99GB
+Loading google/medgemma-27b-text-it...
+Device: cuda, Dtype: bfloat16
+Loading checkpoint shards:   0%|          | 0/11 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 11/11 [00:00<00:00, 139.80it/s]
+Loaded pretrained model google/medgemma-27b-text-it into HookedTransformer
+Model loaded. Layers: 62, Heads: 32
+
+============================================================
+Ablation Study: diabetes
+============================================================
+Answer: Diabetes
+Token IDs: [143200, 2084, 236774, 155693, 15886, 23390, 2328, 51998]
+
+--- full ---
+Commitment layer: -1
+Final probability: 0.0001
+
+--- no_devils_advocate ---
+Commitment layer: -1
+Final probability: 0.0002
+
+--- no_obvious ---
+Commitment layer: -1
+Final probability: 0.0001
+
+--- no_argue_against ---
+Commitment layer: -1
+Final probability: 0.0001
+
+--- neutral_system ---
+Commitment layer: -1
+Final probability: 0.0002
+
+--- minimal ---
+Commitment layer: -1
+Final probability: 0.0001
+
+============================================================
+Ablation Study: croup
+============================================================
+Answer: Croup
+Token IDs: [236780, 218382, 236752, 236755, 565, 236798]
+
+--- full ---
+Commitment layer: -1
+Final probability: 0.0002
+
+--- no_devils_advocate ---
+Commitment layer: -1
+Final probability: 0.0002
+
+--- no_obvious ---
+Commitment layer: -1
+Final probability: 0.0001
+
+--- no_argue_against ---
+Commitment layer: -1
+Final probability: 0.0005
+
+--- neutral_system ---
+Commitment layer: -1
+Final probability: 0.0006
+
+--- minimal ---
+Commitment layer: -1
+Final probability: 0.0003
+
+============================================================
+Ablation Study: appendicitis
+============================================================
+Answer: Appendicitis
+Token IDs: [45252, 217959, 81806, 10453, 17366, 3770]
+
+--- full ---
+Commitment layer: -1
+Final probability: 0.0000
+
+--- no_devils_advocate ---
+Commitment layer: -1
+Final probability: 0.0000
+
+--- no_obvious ---
+Commitment layer: -1
+Final probability: 0.0000
+
+--- no_argue_against ---
+Commitment layer: -1
+Final probability: 0.0000
+
+--- neutral_system ---
+Commitment layer: -1
+Final probability: 0.0000
+
+--- minimal ---
+Commitment layer: -1
+Final probability: 0.0000
+
+============================================================
+Ablation Study: pneumonia
+============================================================
+Answer: Pneumonia
+Token IDs: [214016, 127567, 46640, 236791, 53368, 31832, 236799]
+
+--- full ---
+Commitment layer: -1
+Final probability: 0.0001
+
+--- no_devils_advocate ---
+Commitment layer: -1
+Final probability: 0.0001
+
+--- no_obvious ---
+Commitment layer: -1
+Final probability: 0.0001
+
+--- no_argue_against ---
+Commitment layer: -1
+Final probability: 0.0004
+
+--- neutral_system ---
+Commitment layer: -1
+Final probability: 0.0001
+
+--- minimal ---
+Commitment layer: 54
+Final probability: 0.0005
+Saved plot to /home/ubuntu/contrarian_analysis/plots/ablation_commitment_layers.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/ablation_final_probability.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/ablation_layer_sweep.png
+
+======================================================================
+ABLATION SUMMARY
+======================================================================
+
+Full contrarian prompt commits at layer: -1.0
+Minimal prompt commits at layer: 54.0
+
+📌 ESSENTIAL COMPONENTS (removing delays commitment significantly):
+  None identified - all components contribute similarly
+
+📎 Non-essential components:
+  • 'devil's advocate' - removal delays commitment by only 0.0 layers
+  • 'obvious' - removal delays commitment by only 0.0 layers
+  • 'argue against' - removal delays commitment by only 0.0 layers
+  • 'skeptical system message' - removal delays commitment by only 0.0 layers
+
+----------------------------------------
+All variant results:
+  full                : L -1.0, prob=0.0001
+  no_devils_advocate  : L -1.0, prob=0.0001
+  no_obvious          : L -1.0, prob=0.0001
+  no_argue_against    : L -1.0, prob=0.0003
+  neutral_system      : L -1.0, prob=0.0002
+  minimal             : L 54.0, prob=0.0002
+Saved results to /home/ubuntu/contrarian_analysis/results/ablation_full_results.json
+Traceback (most recent call last):
+  File "/home/ubuntu/contrarian_analysis/run_all_experiments.py", line 359, in <module>
+    run_single_experiment(args.experiment)
+  File "/home/ubuntu/contrarian_analysis/run_all_experiments.py", line 340, in run_single_experiment
+    return func()
+           ^^^^^^
+  File "/home/ubuntu/contrarian_analysis/ablation_study.py", line 398, in main
+    save_results(impact, "ablation_impact")
+  File "/home/ubuntu/contrarian_analysis/utils.py", line 182, in save_results
+    json.dump(convert(data), f, indent=2)
+  File "/home/ubuntu/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py", line 179, in dump
+    for chunk in iterable:
+  File "/home/ubuntu/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/encoder.py", line 432, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "/home/ubuntu/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "/home/ubuntu/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "/home/ubuntu/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "/home/ubuntu/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type bool_ is not JSON serializable

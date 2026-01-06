@@ -1,0 +1,252 @@
+`torch_dtype` is deprecated! Use `dtype` instead!
+Running logit_lens...
+======================================================================
+LogitLens Analysis for MedGemma Prompt Strategies
+======================================================================
+GPU Memory: Allocated: 0.00GB, Reserved: 0.00GB, Total: 84.99GB
+Loading google/medgemma-27b-text-it...
+Device: cuda, Dtype: bfloat16
+Loading checkpoint shards:   0%|          | 0/11 [00:00<?, ?it/s]Loading checkpoint shards:  73%|███████▎  | 8/11 [00:00<00:00, 78.31it/s]Loading checkpoint shards: 100%|██████████| 11/11 [00:00<00:00, 86.39it/s]
+Loaded pretrained model google/medgemma-27b-text-it into HookedTransformer
+Model loaded. Layers: 62, Heads: 32
+
+Model config:
+  Layers: 62
+  Heads: 32
+  d_model: 5376
+
+======================================================================
+Running LogitLens Analysis...
+======================================================================
+
+============================================================
+Analyzing case: diabetes
+Expected answer: Diabetes
+============================================================
+Answer token IDs: [143200, 2084, 236774, 155693, 15886, 23390, 2328, 51998]
+Tokens: ['diabetes', 'type', 'T', 'Diabetes', ' diabetes', 'DM', 'Type', ' Diabetes']
+
+--- Strategy: contrarian ---
+Prompt length: 109 tokens
+Commitment layer: -1
+Final probability: 0.0001
+Final rank: 551
+Probabilities at key layers:
+  Layer 0: prob=0.0000, rank=14006
+  Layer 10: prob=0.0000, rank=5775
+  Layer 18: prob=0.0001, rank=1368
+  Layer 30: prob=0.0009, rank=115
+  Layer 45: prob=0.0014, rank=63
+  Layer 57: prob=0.0000, rank=305
+  Layer 58: prob=0.0000, rank=338
+  Layer 61: prob=0.0001, rank=551
+
+--- Strategy: chain_of_thought ---
+Prompt length: 95 tokens
+Commitment layer: -1
+Final probability: 0.0001
+Final rank: 479
+Probabilities at key layers:
+  Layer 0: prob=0.0000, rank=21867
+  Layer 10: prob=0.0000, rank=8107
+  Layer 18: prob=0.0000, rank=1365
+  Layer 30: prob=0.0019, rank=27
+  Layer 45: prob=0.0008, rank=108
+  Layer 57: prob=0.0000, rank=390
+  Layer 58: prob=0.0001, rank=301
+  Layer 61: prob=0.0001, rank=479
+
+--- Strategy: direct_answer ---
+Prompt length: 99 tokens
+Commitment layer: -1
+Final probability: 0.0003
+Final rank: 337
+Probabilities at key layers:
+  Layer 0: prob=0.0000, rank=15129
+  Layer 10: prob=0.0000, rank=5723
+  Layer 18: prob=0.0001, rank=1173
+  Layer 30: prob=0.0012, rank=47
+  Layer 45: prob=0.0009, rank=278
+  Layer 57: prob=0.0002, rank=175
+  Layer 58: prob=0.0001, rank=332
+  Layer 61: prob=0.0003, rank=337
+Saved plot to /home/ubuntu/contrarian_analysis/plots/logit_lens_diabetes.png
+
+============================================================
+Analyzing case: croup
+Expected answer: Croup
+============================================================
+Answer token IDs: [236780, 218382, 236752, 236755, 565, 236798]
+Tokens: ['C', ' croup', 'l', 'c', ' C', 'L']
+
+--- Strategy: contrarian ---
+Prompt length: 112 tokens
+Commitment layer: -1
+Final probability: 0.0002
+Final rank: 258
+Probabilities at key layers:
+  Layer 0: prob=0.0000, rank=183
+  Layer 10: prob=0.0000, rank=9
+  Layer 18: prob=0.0022, rank=14
+  Layer 30: prob=0.0004, rank=406
+  Layer 45: prob=0.0011, rank=165
+  Layer 57: prob=0.0008, rank=145
+  Layer 58: prob=0.0003, rank=187
+  Layer 61: prob=0.0002, rank=258
+
+--- Strategy: chain_of_thought ---
+Prompt length: 98 tokens
+Commitment layer: 13
+Final probability: 0.0002
+Final rank: 480
+Probabilities at key layers:
+  Layer 0: prob=0.0000, rank=173
+  Layer 10: prob=0.0000, rank=9
+  Layer 18: prob=0.0042, rank=14
+  Layer 30: prob=0.0004, rank=289
+  Layer 45: prob=0.0010, rank=108
+  Layer 57: prob=0.0001, rank=181
+  Layer 58: prob=0.0000, rank=238
+  Layer 61: prob=0.0002, rank=480
+
+--- Strategy: direct_answer ---
+Prompt length: 102 tokens
+Commitment layer: -1
+Final probability: 0.0003
+Final rank: 195
+Probabilities at key layers:
+  Layer 0: prob=0.0000, rank=184
+  Layer 10: prob=0.0000, rank=9
+  Layer 18: prob=0.0039, rank=14
+  Layer 30: prob=0.0006, rank=228
+  Layer 45: prob=0.0011, rank=121
+  Layer 57: prob=0.0005, rank=143
+  Layer 58: prob=0.0001, rank=171
+  Layer 61: prob=0.0003, rank=195
+Saved plot to /home/ubuntu/contrarian_analysis/plots/logit_lens_croup.png
+
+============================================================
+Analyzing case: appendicitis
+Expected answer: Appendicitis
+============================================================
+Answer token IDs: [45252, 217959, 81806, 10453, 17366, 3770]
+Tokens: ['Append', 'Acute', ' Append', 'acute', ' append', 'append']
+
+--- Strategy: contrarian ---
+Prompt length: 125 tokens
+Commitment layer: -1
+Final probability: 0.0000
+Final rank: 3381
+Probabilities at key layers:
+  Layer 0: prob=0.0000, rank=61517
+  Layer 10: prob=0.0000, rank=20470
+  Layer 18: prob=0.0000, rank=59008
+  Layer 30: prob=0.0001, rank=2118
+  Layer 45: prob=0.0000, rank=11622
+  Layer 57: prob=0.0000, rank=4779
+  Layer 58: prob=0.0000, rank=7227
+  Layer 61: prob=0.0000, rank=3381
+
+--- Strategy: chain_of_thought ---
+Prompt length: 111 tokens
+Commitment layer: -1
+Final probability: 0.0000
+Final rank: 4109
+Probabilities at key layers:
+  Layer 0: prob=0.0000, rank=59839
+  Layer 10: prob=0.0000, rank=20142
+  Layer 18: prob=0.0000, rank=72609
+  Layer 30: prob=0.0001, rank=1188
+  Layer 45: prob=0.0000, rank=19397
+  Layer 57: prob=0.0000, rank=3924
+  Layer 58: prob=0.0000, rank=13303
+  Layer 61: prob=0.0000, rank=4109
+
+--- Strategy: direct_answer ---
+Prompt length: 115 tokens
+Commitment layer: -1
+Final probability: 0.0000
+Final rank: 1591
+Probabilities at key layers:
+  Layer 0: prob=0.0000, rank=61852
+  Layer 10: prob=0.0000, rank=22260
+  Layer 18: prob=0.0000, rank=63559
+  Layer 30: prob=0.0002, rank=1067
+  Layer 45: prob=0.0000, rank=8633
+  Layer 57: prob=0.0000, rank=2343
+  Layer 58: prob=0.0000, rank=5817
+  Layer 61: prob=0.0000, rank=1591
+Saved plot to /home/ubuntu/contrarian_analysis/plots/logit_lens_appendicitis.png
+
+============================================================
+Analyzing case: pneumonia
+Expected answer: Pneumonia
+============================================================
+Answer token IDs: [214016, 127567, 46640, 236791, 53368, 31832, 236799]
+Tokens: ['pneum', ' Pneum', 'Community', 'P', ' pneumonia', 'CAP', 'B']
+
+--- Strategy: contrarian ---
+Prompt length: 120 tokens
+Commitment layer: -1
+Final probability: 0.0001
+Final rank: 616
+Probabilities at key layers:
+  Layer 0: prob=0.0000, rank=40229
+  Layer 10: prob=0.0000, rank=1062
+  Layer 18: prob=0.0001, rank=764
+  Layer 30: prob=0.0004, rank=309
+  Layer 45: prob=0.0027, rank=31
+  Layer 57: prob=0.0000, rank=108
+  Layer 58: prob=0.0000, rank=104
+  Layer 61: prob=0.0001, rank=616
+
+--- Strategy: chain_of_thought ---
+Prompt length: 106 tokens
+Commitment layer: -1
+Final probability: 0.0002
+Final rank: 340
+Probabilities at key layers:
+  Layer 0: prob=0.0000, rank=41878
+  Layer 10: prob=0.0000, rank=1052
+  Layer 18: prob=0.0001, rank=413
+  Layer 30: prob=0.0005, rank=270
+  Layer 45: prob=0.0011, rank=113
+  Layer 57: prob=0.0026, rank=32
+  Layer 58: prob=0.0001, rank=215
+  Layer 61: prob=0.0002, rank=340
+
+--- Strategy: direct_answer ---
+Prompt length: 110 tokens
+Commitment layer: -1
+Final probability: 0.0001
+Final rank: 418
+Probabilities at key layers:
+  Layer 0: prob=0.0000, rank=42020
+  Layer 10: prob=0.0000, rank=1374
+  Layer 18: prob=0.0001, rank=561
+  Layer 30: prob=0.0007, rank=190
+  Layer 45: prob=0.0016, rank=95
+  Layer 57: prob=0.0014, rank=50
+  Layer 58: prob=0.0001, rank=145
+  Layer 61: prob=0.0001, rank=418
+Saved plot to /home/ubuntu/contrarian_analysis/plots/logit_lens_pneumonia.png
+
+======================================================================
+SUMMARY
+======================================================================
+
+Expected vs Observed Commitment Layers:
+--------------------------------------------------
+contrarian          : Expected L18, Observed L-1.0 ± 0.0
+                      Final prob: 0.0001
+chain_of_thought    : Expected L57, Observed L13.0 ± 0.0
+                      Final prob: 0.0001
+direct_answer       : Expected L58, Observed L-1.0 ± 0.0
+                      Final prob: 0.0002
+Saved plot to /home/ubuntu/contrarian_analysis/plots/logit_lens_combined.png
+Saved results to /home/ubuntu/contrarian_analysis/results/logit_lens_full_results.json
+Saved results to /home/ubuntu/contrarian_analysis/results/logit_lens_summary.json
+
+======================================================================
+Analysis complete! Results saved to contrarian_analysis/
+======================================================================

@@ -1,0 +1,96 @@
+`torch_dtype` is deprecated! Use `dtype` instead!
+Running layer_sweep...
+======================================================================
+Layer Sweep Visualization
+======================================================================
+GPU Memory: Allocated: 0.00GB, Reserved: 0.00GB, Total: 84.99GB
+Loading google/medgemma-27b-text-it...
+Device: cuda, Dtype: bfloat16
+Loading checkpoint shards:   0%|          | 0/11 [00:00<?, ?it/s]Loading checkpoint shards:  82%|████████▏ | 9/11 [00:00<00:00, 84.01it/s]Loading checkpoint shards: 100%|██████████| 11/11 [00:00<00:00, 78.82it/s]
+Loaded pretrained model google/medgemma-27b-text-it into HookedTransformer
+Model loaded. Layers: 62, Heads: 32
+Processing cases:   0%|          | 0/4 [00:00<?, ?it/s]/home/ubuntu/contrarian_analysis/layer_sweep.py:250: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+  plt.tight_layout()
+Processing cases:  25%|██▌       | 1/4 [00:03<00:10,  3.49s/it]/home/ubuntu/contrarian_analysis/layer_sweep.py:250: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+  plt.tight_layout()
+Processing cases:  50%|█████     | 2/4 [00:06<00:06,  3.19s/it]/home/ubuntu/contrarian_analysis/layer_sweep.py:250: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+  plt.tight_layout()
+Processing cases:  75%|███████▌  | 3/4 [00:09<00:03,  3.07s/it]/home/ubuntu/contrarian_analysis/layer_sweep.py:250: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+  plt.tight_layout()
+Processing cases: 100%|██████████| 4/4 [00:12<00:00,  3.04s/it]Processing cases: 100%|██████████| 4/4 [00:12<00:00,  3.10s/it]
+
+============================================================
+Layer sweep: diabetes
+============================================================
+Answer: Diabetes
+  Processing contrarian...
+    Final prob: 0.0001
+  Processing chain_of_thought...
+    Final prob: 0.0001
+  Processing direct_answer...
+    Final prob: 0.0003
+Saved plot to /home/ubuntu/contrarian_analysis/plots/layer_sweep_complete_diabetes.png
+
+============================================================
+Layer sweep: croup
+============================================================
+Answer: Croup
+  Processing contrarian...
+    Final prob: 0.0002
+  Processing chain_of_thought...
+    Final prob: 0.0002
+  Processing direct_answer...
+    Final prob: 0.0003
+Saved plot to /home/ubuntu/contrarian_analysis/plots/layer_sweep_complete_croup.png
+
+============================================================
+Layer sweep: appendicitis
+============================================================
+Answer: Appendicitis
+  Processing contrarian...
+    Final prob: 0.0000
+  Processing chain_of_thought...
+    Final prob: 0.0000
+  Processing direct_answer...
+    Final prob: 0.0000
+Saved plot to /home/ubuntu/contrarian_analysis/plots/layer_sweep_complete_appendicitis.png
+
+============================================================
+Layer sweep: pneumonia
+============================================================
+Answer: Pneumonia
+  Processing contrarian...
+    Final prob: 0.0001
+  Processing chain_of_thought...
+    Final prob: 0.0002
+  Processing direct_answer...
+    Final prob: 0.0001
+Saved plot to /home/ubuntu/contrarian_analysis/plots/layer_sweep_complete_pneumonia.png
+Saved plot to /home/ubuntu/contrarian_analysis/plots/layer_sweep_summary.png
+Saved results to /home/ubuntu/contrarian_analysis/results/layer_sweep_results.json
+
+======================================================================
+LAYER SWEEP SUMMARY
+======================================================================
+
+Contrarian:
+  Prob at L18: 0.0006
+  Prob at L57: 0.0002
+  Final prob:  0.0001
+  Mean commitment layer: 9.0
+
+Chain Of Thought:
+  Prob at L18: 0.0011
+  Prob at L57: 0.0007
+  Final prob:  0.0001
+  Mean commitment layer: 28.0
+
+Direct Answer:
+  Prob at L18: 0.0010
+  Prob at L57: 0.0005
+  Final prob:  0.0002
+  Mean commitment layer: 28.0
+
+======================================================================
+Layer sweep visualization complete!
+======================================================================
