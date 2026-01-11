@@ -1,0 +1,4 @@
+experiment,dataset,prompt,num_samples,agreement_rate,cot_accuracy,direct_accuracy,cot_correct,direct_correct,agreements
+tutorial_chain_of_thought,tutorial,chain_of_thought,10,0.0000,0.1000,0.0000,1,0,0
+tutorial_contrarian,tutorial,contrarian,10,0.1000,0.1000,0.2000,1,2,1
+tutorial_direct_answer,tutorial,direct_answer,10,0.1000,0.1000,0.2000,1,2,1

@@ -1,0 +1,5 @@
+{
+  "experiment": "tutorial_comparison",
+  "strategy": "chain_of_thought",
+  "model": "gpt2"
+}

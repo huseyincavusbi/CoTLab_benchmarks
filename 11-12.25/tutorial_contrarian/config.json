@@ -1,0 +1,5 @@
+{
+  "experiment": "tutorial_comparison",
+  "strategy": "contrarian",
+  "model": "gpt2"
+}

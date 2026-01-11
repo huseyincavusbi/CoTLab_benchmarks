@@ -1,0 +1,191 @@
+{
+  "metadata": {
+    "config": {
+      "backend": {
+        "_target_": "cotlab.backends.TransformersBackend",
+        "device": "mps",
+        "dtype": "bfloat16",
+        "enable_hooks": true,
+        "trust_remote_code": true
+      },
+      "model": {
+        "name": "google/gemma-3-270m-it",
+        "variant": "270m",
+        "max_new_tokens": 512,
+        "temperature": 0.7,
+        "top_p": 0.9
+      },
+      "prompt": {
+        "_target_": "cotlab.prompts.SimplePromptStrategy",
+        "name": "simple",
+        "system_role": null,
+        "include_instructions": false
+      },
+      "dataset": {
+        "_target_": "cotlab.datasets.ProbingDiagnosisDataset",
+        "name": "probing_diagnosis",
+        "path": "data/probing_diagnosis.json"
+      },
+      "experiment": {
+        "_target_": "cotlab.experiments.ProbingClassifierExperiment",
+        "name": "probing_classifier",
+        "description": "Train linear probes on answer hidden states",
+        "num_samples": 10,
+        "probe_target": "diagnosis",
+        "max_new_tokens": 128,
+        "use_gpu_probe": true,
+        "batch_size": 128,
+        "random_seed": 42
+      },
+      "seed": 42,
+      "verbose": true,
+      "dry_run": false
+    },
+    "start_time": "2025-12-30T12:58:36.213943"
+  },
+  "experiment": "probing_classifier",
+  "model": "google/gemma-3-270m-it",
+  "prompt_strategy": "simple",
+  "metrics": {
+    "num_samples": 10,
+    "num_correct": 3,
+    "accuracy_rate": 0.3,
+    "num_layers_probed": 18,
+    "num_classes": 10,
+    "best_layer": 0,
+    "best_test_accuracy": 0.0,
+    "probe_target": "diagnosis"
+  },
+  "raw_outputs": [
+    {
+      "layer": 0,
+      "train_accuracy": 0.2857142984867096,
+      "test_accuracy": 0.0,
+      "n_train": 7,
+      "n_test": 3
+    },
+    {
+      "layer": 1,
+      "train_accuracy": 0.5714285969734192,
+      "test_accuracy": 0.0,
+      "n_train": 7,
+      "n_test": 3
+    },
+    {
+      "layer": 2,
+      "train_accuracy": 0.5714285969734192,
+      "test_accuracy": 0.0,
+      "n_train": 7,
+      "n_test": 3
+    },
+    {
+      "layer": 3,
+      "train_accuracy": 0.5714285969734192,
+      "test_accuracy": 0.0,
+      "n_train": 7,
+      "n_test": 3
+    },
+    {
+      "layer": 4,
+      "train_accuracy": 0.5714285969734192,
+      "test_accuracy": 0.0,
+      "n_train": 7,
+      "n_test": 3
+    },
+    {
+      "layer": 5,
+      "train_accuracy": 0.5714285969734192,
+      "test_accuracy": 0.0,
+      "n_train": 7,
+      "n_test": 3
+    },
+    {
+      "layer": 6,
+      "train_accuracy": 0.5714285969734192,
+      "test_accuracy": 0.0,
+      "n_train": 7,
+      "n_test": 3
+    },
+    {
+      "layer": 7,
+      "train_accuracy": 0.5714285969734192,
+      "test_accuracy": 0.0,
+      "n_train": 7,
+      "n_test": 3
+    },
+    {
+      "layer": 8,
+      "train_accuracy": 0.5714285969734192,
+      "test_accuracy": 0.0,
+      "n_train": 7,
+      "n_test": 3
+    },
+    {
+      "layer": 9,
+      "train_accuracy": 0.5714285969734192,
+      "test_accuracy": 0.0,
+      "n_train": 7,
+      "n_test": 3
+    },
+    {
+      "layer": 10,
+      "train_accuracy": 0.5714285969734192,
+      "test_accuracy": 0.0,
+      "n_train": 7,
+      "n_test": 3
+    },
+    {
+      "layer": 11,
+      "train_accuracy": 0.5714285969734192,
+      "test_accuracy": 0.0,
+      "n_train": 7,
+      "n_test": 3
+    },
+    {
+      "layer": 12,
+      "train_accuracy": 0.5714285969734192,
+      "test_accuracy": 0.0,
+      "n_train": 7,
+      "n_test": 3
+    },
+    {
+      "layer": 13,
+      "train_accuracy": 0.5714285969734192,
+      "test_accuracy": 0.0,
+      "n_train": 7,
+      "n_test": 3
+    },
+    {
+      "layer": 14,
+      "train_accuracy": 0.5714285969734192,
+      "test_accuracy": 0.0,
+      "n_train": 7,
+      "n_test": 3
+    },
+    {
+      "layer": 15,
+      "train_accuracy": 0.5714285969734192,
+      "test_accuracy": 0.0,
+      "n_train": 7,
+      "n_test": 3
+    },
+    {
+      "layer": 16,
+      "train_accuracy": 0.5714285969734192,
+      "test_accuracy": 0.0,
+      "n_train": 7,
+      "n_test": 3
+    },
+    {
+      "layer": 17,
+      "train_accuracy": 0.5714285969734192,
+      "test_accuracy": 0.0,
+      "n_train": 7,
+      "n_test": 3
+    }
+  ],
+  "num_samples": 0,
+  "samples": [],
+  "end_time": "2025-12-30T12:59:23.424858",
+  "duration_seconds": 47.210917
+}
