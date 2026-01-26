@@ -1,0 +1,642 @@
+{
+  "metadata": {
+    "config": {
+      "backend": {
+        "_target_": "cotlab.backends.TransformersBackend",
+        "device": "cuda",
+        "dtype": "bfloat16",
+        "enable_hooks": true,
+        "trust_remote_code": true,
+        "load_in_4bit": true,
+        "bnb_4bit_quant_type": "nf4",
+        "bnb_4bit_compute_dtype": "bfloat16",
+        "bnb_4bit_use_double_quant": true
+      },
+      "model": {
+        "name": "google/medgemma-4b-it",
+        "variant": "4b",
+        "max_new_tokens": 512,
+        "temperature": 0.7,
+        "top_p": 0.9,
+        "safe_name": "medgemma_4b"
+      },
+      "prompt": {
+        "_target_": "cotlab.prompts.RadiologyPromptStrategy",
+        "name": "radiology",
+        "contrarian": false,
+        "few_shot": false,
+        "answer_first": false,
+        "output_format": "plain"
+      },
+      "dataset": {
+        "_target_": "cotlab.datasets.RadiologyDataset",
+        "name": "radiology",
+        "path": "data/radiology.json"
+      },
+      "experiment": {
+        "_target_": "cotlab.experiments.LogitLensExperiment",
+        "name": "logit_lens",
+        "description": "Visualize layer-by-layer token predictions",
+        "top_k": 5,
+        "question": "The patient has fever and productive cough with shortness of breath for three days and elevated CRP."
+      },
+      "seed": 42,
+      "verbose": true,
+      "dry_run": false
+    },
+    "start_time": "2026-01-24T17:36:40.871187"
+  },
+  "experiment": "logit_lens",
+  "model": "google/medgemma-4b-it",
+  "prompt_strategy": "radiology",
+  "metrics": {
+    "final_prediction": "```",
+    "num_layers_analyzed": 34,
+    "emergence_layer": 24,
+    "emergence_rank": 1
+  },
+  "raw_outputs": [
+    {
+      "layer": 0,
+      "top_tokens": [
+        " \u0434\u0440\u0443\u0433\u0438",
+        " \u0440\u0430\u0437\u043b\u0438\u0447\u043d\u0438",
+        " coveted",
+        "\u0938\u094d\u091f",
+        " dilapidated"
+      ],
+      "top_probs": [
+        0.97265625,
+        0.02294921875,
+        0.000888824462890625,
+        0.000537872314453125,
+        0.000537872314453125
+      ]
+    },
+    {
+      "layer": 1,
+      "top_tokens": [
+        "<unused687>",
+        "<unused1170>",
+        "<unused1166>",
+        "<unused192>",
+        "<unused2036>"
+      ],
+      "top_probs": [
+        0.1318359375,
+        0.054931640625,
+        0.040283203125,
+        0.033447265625,
+        0.01904296875
+      ]
+    },
+    {
+      "layer": 2,
+      "top_tokens": [
+        " the",
+        " The",
+        "The",
+        "the",
+        " THE"
+      ],
+      "top_probs": [
+        0.1494140625,
+        0.06640625,
+        0.033447265625,
+        0.029541015625,
+        0.01483154296875
+      ]
+    },
+    {
+      "layer": 3,
+      "top_tokens": [
+        "<unused687>",
+        "<unused201>",
+        "<unused192>",
+        "<unused1077>",
+        "<unused689>"
+      ],
+      "top_probs": [
+        0.515625,
+        0.314453125,
+        0.115234375,
+        0.0257568359375,
+        0.00506591796875
+      ]
+    },
+    {
+      "layer": 4,
+      "top_tokens": [
+        "the",
+        " treacherous",
+        " tribulations",
+        " a",
+        " the"
+      ],
+      "top_probs": [
+        0.205078125,
+        0.0115966796875,
+        0.0115966796875,
+        0.00848388671875,
+        0.00799560546875
+      ]
+    },
+    {
+      "layer": 5,
+      "top_tokens": [
+        "<unused687>",
+        "<unused201>",
+        "<unused192>",
+        "<unused1166>",
+        "<unused515>"
+      ],
+      "top_probs": [
+        0.78515625,
+        0.1748046875,
+        0.0390625,
+        0.000263214111328125,
+        2.1576881408691406e-05
+      ]
+    },
+    {
+      "layer": 6,
+      "top_tokens": [
+        "\ua5dc",
+        " PLDNN",
+        "<unused338>",
+        "<unused429>",
+        "MalayMarks"
+      ],
+      "top_probs": [
+        0.73828125,
+        0.07763671875,
+        0.07763671875,
+        0.047119140625,
+        0.036865234375
+      ]
+    },
+    {
+      "layer": 7,
+      "top_tokens": [
+        " renowned",
+        " a",
+        " an",
+        " you",
+        " it"
+      ],
+      "top_probs": [
+        0.2421875,
+        0.11474609375,
+        0.08935546875,
+        0.07861328125,
+        0.07861328125
+      ]
+    },
+    {
+      "layer": 8,
+      "top_tokens": [
+        " renowned",
+        " \u0440\u0430\u0437\u043b\u0438\u0447\u043d\u0438",
+        " mediocre",
+        "Km",
+        " \u098f\u09ae\u09a8\u0995\u09bf"
+      ],
+      "top_probs": [
+        0.1650390625,
+        0.1455078125,
+        0.12890625,
+        0.08837890625,
+        0.032470703125
+      ]
+    },
+    {
+      "layer": 9,
+      "top_tokens": [
+        "<unused2040>",
+        "<unused730>",
+        "\u00fcber",
+        "<unused687>",
+        " \u09a4\u09be\u09a6\u09c7\u09b0"
+      ],
+      "top_probs": [
+        0.2109375,
+        0.10009765625,
+        0.087890625,
+        0.07763671875,
+        0.060546875
+      ]
+    },
+    {
+      "layer": 10,
+      "top_tokens": [
+        "\ua5dc",
+        " viewership",
+        "odikwa",
+        " PLDNN",
+        "\ud808\ude76"
+      ],
+      "top_probs": [
+        1.0,
+        4.255493527005605e-18,
+        7.792703114739563e-20,
+        7.792703114739563e-20,
+        1.4227506535912076e-21
+      ]
+    },
+    {
+      "layer": 11,
+      "top_tokens": [
+        "\ua5dc",
+        " PLDNN",
+        " viewership",
+        "\ud808\ude76",
+        "odikwa"
+      ],
+      "top_probs": [
+        1.0,
+        2.7830537874251604e-10,
+        5.115907697472721e-12,
+        5.115907697472721e-12,
+        1.8758328224066645e-12
+      ]
+    },
+    {
+      "layer": 12,
+      "top_tokens": [
+        "\ua5dc",
+        "\ud808\ude76",
+        " PLDNN",
+        "odikwa",
+        "<unused338>"
+      ],
+      "top_probs": [
+        1.0,
+        2.540190280342358e-13,
+        9.370282327836321e-14,
+        3.441691376337985e-14,
+        1.2656542480726785e-14
+      ]
+    },
+    {
+      "layer": 13,
+      "top_tokens": [
+        "<unused1077>",
+        "<unused1096>",
+        "<unused192>",
+        "<unused342>",
+        "<unused410>"
+      ],
+      "top_probs": [
+        0.80078125,
+        0.08447265625,
+        0.039794921875,
+        0.039794921875,
+        0.018798828125
+      ]
+    },
+    {
+      "layer": 14,
+      "top_tokens": [
+        "\ua5dc",
+        " viewership",
+        "odikwa",
+        " PLDNN",
+        "<unused338>"
+      ],
+      "top_probs": [
+        1.0,
+        1.053497228147536e-20,
+        1.9273308272485545e-22,
+        1.9273308272485545e-22,
+        1.9273308272485545e-22
+      ]
+    },
+    {
+      "layer": 15,
+      "top_tokens": [
+        "\u09be\u09ac\u09bf\u09b6",
+        " Majority",
+        " gigs",
+        " \u0905\u0935\u0932",
+        " \u0989\u09a8\u09cd\u09a8\u09a4"
+      ],
+      "top_probs": [
+        0.77734375,
+        0.10498046875,
+        0.06396484375,
+        0.03857421875,
+        0.0052490234375
+      ]
+    },
+    {
+      "layer": 16,
+      "top_tokens": [
+        " protruding",
+        "\ua5dc",
+        " blazing",
+        " plethora",
+        " \u0ca8\u0cbe\u0cb2\u0ccd"
+      ],
+      "top_probs": [
+        0.5,
+        0.5,
+        8.344650268554688e-06,
+        4.153698682785034e-07,
+        1.5273690223693848e-07
+      ]
+    },
+    {
+      "layer": 17,
+      "top_tokens": [
+        "\ufffd",
+        "\ud83e\udd67",
+        "\ud83d\udd2f",
+        "\ud83c\udff5",
+        "\u2223"
+      ],
+      "top_probs": [
+        0.953125,
+        0.04736328125,
+        0.0003185272216796875,
+        0.00011730194091796875,
+        4.315376281738281e-05
+      ]
+    },
+    {
+      "layer": 18,
+      "top_tokens": [
+        " \u092a\u0941\u0937\u094d\u092a\u093e",
+        " \u043f\u043e\u043b\u0443\u0447\u0435\u043d",
+        "\u9867\u5ba2",
+        "Detal",
+        " \u09ac\u09c7\u09b6\u09bf\u09b0"
+      ],
+      "top_probs": [
+        1.0,
+        5.759824041329242e-19,
+        7.792703114739563e-20,
+        2.8587361969832636e-20,
+        1.053497228147536e-20
+      ]
+    },
+    {
+      "layer": 19,
+      "top_tokens": [
+        "Photo",
+        "american",
+        " Kaiser",
+        " \u0905\u0902\u0921\u0947",
+        " Photo"
+      ],
+      "top_probs": [
+        0.94921875,
+        0.047119140625,
+        0.002349853515625,
+        0.002349853515625,
+        0.0003185272216796875
+      ]
+    },
+    {
+      "layer": 20,
+      "top_tokens": [
+        " [{",
+        " [{\"",
+        "[{",
+        " [{'",
+        "{\""
+      ],
+      "top_probs": [
+        1.0,
+        4.5299530029296875e-05,
+        8.307397365570068e-07,
+        4.255493527005605e-18,
+        1.1864468014524018e-27
+      ]
+    },
+    {
+      "layer": 21,
+      "top_tokens": [
+        " [\"",
+        "\u92f3",
+        "\u0bb3\u0ba4\u0bc1",
+        "Atoi",
+        "rude"
+      ],
+      "top_probs": [
+        0.98046875,
+        0.0179443359375,
+        0.0003299713134765625,
+        1.103617250919342e-07,
+        5.50062395632267e-09
+      ]
+    },
+    {
+      "layer": 22,
+      "top_tokens": [
+        " JSON",
+        "JSON",
+        "[{",
+        "JSONArray",
+        " JSONArray"
+      ],
+      "top_probs": [
+        0.49609375,
+        0.49609375,
+        0.00909423828125,
+        1.382431946694851e-10,
+        2.846030702774449e-19
+      ]
+    },
+    {
+      "layer": 23,
+      "top_tokens": [
+        "[{",
+        " [{",
+        "[[",
+        " [",
+        "{["
+      ],
+      "top_probs": [
+        0.98046875,
+        0.0179443359375,
+        3.7061909097246826e-11,
+        1.0323214044661785e-20,
+        8.582806648804608e-27
+      ]
+    },
+    {
+      "layer": 24,
+      "top_tokens": [
+        "```",
+        "{(",
+        " {$",
+        "<pad>",
+        "<eos>"
+      ],
+      "top_probs": [
+        1.0,
+        9.870390964984584e-34,
+        9.870390964984584e-34,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "layer": 25,
+      "top_tokens": [
+        "{}\",",
+        "{}\".",
+        "<pad>",
+        "<eos>",
+        "<bos>"
+      ],
+      "top_probs": [
+        1.0,
+        6.139278411865234e-06,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "layer": 26,
+      "top_tokens": [
+        " \u0437\u0430\u043f\u043e\u043b",
+        "ophage",
+        " rendelkez",
+        "\u793e\u4f1a\u4e3b\u4e49",
+        " cookware"
+      ],
+      "top_probs": [
+        1.0,
+        1.126900315284729e-07,
+        1.525040715932846e-08,
+        5.115907697472721e-12,
+        9.370282327836321e-14
+      ]
+    },
+    {
+      "layer": 27,
+      "top_tokens": [
+        "kN",
+        "\u30e9\u30f3\u30b9",
+        "bent",
+        "(",
+        "Image"
+      ],
+      "top_probs": [
+        0.99609375,
+        0.002471923828125,
+        6.139278411865234e-06,
+        2.7830537874251604e-10,
+        5.087485988042317e-12
+      ]
+    },
+    {
+      "layer": 28,
+      "top_tokens": [
+        "\u0936\u093f\u0915\u094d",
+        " \u062d\u0635\u06d2",
+        " \u09ac\u09cd\u09b0\u09be",
+        " \u0c95\u0c82\u0ca1\u0cc1",
+        "<pad>"
+      ],
+      "top_probs": [
+        1.0,
+        7.792703114739563e-20,
+        5.39260384428426e-32,
+        5.39260384428426e-32,
+        0.0
+      ]
+    },
+    {
+      "layer": 29,
+      "top_tokens": [
+        "vas",
+        "Aut",
+        " \u09b9\u09be\u0989\u09b8",
+        "ost",
+        " er\u0151s"
+      ],
+      "top_probs": [
+        0.78515625,
+        0.1064453125,
+        0.1064453125,
+        0.000263214111328125,
+        4.827976226806641e-06
+      ]
+    },
+    {
+      "layer": 30,
+      "top_tokens": [
+        "<unused192>",
+        "<unused1077>",
+        "<unused687>",
+        "<unused342>",
+        "<unused712>"
+      ],
+      "top_probs": [
+        1.0,
+        2.6056189295420372e-23,
+        3.54136699749265e-24,
+        3.975119405215255e-31,
+        1.8055593228630336e-35
+      ]
+    },
+    {
+      "layer": 31,
+      "top_tokens": [
+        " do",
+        "Do",
+        " Do",
+        "does",
+        "<pad>"
+      ],
+      "top_probs": [
+        0.98046875,
+        0.0179443359375,
+        3.7061909097246826e-11,
+        4.38973671635198e-38,
+        0.0
+      ]
+    },
+    {
+      "layer": 32,
+      "top_tokens": [
+        "<unused338>",
+        "\u2223",
+        "<unused429>",
+        " \u09ac\u09c7\u09b6\u09bf\u09b0",
+        "<unused967>"
+      ],
+      "top_probs": [
+        1.0,
+        1.126900315284729e-07,
+        6.927791673660977e-13,
+        1.4227506535912076e-21,
+        2.9335764912906377e-30
+      ]
+    },
+    {
+      "layer": 33,
+      "top_tokens": [
+        ".</",
+        "<unused687>",
+        "<unused2197>",
+        "<pad>",
+        "<eos>"
+      ],
+      "top_probs": [
+        1.0,
+        3.3060778616876836e-37,
+        3.3060778616876836e-37,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "num_samples": 0,
+  "samples": [],
+  "end_time": "2026-01-24T17:37:33.480851",
+  "duration_seconds": 52.609668
+}

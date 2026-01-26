@@ -1,0 +1,367 @@
+{
+  "metadata": {
+    "config": {
+      "backend": {
+        "_target_": "cotlab.backends.TransformersBackend",
+        "device": "cuda",
+        "dtype": "bfloat16",
+        "enable_hooks": true,
+        "trust_remote_code": true
+      },
+      "model": {
+        "name": "google/gemma-3-270m",
+        "variant": "270m",
+        "max_new_tokens": 256,
+        "temperature": 0.7,
+        "top_p": 0.9,
+        "safe_name": "gemma_270m"
+      },
+      "prompt": {
+        "_target_": "cotlab.prompts.RadiologyPromptStrategy",
+        "name": "radiology",
+        "contrarian": false,
+        "few_shot": true,
+        "answer_first": false,
+        "output_format": "plain"
+      },
+      "dataset": {
+        "_target_": "cotlab.datasets.RadiologyDataset",
+        "name": "radiology",
+        "path": "data/radiology.json"
+      },
+      "experiment": {
+        "_target_": "cotlab.experiments.ActivationCompareExperiment",
+        "name": "activation_compare",
+        "description": "Compare residual stream activations across runs",
+        "num_samples": 10,
+        "seed": 42,
+        "pooling": "last_token",
+        "layers": null,
+        "comparison_mode": "pairwise",
+        "store_per_layer": true,
+        "log_samples": false,
+        "variants": [
+          {
+            "name": "radiology",
+            "dataset": "base",
+            "prompt": "base"
+          },
+          {
+            "name": "medqa",
+            "dataset": {
+              "_target_": "cotlab.datasets.loaders.MedQADataset",
+              "name": "medqa",
+              "filename": "medqa/test.jsonl",
+              "split": "test"
+            },
+            "prompt": {
+              "_target_": "cotlab.prompts.mcq.MCQPromptStrategy",
+              "name": "mcq",
+              "few_shot": true,
+              "output_format": "plain",
+              "answer_first": false,
+              "contrarian": false
+            }
+          }
+        ]
+      },
+      "seed": 42,
+      "verbose": true,
+      "dry_run": false
+    },
+    "start_time": "2026-01-21T12:07:30.968620"
+  },
+  "experiment": "activation_compare",
+  "model": "google/gemma-3-270m",
+  "prompt_strategy": "radiology",
+  "metrics": {
+    "num_runs": 2,
+    "num_layers": 18,
+    "comparison_mode": "pairwise",
+    "pooling": "last_token",
+    "pair_count": 1
+  },
+  "raw_outputs": [
+    {
+      "runs": [
+        {
+          "name": "radiology",
+          "dataset": "radiology",
+          "prompt": "radiology",
+          "num_samples": 10,
+          "seed": 42,
+          "pooling": "last_token",
+          "layer_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "mean_activation_norms": [
+            126.69795227050781,
+            142.13856506347656,
+            108.6023178100586,
+            493.5909118652344,
+            593.8953857421875,
+            1700.73388671875,
+            780.5097045898438,
+            1126.88330078125,
+            785.843994140625,
+            808.1898193359375,
+            3096.946044921875,
+            2868.40087890625,
+            2113.28857421875,
+            2265.718994140625,
+            3583.857421875,
+            3112.77685546875,
+            7617.2080078125,
+            8710.115234375
+          ],
+          "system_prompt": "You are a radiology expert specialised in paedeatric radiology.\nYour goal is to identify incidence of pathological fractures in the given radiology report.\nDo not make assumptions or diagnoses from the text.\nThink rationally and explain your reasoning."
+        },
+        {
+          "name": "medqa",
+          "dataset": "medqa",
+          "prompt": "mcq",
+          "num_samples": 10,
+          "seed": 42,
+          "pooling": "last_token",
+          "layer_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "mean_activation_norms": [
+            125.34813690185547,
+            78.4713134765625,
+            171.6042938232422,
+            695.7520141601562,
+            474.4512023925781,
+            1965.076416015625,
+            684.7249145507812,
+            656.443115234375,
+            586.9400634765625,
+            1648.6845703125,
+            3009.951904296875,
+            2739.3388671875,
+            2802.106201171875,
+            2395.752685546875,
+            3358.912353515625,
+            4525.63818359375,
+            8315.1669921875,
+            6762.3193359375
+          ],
+          "system_prompt": "You are an expert medical professional taking a medical licensing examination.\n    You must carefully analyze each question and select the single best answer from the options provided.\n    Think through your reasoning step by step before selecting your final answer."
+        }
+      ],
+      "comparisons": [
+        {
+          "run_a": "radiology",
+          "run_b": "medqa",
+          "layer_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "mean_cosine_similarity": 0.5194675491227577,
+          "mean_l2_distance": 2007.6143900553386,
+          "layer_cosine_similarity": [
+            0.5005714986713301,
+            0.420737012356793,
+            -0.22266969064610678,
+            0.5577668904592996,
+            0.6314349468435517,
+            0.9518093865123193,
+            0.5927465845611792,
+            0.8222907077257501,
+            0.5495567483159987,
+            0.7300813604561747,
+            0.899611807297392,
+            0.220237086195877,
+            0.20546438084327381,
+            0.46629743082412317,
+            0.16816435774356295,
+            0.40713278525582824,
+            0.8575135104548656,
+            0.5916690803384279
+          ],
+          "layer_l2_distance": [
+            125.9564208984375,
+            130.29000854492188,
+            222.58059692382812,
+            587.0347290039062,
+            471.13818359375,
+            626.0902709960938,
+            666.6895751953125,
+            695.86572265625,
+            674.6041870117188,
+            1194.04248046875,
+            1370.81689453125,
+            3502.951416015625,
+            3143.94775390625,
+            2410.57958984375,
+            4480.80859375,
+            4324.34716796875,
+            4305.44482421875,
+            7203.87060546875
+          ]
+        }
+      ]
+    }
+  ],
+  "num_samples": 2,
+  "samples": [
+    {
+      "run_summary": {
+        "name": "radiology",
+        "dataset": "radiology",
+        "prompt": "radiology",
+        "num_samples": 10,
+        "seed": 42,
+        "pooling": "last_token",
+        "layer_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "mean_activation_norms": [
+          126.69795227050781,
+          142.13856506347656,
+          108.6023178100586,
+          493.5909118652344,
+          593.8953857421875,
+          1700.73388671875,
+          780.5097045898438,
+          1126.88330078125,
+          785.843994140625,
+          808.1898193359375,
+          3096.946044921875,
+          2868.40087890625,
+          2113.28857421875,
+          2265.718994140625,
+          3583.857421875,
+          3112.77685546875,
+          7617.2080078125,
+          8710.115234375
+        ],
+        "system_prompt": "You are a radiology expert specialised in paedeatric radiology.\nYour goal is to identify incidence of pathological fractures in the given radiology report.\nDo not make assumptions or diagnoses from the text.\nThink rationally and explain your reasoning."
+      },
+      "idx": 0,
+      "timestamp": "2026-01-21T12:07:43.546509"
+    },
+    {
+      "run_summary": {
+        "name": "medqa",
+        "dataset": "medqa",
+        "prompt": "mcq",
+        "num_samples": 10,
+        "seed": 42,
+        "pooling": "last_token",
+        "layer_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "mean_activation_norms": [
+          125.34813690185547,
+          78.4713134765625,
+          171.6042938232422,
+          695.7520141601562,
+          474.4512023925781,
+          1965.076416015625,
+          684.7249145507812,
+          656.443115234375,
+          586.9400634765625,
+          1648.6845703125,
+          3009.951904296875,
+          2739.3388671875,
+          2802.106201171875,
+          2395.752685546875,
+          3358.912353515625,
+          4525.63818359375,
+          8315.1669921875,
+          6762.3193359375
+        ],
+        "system_prompt": "You are an expert medical professional taking a medical licensing examination.\n    You must carefully analyze each question and select the single best answer from the options provided.\n    Think through your reasoning step by step before selecting your final answer."
+      },
+      "idx": 1,
+      "timestamp": "2026-01-21T12:07:44.434291"
+    }
+  ],
+  "end_time": "2026-01-21T12:07:44.440139",
+  "duration_seconds": 13.471521
+}

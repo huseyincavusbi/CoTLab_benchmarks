@@ -1,0 +1,93 @@
+# Experiment: Mmlu_medical Standard
+
+**Status:** Completed
+**Started:** 2026-01-24 14:35:48  
+**Duration:** 35 seconds
+
+## Research Questions
+
+1. Standard baseline experiment for comparison.
+
+## Configuration
+
+**Prompt Strategy:** Mcq
+**Reasoning Mode:** Standard
+**Few-Shot Examples:** Yes
+**Output Format:** JSON
+**Dataset:** mmlu_medical
+
+<details>
+<summary>Full Configuration (YAML)</summary>
+
+```yaml
+backend:
+  _target_: cotlab.backends.VLLMBackend
+  tensor_parallel_size: 1
+  dtype: bfloat16
+  trust_remote_code: true
+  max_model_len: 4096
+  quantization: null
+  gpu_memory_utilization: 0.9
+  enforce_eager: true
+  limit_mm_per_prompt:
+    image: 0
+model:
+  name: google/medgemma-4b-it
+  variant: 4b
+  max_new_tokens: 256
+  temperature: 0.7
+  top_p: 0.9
+  safe_name: medgemma_4b
+prompt:
+  _target_: cotlab.prompts.mcq.MCQPromptStrategy
+  name: mcq
+  few_shot: true
+  output_format: json
+  answer_first: false
+  contrarian: false
+dataset:
+  _target_: cotlab.datasets.loaders.MMLUMedicalDataset
+  name: mmlu_medical
+  filename: mmlu/medical_test.jsonl
+experiment:
+  _target_: cotlab.experiments.ClassificationExperiment
+  name: classification
+  description: Classification from medical reports
+  num_samples: 20
+seed: 42
+verbose: true
+dry_run: false
+
+```
+</details>
+
+## Reproduce
+
+```bash
+python -m cotlab.main \
+  experiment=classification \
+  experiment.num_samples=20 \
+  prompt=mcq \
+  dataset=mmlu_medical
+```
+
+## Results
+
+- **Accuracy:** 60.0%
+- **Samples Processed:** 20
+- **Correct:** 12
+- **Incorrect:** 8
+- **Parse Errors:** 0
+- **Parse Error Rate:** 0.000
+- **Classification Report:** {'A': {'precision': 0.5714285714285714, 'recall': 0.6666666666666666, 'f1-score': 0.6153846153846154, 'support': 6.0}, 'B': {'precision': 0.6666666666666666, 'recall': 0.4, 'f1-score': 0.5, 'support': 5.0}, 'C': {'precision': 0.5, 'recall': 0.4, 'f1-score': 0.4444444444444444, 'support': 5.0}, 'D': {'precision': 0.8, 'recall': 1.0, 'f1-score': 0.8888888888888888, 'support': 4.0}, 'T': {'precision': 0.0, 'recall': 0.0, 'f1-score': 0.0, 'support': 0.0}, 'accuracy': 0.6, 'macro avg': {'precision': 0.5076190476190476, 'recall': 0.49333333333333335, 'f1-score': 0.4897435897435898, 'support': 20.0}, 'weighted avg': {'precision': 0.6230952380952381, 'recall': 0.6, 'f1-score': 0.5985042735042735, 'support': 20.0}}
+- **Macro Precision:** 0.508
+- **Macro Recall:** 0.493
+- **Macro F1:** 0.490
+- **Weighted F1:** 0.599
+- **Confusion Matrix:** [[4, 1, 1, 0, 0], [2, 2, 1, 0, 0], [1, 0, 2, 1, 1], [0, 0, 0, 4, 0], [0, 0, 0, 0, 0]]
+- **Class Labels:** ['A', 'B', 'C', 'D', 'T']
+- **Top Confused Pairs:** [('B', 'A', 2), ('A', 'B', 1), ('A', 'C', 1), ('B', 'C', 1), ('C', 'A', 1), ('C', 'D', 1), ('C', 'T', 1)]
+- **True Class Distribution:** {'A': 6, 'C': 5, 'B': 5, 'D': 4}
+- **Pred Class Distribution:** {'A': 7, 'D': 5, 'B': 3, 'C': 4, 'T': 1}
+- **Num Classes:** 5
+
