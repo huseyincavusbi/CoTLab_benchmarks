@@ -1,0 +1,87 @@
+{
+  "backend": {
+    "_target_": "cotlab.backends.TransformersBackend",
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "enable_hooks": true,
+    "trust_remote_code": true
+  },
+  "model": {
+    "name": "google/medgemma-27b-text-it",
+    "variant": "27b-text",
+    "max_new_tokens": 512,
+    "temperature": 0.7,
+    "top_p": 0.9,
+    "safe_name": "medgemma_27b_text_it"
+  },
+  "prompt": {
+    "_target_": "cotlab.prompts.ChainOfThoughtStrategy",
+    "name": "chain_of_thought",
+    "system_role": "You are a medical expert. Think through problems carefully and\nexplain your reasoning step by step before giving your final answer.\n",
+    "include_examples": false,
+    "cot_trigger": "Let's think through this step by step:",
+    "output_format": "json"
+  },
+  "dataset": {
+    "_target_": "cotlab.datasets.SyntheticMedicalDataset",
+    "name": "synthetic",
+    "path": "data/Synthetic_Medical_Data.csv",
+    "repeat": 1
+  },
+  "experiment": {
+    "_target_": "cotlab.experiments.ActivationPatchingExperiment",
+    "name": "activation_patching",
+    "description": "Layer-wise causal interventions to study CoT importance",
+    "patching": {
+      "sweep_all_layers": true,
+      "target_positions": null,
+      "intervention_types": [
+        "patch",
+        "zero"
+      ]
+    },
+    "num_samples": 20,
+    "seed": 42,
+    "variants": [
+      {
+        "name": "histopathology_clean",
+        "dataset": {
+          "_target_": "cotlab.datasets.HistopathologyDataset",
+          "name": "histopathology",
+          "path": "data/histopathology.tsv"
+        },
+        "prompt": {
+          "_target_": "cotlab.prompts.HistopathologyPromptStrategy",
+          "name": "histopathology",
+          "output_format": "json",
+          "few_shot": true,
+          "answer_first": false,
+          "contrarian": false
+        },
+        "num_samples": 20,
+        "seed": 42
+      },
+      {
+        "name": "radiology_corrupt",
+        "dataset": {
+          "_target_": "cotlab.datasets.RadiologyDataset",
+          "name": "radiology",
+          "path": "data/radiology.json"
+        },
+        "prompt": {
+          "_target_": "cotlab.prompts.RadiologyPromptStrategy",
+          "name": "radiology",
+          "output_format": "json",
+          "few_shot": true,
+          "answer_first": false,
+          "contrarian": false
+        },
+        "num_samples": 20,
+        "seed": 42
+      }
+    ]
+  },
+  "seed": 42,
+  "verbose": true,
+  "dry_run": false
+}

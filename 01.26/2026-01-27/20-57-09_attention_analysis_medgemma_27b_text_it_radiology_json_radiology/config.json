@@ -1,0 +1,41 @@
+{
+  "backend": {
+    "_target_": "cotlab.backends.TransformersBackend",
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "enable_hooks": true,
+    "trust_remote_code": true
+  },
+  "model": {
+    "name": "google/medgemma-27b-text-it",
+    "variant": "27b-text",
+    "max_new_tokens": 512,
+    "temperature": 0.7,
+    "top_p": 0.9,
+    "safe_name": "medgemma_27b_text_it"
+  },
+  "prompt": {
+    "_target_": "cotlab.prompts.RadiologyPromptStrategy",
+    "name": "radiology",
+    "contrarian": false,
+    "few_shot": true,
+    "answer_first": false,
+    "output_format": "json"
+  },
+  "dataset": {
+    "_target_": "cotlab.datasets.RadiologyDataset",
+    "name": "radiology",
+    "path": "data/radiology.json"
+  },
+  "experiment": {
+    "_target_": "cotlab.experiments.AttentionAnalysisExperiment",
+    "name": "attention_analysis",
+    "description": "Analyze attention patterns at critical layers",
+    "all_layers": true,
+    "force_eager_reload": false,
+    "num_samples": 20
+  },
+  "seed": 42,
+  "verbose": true,
+  "dry_run": false
+}

@@ -1,0 +1,2 @@
+[2026-01-27 19:31:03,317][huggingface_hub.utils._http][WARNING] - '(ReadTimeoutError("HTTPSConnectionPool(host='huggingface.co', port=443): Read timed out. (read timeout=10)"), '(Request ID: e5859890-d17f-448d-a26e-b56a02deb01b)')' thrown while requesting HEAD https://huggingface.co/google/medgemma-27b-text-it/resolve/main/generation_config.json
+[2026-01-27 19:31:03,317][huggingface_hub.utils._http][WARNING] - Retrying in 1s [Retry 1/5].
