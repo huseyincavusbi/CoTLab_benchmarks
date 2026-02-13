@@ -1,0 +1,76 @@
+# Experiment: Plab Standard
+
+**Status:** Running
+**Started:** 2026-02-12 10:33:49
+
+## Research Questions
+
+1. Standard baseline experiment for comparison.
+
+## Configuration
+
+**Prompt Strategy:** Mcq
+**Reasoning Mode:** Standard
+**Few-Shot Examples:** Yes
+**Output Format:** JSON
+**Dataset:** plab
+
+<details>
+<summary>Full Configuration (YAML)</summary>
+
+```yaml
+backend:
+  _target_: cotlab.backends.VLLMBackend
+  tensor_parallel_size: 1
+  dtype: bfloat16
+  trust_remote_code: true
+  max_model_len: null
+  quantization: null
+  gpu_memory_utilization: 0.9
+  enforce_eager: false
+  limit_mm_per_prompt: null
+model:
+  name: google/medgemma-27b-text-it
+  variant: 27b-text
+  max_new_tokens: 512
+  temperature: 0.7
+  top_p: 0.9
+  safe_name: medgemma_27b_text_it
+prompt:
+  _target_: cotlab.prompts.mcq.MCQPromptStrategy
+  name: mcq
+  few_shot: true
+  output_format: json
+  answer_first: false
+  contrarian: false
+dataset:
+  _target_: cotlab.datasets.loaders.PLABDataset
+  name: plab
+  split: main
+  filename: plab/data.json
+  topics_filename: plab/topics.json
+experiment:
+  _target_: cotlab.experiments.ClassificationExperiment
+  name: classification
+  description: Classification from medical reports
+  num_samples: -1
+seed: 42
+verbose: true
+dry_run: false
+
+```
+</details>
+
+## Reproduce
+
+```bash
+python -m cotlab.main \
+  experiment=classification \
+  experiment.num_samples=-1 \
+  prompt=mcq \
+  dataset=plab
+```
+
+## Results
+
+_Results will be added after experiment completes..._
