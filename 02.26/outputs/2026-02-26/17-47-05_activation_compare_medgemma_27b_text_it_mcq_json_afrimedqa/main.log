@@ -1,0 +1,121 @@
+============================================================
+Configuration:
+============================================================
+backend:
+  _target_: cotlab.backends.TransformersBackend
+  device: cuda
+  dtype: bfloat16
+  enable_hooks: true
+  trust_remote_code: true
+model:
+  name: google/medgemma-27b-text-it
+  variant: 27b-text
+  max_new_tokens: 512
+  temperature: 0.7
+  top_p: 0.9
+  safe_name: medgemma_27b_text_it
+prompt:
+  _target_: cotlab.prompts.mcq.MCQPromptStrategy
+  name: mcq
+  few_shot: true
+  output_format: json
+  answer_first: false
+  contrarian: false
+dataset:
+  _target_: cotlab.datasets.loaders.MedQADataset
+  name: afrimedqa
+  filename: afrimedqa/mcq.jsonl
+  split: mcq
+experiment:
+  _target_: cotlab.experiments.ActivationCompareExperiment
+  name: activation_compare
+  description: Collect mean layer activations for representational comparison
+  layer_stride: 2
+  num_samples: 50
+  pooling: last_token
+  max_input_tokens: 1024
+  seed: 42
+  answer_cue: '
+
+
+    Answer:'
+  batch_size: 4
+seed: 42
+verbose: true
+dry_run: false
+
+============================================================
+Created experiment documentation: /home/ubuntu/CoTLab/outputs/2026-02-26/17-47-05_activation_compare_medgemma_27b_text_it_mcq_json_afrimedqa/EXPERIMENT.md
+Loading backend: cotlab.backends.TransformersBackend
+Loading model: google/medgemma-27b-text-it
+  Device map: cuda
+  Dtype: torch.bfloat16
+  Cache: ~/.cache/huggingface (HF default)
+Loading checkpoint shards:   0%|                                           | 0/11 [00:00<?, ?it/s]Loading checkpoint shards:   9%|███▏                               | 1/11 [00:00<00:07,  1.43it/s]Loading checkpoint shards:  18%|██████▎                            | 2/11 [00:01<00:06,  1.41it/s]Loading checkpoint shards:  27%|█████████▌                         | 3/11 [00:02<00:05,  1.41it/s]Loading checkpoint shards:  36%|████████████▋                      | 4/11 [00:02<00:05,  1.40it/s]Loading checkpoint shards:  45%|███████████████▉                   | 5/11 [00:03<00:04,  1.42it/s]Loading checkpoint shards:  55%|███████████████████                | 6/11 [00:04<00:03,  1.43it/s]Loading checkpoint shards:  64%|██████████████████████▎            | 7/11 [00:04<00:02,  1.40it/s]Loading checkpoint shards:  73%|█████████████████████████▍         | 8/11 [00:05<00:02,  1.40it/s]Loading checkpoint shards:  82%|████████████████████████████▋      | 9/11 [00:06<00:01,  1.42it/s]Loading checkpoint shards:  91%|██████████████████████████████▉   | 10/11 [00:07<00:00,  1.43it/s]Loading checkpoint shards: 100%|██████████████████████████████████| 11/11 [00:07<00:00,  1.46it/s]Loading checkpoint shards: 100%|██████████████████████████████████| 11/11 [00:07<00:00,  1.43it/s]
+  Resolved device: cuda:0
+Creating prompt strategy: mcq
+Loading dataset: afrimedqa
+mcq.jsonl: 0.00B [00:00, ?B/s]mcq.jsonl: 1.74MB [00:00, 222MB/s]
+Creating experiment: activation_compare
+============================================================
+Running experiment: activation_compare
+============================================================
+Model : google/medgemma-27b-text-it
+Layers (31): [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60]
+Pooling: last_token
+Batch size: 4
+Samples: 50
+
+Activation collect:   0%|                                                  | 0/13 [00:00<?, ?it/s]Activation collect:   8%|███▏                                      | 1/13 [00:00<00:10,  1.13it/s]Activation collect:  15%|██████▍                                   | 2/13 [00:01<00:07,  1.50it/s]Activation collect:  23%|█████████▋                                | 3/13 [00:01<00:05,  1.74it/s]Activation collect:  31%|████████████▉                             | 4/13 [00:02<00:05,  1.78it/s]Activation collect:  38%|████████████████▏                         | 5/13 [00:03<00:04,  1.73it/s]Activation collect:  46%|███████████████████▍                      | 6/13 [00:03<00:03,  1.79it/s]Activation collect:  54%|██████████████████████▌                   | 7/13 [00:04<00:03,  1.83it/s]Activation collect:  62%|█████████████████████████▊                | 8/13 [00:04<00:02,  1.90it/s]Activation collect:  69%|█████████████████████████████             | 9/13 [00:05<00:02,  1.91it/s]Activation collect:  77%|███████████████████████████████▌         | 10/13 [00:05<00:01,  1.96it/s]Activation collect:  85%|██████████████████████████████████▋      | 11/13 [00:06<00:01,  1.95it/s]Activation collect:  92%|█████████████████████████████████████▊   | 12/13 [00:06<00:00,  1.95it/s]Activation collect: 100%|█████████████████████████████████████████| 13/13 [00:06<00:00,  2.27it/s]Activation collect: 100%|█████████████████████████████████████████| 13/13 [00:06<00:00,  1.90it/s]
+
+============================================================
+ACTIVATION COLLECT SUMMARY
+============================================================
+Processed samples : 50 / 50
+ Layer        Norm         Std
+--------------------------------
+     0      222.36    0.002299
+     2       62.48    0.004181
+     4      392.24    0.004292
+     6       68.54    0.009473
+     8      729.79    0.014510
+    10      315.56    0.028422
+    12      157.06    0.037518
+    14      243.19    0.045174
+    16      531.92    0.099966
+    18      430.06    0.223865
+    20      638.19    0.437625
+    22      793.13    0.689949
+    24     1297.51    1.414239
+    26     1532.05    2.614858
+    28     3584.67    3.697366
+    30     5531.91    4.689953
+    32     2540.35    4.516093
+    34     3953.18    4.714440
+    36     5464.80    7.738883
+    38     3217.87    6.831052
+    40     3541.52    7.971083
+    42     2571.15    7.872389
+    44     3026.65    9.006795
+    46     4669.74   11.842677
+    48     3583.61   10.239943
+    50     3666.09    9.885745
+    52     7256.52   16.128292
+    54     5072.39   13.819777
+    56    11410.52   30.813351
+    58    20930.93   49.508331
+    60    11107.66   32.391521
+============================================================
+
+Results saved to: /home/ubuntu/CoTLab/outputs/2026-02-26/17-47-05_activation_compare_medgemma_27b_text_it_mcq_json_afrimedqa/results.json
+
+Metrics:
+  num_samples: 50
+  pooling: last_token
+  layer_stride: 2
+  activation_norms: {0: 222.3593, 2: 62.4792, 4: 392.238, 6: 68.5351, 8: 729.7928, 10: 315.5555, 12: 157.0611, 14: 243.1941, 16: 531.9236, 18: 430.055, 20: 638.1853, 22: 793.1257, 24: 1297.5115, 26: 1532.0486, 28: 3584.6692, 30: 5531.9087, 32: 2540.3545, 34: 3953.179, 36: 5464.7959, 38: 3217.8726, 40: 3541.5239, 42: 2571.1543, 44: 3026.6489, 46: 4669.7378, 48: 3583.6101, 50: 3666.092, 52: 7256.5225, 54: 5072.3862, 56: 11410.5176, 58: 20930.9316, 60: 11107.6621}
+  activation_std: {0: 0.002299, 2: 0.004181, 4: 0.004292, 6: 0.009473, 8: 0.01451, 10: 0.028422, 12: 0.037518, 14: 0.045174, 16: 0.099966, 18: 0.223865, 20: 0.437625, 22: 0.689949, 24: 1.414239, 26: 2.614858, 28: 3.697366, 30: 4.689953, 32: 4.516093, 34: 4.71444, 36: 7.738883, 38: 6.831052, 40: 7.971083, 42: 7.872389, 44: 9.006795, 46: 11.842677, 48: 10.239943, 50: 9.885745, 52: 16.128292, 54: 13.819777, 56: 30.813351, 58: 49.508331, 60: 32.391521}
+
+Experiment documentation updated: /home/ubuntu/CoTLab/outputs/2026-02-26/17-47-05_activation_compare_medgemma_27b_text_it_mcq_json_afrimedqa/EXPERIMENT.md
+
+Experiment complete.

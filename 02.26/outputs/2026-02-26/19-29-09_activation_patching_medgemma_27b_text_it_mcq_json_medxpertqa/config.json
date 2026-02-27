@@ -1,0 +1,46 @@
+{
+  "backend": {
+    "_target_": "cotlab.backends.TransformersBackend",
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "enable_hooks": true,
+    "trust_remote_code": true
+  },
+  "model": {
+    "name": "google/medgemma-27b-text-it",
+    "variant": "27b-text",
+    "max_new_tokens": 512,
+    "temperature": 0.7,
+    "top_p": 0.9,
+    "safe_name": "medgemma_27b_text_it"
+  },
+  "prompt": {
+    "_target_": "cotlab.prompts.mcq.MCQPromptStrategy",
+    "name": "mcq",
+    "few_shot": true,
+    "output_format": "json",
+    "answer_first": false,
+    "contrarian": false
+  },
+  "dataset": {
+    "_target_": "cotlab.datasets.loaders.MedQADataset",
+    "name": "medxpertqa",
+    "filename": "medxpertqa/test.jsonl",
+    "split": "test"
+  },
+  "experiment": {
+    "_target_": "cotlab.experiments.ActivationPatchingExperiment",
+    "name": "activation_patching",
+    "description": "Layer-wise causal activation patching (logit recovery)",
+    "patching_mode": "introspect_contrast",
+    "layer_stride": 2,
+    "num_samples": 50,
+    "max_input_tokens": 1024,
+    "seed": 42,
+    "answer_cue": "\n\nAnswer:",
+    "introspect_instruction": "Think deeply about this problem. Carefully reason through the underlying mechanisms and consider all relevant factors before committing to your answer."
+  },
+  "seed": 42,
+  "verbose": true,
+  "dry_run": false
+}

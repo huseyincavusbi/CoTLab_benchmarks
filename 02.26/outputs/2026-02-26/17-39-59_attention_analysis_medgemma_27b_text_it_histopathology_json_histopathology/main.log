@@ -1,0 +1,199 @@
+============================================================
+Configuration:
+============================================================
+backend:
+  _target_: cotlab.backends.TransformersBackend
+  device: cuda
+  dtype: bfloat16
+  enable_hooks: true
+  trust_remote_code: true
+model:
+  name: google/medgemma-27b-text-it
+  variant: 27b-text
+  max_new_tokens: 512
+  temperature: 0.7
+  top_p: 0.9
+  safe_name: medgemma_27b_text_it
+prompt:
+  _target_: cotlab.prompts.HistopathologyPromptStrategy
+  name: histopathology
+  output_format: json
+  few_shot: true
+  answer_first: false
+  contrarian: false
+dataset:
+  _target_: cotlab.datasets.HistopathologyDataset
+  name: histopathology
+  path: data/histopathology.tsv
+experiment:
+  _target_: cotlab.experiments.AttentionAnalysisExperiment
+  name: attention_analysis
+  description: Analyze attention patterns at critical layers
+  all_layers: true
+  target_layers: null
+  layer_stride: 1
+  force_eager_reload: false
+  num_samples: null
+  last_k_tokens: 16
+  max_input_tokens: 1024
+  analyze_generated_tokens: false
+  generated_max_new_tokens: 16
+  generated_do_sample: false
+  generated_temperature: 0.7
+  generated_top_p: 0.9
+  question: Patient presents with chest pain, sweating, and shortness of breath. What
+    is the diagnosis?
+  batch_size: 4
+seed: 42
+verbose: true
+dry_run: false
+
+============================================================
+Created experiment documentation: /home/ubuntu/CoTLab/outputs/2026-02-26/17-39-59_attention_analysis_medgemma_27b_text_it_histopathology_json_histopathology/EXPERIMENT.md
+Loading backend: cotlab.backends.TransformersBackend
+Loading model: google/medgemma-27b-text-it
+  Device map: cuda
+  Dtype: torch.bfloat16
+  Cache: ~/.cache/huggingface (HF default)
+Loading checkpoint shards:   0%|                                           | 0/11 [00:00<?, ?it/s]Loading checkpoint shards:   9%|███▏                               | 1/11 [00:00<00:07,  1.43it/s]Loading checkpoint shards:  18%|██████▎                            | 2/11 [00:01<00:06,  1.41it/s]Loading checkpoint shards:  27%|█████████▌                         | 3/11 [00:02<00:05,  1.41it/s]Loading checkpoint shards:  36%|████████████▋                      | 4/11 [00:02<00:05,  1.40it/s]Loading checkpoint shards:  45%|███████████████▉                   | 5/11 [00:03<00:04,  1.42it/s]Loading checkpoint shards:  55%|███████████████████                | 6/11 [00:04<00:03,  1.43it/s]Loading checkpoint shards:  64%|██████████████████████▎            | 7/11 [00:04<00:02,  1.40it/s]Loading checkpoint shards:  73%|█████████████████████████▍         | 8/11 [00:05<00:02,  1.40it/s]Loading checkpoint shards:  82%|████████████████████████████▋      | 9/11 [00:06<00:01,  1.42it/s]Loading checkpoint shards:  91%|██████████████████████████████▉   | 10/11 [00:07<00:00,  1.43it/s]Loading checkpoint shards: 100%|██████████████████████████████████| 11/11 [00:07<00:00,  1.47it/s]Loading checkpoint shards: 100%|██████████████████████████████████| 11/11 [00:07<00:00,  1.43it/s]
+  Resolved device: cuda:0
+Creating prompt strategy: histopathology
+Loading dataset: histopathology
+Creating experiment: attention_analysis
+============================================================
+Running experiment: attention_analysis
+============================================================
+Model: google/medgemma-27b-text-it
+Attention heads: 32
+All layers enabled: True
+Layer stride: 1
+Resolved layers: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61]
+Max input tokens: 1024
+Batch size: 4
+Analyze generated tokens: False
+Current attention implementation: sdpa
+Switching attention implementation to 'eager' in-place...
+
+Analyzing attention on 600 samples (batch_size=4)...
+Processing batches:   0%|                                                 | 0/150 [00:00<?, ?it/s]Processing batches:   1%|▎                                        | 1/150 [00:02<06:10,  2.49s/it]Processing batches:   1%|▌                                        | 2/150 [00:04<05:32,  2.25s/it]Processing batches:   2%|▊                                        | 3/150 [00:06<05:14,  2.14s/it]Processing batches:   3%|█                                        | 4/150 [00:08<05:11,  2.13s/it]Processing batches:   3%|█▎                                       | 5/150 [00:10<05:06,  2.11s/it]Processing batches:   4%|█▋                                       | 6/150 [00:12<05:00,  2.09s/it]Processing batches:   5%|█▉                                       | 7/150 [00:14<04:54,  2.06s/it]Processing batches:   5%|██▏                                      | 8/150 [00:16<04:51,  2.05s/it]Processing batches:   6%|██▍                                      | 9/150 [00:18<04:49,  2.05s/it]Processing batches:   7%|██▋                                     | 10/150 [00:20<04:39,  2.00s/it]Processing batches:   7%|██▉                                     | 11/150 [00:22<04:39,  2.01s/it]Processing batches:   8%|███▏                                    | 12/150 [00:24<04:32,  1.98s/it]Processing batches:   9%|███▍                                    | 13/150 [00:26<04:37,  2.02s/it]Processing batches:   9%|███▋                                    | 14/150 [00:28<04:32,  2.00s/it]Processing batches:  10%|████                                    | 15/150 [00:30<04:30,  2.00s/it]Processing batches:  11%|████▎                                   | 16/150 [00:32<04:30,  2.02s/it]Processing batches:  11%|████▌                                   | 17/150 [00:34<04:26,  2.00s/it]Processing batches:  12%|████▊                                   | 18/150 [00:36<04:23,  2.00s/it]Processing batches:  13%|█████                                   | 19/150 [00:38<04:23,  2.01s/it]Processing batches:  13%|█████▎                                  | 20/150 [00:40<04:23,  2.03s/it]Processing batches:  14%|█████▌                                  | 21/150 [00:42<04:19,  2.01s/it]Processing batches:  15%|█████▊                                  | 22/150 [00:44<04:18,  2.02s/it]Processing batches:  15%|██████▏                                 | 23/150 [00:47<04:23,  2.07s/it]Processing batches:  16%|██████▍                                 | 24/150 [00:48<04:12,  2.01s/it]Processing batches:  17%|██████▋                                 | 25/150 [00:50<04:08,  1.99s/it]Processing batches:  17%|██████▉                                 | 26/150 [00:52<04:04,  1.98s/it]Processing batches:  18%|███████▏                                | 27/150 [00:54<04:03,  1.98s/it]Processing batches:  19%|███████▍                                | 28/150 [00:56<03:57,  1.95s/it]Processing batches:  19%|███████▋                                | 29/150 [00:58<03:58,  1.97s/it]Processing batches:  20%|████████                                | 30/150 [01:00<04:00,  2.00s/it]Processing batches:  21%|████████▎                               | 31/150 [01:02<03:53,  1.96s/it]Processing batches:  21%|████████▌                               | 32/150 [01:04<03:52,  1.97s/it]Processing batches:  22%|████████▊                               | 33/150 [01:06<03:51,  1.98s/it]Processing batches:  23%|█████████                               | 34/150 [01:08<03:48,  1.97s/it]Processing batches:  23%|█████████▎                              | 35/150 [01:10<03:46,  1.97s/it]Processing batches:  24%|█████████▌                              | 36/150 [01:12<03:42,  1.95s/it]Processing batches:  25%|█████████▊                              | 37/150 [01:14<03:38,  1.94s/it]Processing batches:  25%|██████████▏                             | 38/150 [01:16<03:39,  1.96s/it]Processing batches:  26%|██████████▍                             | 39/150 [01:18<03:36,  1.95s/it]Processing batches:  27%|██████████▋                             | 40/150 [01:20<03:37,  1.97s/it]Processing batches:  27%|██████████▉                             | 41/150 [01:22<03:33,  1.96s/it]Processing batches:  28%|███████████▏                            | 42/150 [01:24<03:31,  1.96s/it]Processing batches:  29%|███████████▍                            | 43/150 [01:26<03:28,  1.95s/it]Processing batches:  29%|███████████▋                            | 44/150 [01:28<03:28,  1.97s/it]Processing batches:  30%|████████████                            | 45/150 [01:30<03:24,  1.95s/it]Processing batches:  31%|████████████▎                           | 46/150 [01:32<03:22,  1.95s/it]Processing batches:  31%|████████████▌                           | 47/150 [01:33<03:19,  1.93s/it]Processing batches:  32%|████████████▊                           | 48/150 [01:35<03:16,  1.93s/it]Processing batches:  33%|█████████████                           | 49/150 [01:37<03:17,  1.96s/it]Processing batches:  33%|█████████████▎                          | 50/150 [01:40<03:19,  2.00s/it]Processing batches:  34%|█████████████▌                          | 51/150 [01:41<03:14,  1.97s/it]Processing batches:  35%|█████████████▊                          | 52/150 [01:43<03:10,  1.95s/it]Processing batches:  35%|██████████████▏                         | 53/150 [01:45<03:08,  1.95s/it]Processing batches:  36%|██████████████▍                         | 54/150 [01:47<03:06,  1.94s/it]Processing batches:  37%|██████████████▋                         | 55/150 [01:49<03:05,  1.96s/it]Processing batches:  37%|██████████████▉                         | 56/150 [01:51<03:06,  1.98s/it]Processing batches:  38%|███████████████▏                        | 57/150 [01:53<03:05,  1.99s/it]Processing batches:  39%|███████████████▍                        | 58/150 [01:55<03:03,  1.99s/it]Processing batches:  39%|███████████████▋                        | 59/150 [01:57<02:59,  1.98s/it]Processing batches:  40%|████████████████                        | 60/150 [01:59<02:54,  1.94s/it]Processing batches:  41%|████████████████▎                       | 61/150 [02:01<02:55,  1.98s/it]Processing batches:  41%|████████████████▌                       | 62/150 [02:03<02:53,  1.97s/it]Processing batches:  42%|████████████████▊                       | 63/150 [02:05<02:51,  1.97s/it]Processing batches:  43%|█████████████████                       | 64/150 [02:07<02:47,  1.95s/it]Processing batches:  43%|█████████████████▎                      | 65/150 [02:09<02:51,  2.02s/it]Processing batches:  44%|█████████████████▌                      | 66/150 [02:11<02:50,  2.03s/it]Processing batches:  45%|█████████████████▊                      | 67/150 [02:13<02:48,  2.03s/it]Processing batches:  45%|██████████████████▏                     | 68/150 [02:15<02:50,  2.08s/it]Processing batches:  46%|██████████████████▍                     | 69/150 [02:17<02:46,  2.06s/it]Processing batches:  47%|██████████████████▋                     | 70/150 [02:19<02:44,  2.06s/it]Processing batches:  47%|██████████████████▉                     | 71/150 [02:21<02:38,  2.00s/it]Processing batches:  48%|███████████████████▏                    | 72/150 [02:23<02:34,  1.98s/it]Processing batches:  49%|███████████████████▍                    | 73/150 [02:25<02:33,  1.99s/it]Processing batches:  49%|███████████████████▋                    | 74/150 [02:27<02:29,  1.97s/it]Processing batches:  50%|████████████████████                    | 75/150 [02:29<02:27,  1.96s/it]Processing batches:  51%|████████████████████▎                   | 76/150 [02:31<02:26,  1.98s/it]Processing batches:  51%|████████████████████▌                   | 77/150 [02:33<02:23,  1.97s/it]Processing batches:  52%|████████████████████▊                   | 78/150 [02:35<02:23,  1.99s/it]Processing batches:  53%|█████████████████████                   | 79/150 [02:37<02:21,  2.00s/it]Processing batches:  53%|█████████████████████▎                  | 80/150 [02:39<02:18,  1.98s/it]Processing batches:  54%|█████████████████████▌                  | 81/150 [02:41<02:14,  1.95s/it]Processing batches:  55%|█████████████████████▊                  | 82/150 [02:43<02:13,  1.96s/it]Processing batches:  55%|██████████████████████▏                 | 83/150 [02:45<02:09,  1.93s/it]Processing batches:  56%|██████████████████████▍                 | 84/150 [02:47<02:08,  1.95s/it]Processing batches:  57%|██████████████████████▋                 | 85/150 [02:49<02:06,  1.95s/it]Processing batches:  57%|██████████████████████▉                 | 86/150 [02:51<02:06,  1.98s/it]Processing batches:  58%|███████████████████████▏                | 87/150 [02:53<02:02,  1.94s/it]Processing batches:  59%|███████████████████████▍                | 88/150 [02:55<02:01,  1.96s/it]Processing batches:  59%|███████████████████████▋                | 89/150 [02:57<02:00,  1.97s/it]Processing batches:  60%|████████████████████████                | 90/150 [02:59<01:56,  1.95s/it]Processing batches:  61%|████████████████████████▎               | 91/150 [03:00<01:54,  1.94s/it]Processing batches:  61%|████████████████████████▌               | 92/150 [03:02<01:52,  1.94s/it]Processing batches:  62%|████████████████████████▊               | 93/150 [03:04<01:51,  1.95s/it]Processing batches:  63%|█████████████████████████               | 94/150 [03:06<01:49,  1.96s/it]Processing batches:  63%|█████████████████████████▎              | 95/150 [03:08<01:46,  1.94s/it]Processing batches:  64%|█████████████████████████▌              | 96/150 [03:10<01:44,  1.93s/it]Processing batches:  65%|█████████████████████████▊              | 97/150 [03:12<01:42,  1.93s/it]Processing batches:  65%|██████████████████████████▏             | 98/150 [03:14<01:39,  1.92s/it]Processing batches:  66%|██████████████████████████▍             | 99/150 [03:16<01:37,  1.91s/it]Processing batches:  67%|██████████████████████████             | 100/150 [03:18<01:35,  1.90s/it]Processing batches:  67%|██████████████████████████▎            | 101/150 [03:20<01:33,  1.92s/it]Processing batches:  68%|██████████████████████████▌            | 102/150 [03:22<01:33,  1.94s/it]Processing batches:  69%|██████████████████████████▊            | 103/150 [03:24<01:33,  1.98s/it]Processing batches:  69%|███████████████████████████            | 104/150 [03:26<01:31,  1.98s/it]Processing batches:  70%|███████████████████████████▎           | 105/150 [03:28<01:28,  1.96s/it]Processing batches:  71%|███████████████████████████▌           | 106/150 [03:30<01:25,  1.93s/it]Processing batches:  71%|███████████████████████████▊           | 107/150 [03:32<01:23,  1.94s/it]Processing batches:  72%|████████████████████████████           | 108/150 [03:34<01:21,  1.95s/it]Processing batches:  73%|████████████████████████████▎          | 109/150 [03:35<01:20,  1.96s/it]Processing batches:  73%|████████████████████████████▌          | 110/150 [03:37<01:17,  1.93s/it]Processing batches:  74%|████████████████████████████▊          | 111/150 [03:39<01:16,  1.95s/it]Processing batches:  75%|█████████████████████████████          | 112/150 [03:41<01:14,  1.95s/it]Processing batches:  75%|█████████████████████████████▍         | 113/150 [03:43<01:11,  1.92s/it]Processing batches:  76%|█████████████████████████████▋         | 114/150 [03:45<01:10,  1.94s/it]Processing batches:  77%|█████████████████████████████▉         | 115/150 [03:47<01:07,  1.94s/it]Processing batches:  77%|██████████████████████████████▏        | 116/150 [03:49<01:05,  1.94s/it]Processing batches:  78%|██████████████████████████████▍        | 117/150 [03:51<01:03,  1.93s/it]Processing batches:  79%|██████████████████████████████▋        | 118/150 [03:53<01:01,  1.91s/it]Processing batches:  79%|██████████████████████████████▉        | 119/150 [03:55<00:59,  1.93s/it]Processing batches:  80%|███████████████████████████████▏       | 120/150 [03:57<00:58,  1.95s/it]Processing batches:  81%|███████████████████████████████▍       | 121/150 [03:59<00:58,  2.02s/it]Processing batches:  81%|███████████████████████████████▋       | 122/150 [04:01<00:57,  2.05s/it]Processing batches:  82%|███████████████████████████████▉       | 123/150 [04:03<00:54,  2.01s/it]Processing batches:  83%|████████████████████████████████▏      | 124/150 [04:05<00:53,  2.04s/it]Processing batches:  83%|████████████████████████████████▌      | 125/150 [04:07<00:49,  1.98s/it]Processing batches:  84%|████████████████████████████████▊      | 126/150 [04:09<00:47,  1.98s/it]Processing batches:  85%|█████████████████████████████████      | 127/150 [04:11<00:45,  1.99s/it]Processing batches:  85%|█████████████████████████████████▎     | 128/150 [04:13<00:43,  1.97s/it]Processing batches:  86%|█████████████████████████████████▌     | 129/150 [04:15<00:41,  1.99s/it]Processing batches:  87%|█████████████████████████████████▊     | 130/150 [04:17<00:39,  1.96s/it]Processing batches:  87%|██████████████████████████████████     | 131/150 [04:19<00:37,  1.96s/it]Processing batches:  88%|██████████████████████████████████▎    | 132/150 [04:21<00:35,  1.95s/it]Processing batches:  89%|██████████████████████████████████▌    | 133/150 [04:23<00:33,  1.96s/it]Processing batches:  89%|██████████████████████████████████▊    | 134/150 [04:25<00:31,  1.96s/it]Processing batches:  90%|███████████████████████████████████    | 135/150 [04:27<00:29,  1.94s/it]Processing batches:  91%|███████████████████████████████████▎   | 136/150 [04:29<00:27,  1.99s/it]Processing batches:  91%|███████████████████████████████████▌   | 137/150 [04:30<00:25,  1.96s/it]Processing batches:  92%|███████████████████████████████████▉   | 138/150 [04:32<00:23,  1.97s/it]Processing batches:  93%|████████████████████████████████████▏  | 139/150 [04:34<00:21,  1.94s/it]Processing batches:  93%|████████████████████████████████████▍  | 140/150 [04:36<00:19,  1.92s/it]Processing batches:  94%|████████████████████████████████████▋  | 141/150 [04:38<00:17,  1.91s/it]Processing batches:  95%|████████████████████████████████████▉  | 142/150 [04:40<00:15,  1.91s/it]Processing batches:  95%|█████████████████████████████████████▏ | 143/150 [04:42<00:13,  1.92s/it]Processing batches:  96%|█████████████████████████████████████▍ | 144/150 [04:44<00:11,  1.94s/it]Processing batches:  97%|█████████████████████████████████████▋ | 145/150 [04:46<00:09,  1.93s/it]Processing batches:  97%|█████████████████████████████████████▉ | 146/150 [04:48<00:07,  1.92s/it]Processing batches:  98%|██████████████████████████████████████▏| 147/150 [04:50<00:05,  1.93s/it]Processing batches:  99%|██████████████████████████████████████▍| 148/150 [04:52<00:03,  1.91s/it]Processing batches:  99%|██████████████████████████████████████▋| 149/150 [04:54<00:01,  1.94s/it]Processing batches: 100%|███████████████████████████████████████| 150/150 [04:56<00:00,  1.97s/it]Processing batches: 100%|███████████████████████████████████████| 150/150 [04:56<00:00,  1.97s/it]
+
+======================================================================
+ATTENTION ANALYSIS: Aggregated Statistics Across Samples
+======================================================================
+Layer    | LastTok μ  | AllTok μ   | Last16 μ   | AllTok σ   | Top Tokens
+----------------------------------------------------------------------------------------------------------
+L0       | 3.5176     | 3.2284     | 3.8861     | 0.0898     | ' vascular', 'structured', 'roma'
+L1       | 1.3540     | 1.3157     | 1.7181     | 0.0557     | ' ', '<bos>'
+L2       | 1.6489     | 1.2999     | 1.7588     | 0.0711     | ' ', '<bos>', '''
+L3       | 0.3107     | 0.1831     | 0.4027     | 0.0345     | ' ', '<bos>', '
+'
+L4       | 0.9750     | 0.8947     | 1.1168     | 0.0278     | ' ', '<bos>', '
+'
+L5       | 1.3338     | 1.0398     | 1.3033     | 0.0289     | ' ', '<bos>'
+L6       | 1.7254     | 1.3944     | 1.9682     | 0.0736     | ' ', '<bos>', 'Response'
+L7       | 1.7377     | 1.4407     | 1.8492     | 0.0563     | ' ', '<bos>', '
+'
+L8       | 1.9373     | 1.5726     | 2.0413     | 0.0533     | ' ', '<bos>', '
+'
+L9       | 1.8406     | 1.3845     | 1.9200     | 0.0495     | ' ', '<bos>', '
+'
+L10      | 2.1845     | 1.5270     | 2.2389     | 0.0504     | ' ', '<bos>', '''
+L11      | 2.3455     | 1.3555     | 1.9945     | 0.0424     | ' ', '<bos>', '''
+L12      | 1.8271     | 0.8996     | 1.7760     | 0.0713     | ' ', '<bos>', 'Response'
+L13      | 2.1081     | 1.1858     | 2.1097     | 0.0658     | '<bos>', 'Response', ':'
+L14      | 1.8496     | 1.4168     | 1.9575     | 0.0577     | ' ', '<bos>', '''
+L15      | 2.2097     | 1.3407     | 2.1428     | 0.0468     | ' ', '<bos>', '
+'
+L16      | 1.9674     | 1.4715     | 1.9876     | 0.0370     | ' ', '<bos>', '''
+L17      | 2.7748     | 2.0735     | 2.6965     | 0.0458     | ' ', '<bos>', 'You'
+L18      | 2.9437     | 2.4014     | 2.9740     | 0.0514     | '
+', ':', 'Response'
+L19      | 2.3770     | 1.8620     | 2.5505     | 0.0505     | ' ', '<bos>', ':'
+L20      | 2.7836     | 2.0920     | 2.7819     | 0.0428     | '
+', ':', '```'
+L21      | 2.7515     | 2.3003     | 2.8315     | 0.0576     | '
+', ':', '```'
+L22      | 2.8786     | 2.2594     | 2.8037     | 0.0465     | '
+', ':', '
+
+'
+L23      | 2.8980     | 2.6753     | 3.2882     | 0.0558     | ' ', '<bos>', '```'
+L24      | 2.9847     | 2.6707     | 3.1340     | 0.0538     | '
+', ':', '```'
+L25      | 2.9496     | 2.8118     | 3.1740     | 0.0466     | '
+', ':', ' response'
+L26      | 3.1883     | 2.8306     | 3.3122     | 0.0491     | '
+', ':', 'Response'
+L27      | 3.0004     | 2.8255     | 3.3638     | 0.0498     | '
+', ':', 'Response'
+L28      | 3.2617     | 2.7737     | 3.3806     | 0.0475     | '
+', 'Response', ':'
+L29      | 2.9578     | 2.5338     | 3.3094     | 0.0438     | ' ', '<bos>', ' JSON'
+L30      | 3.0513     | 2.4124     | 3.0633     | 0.0507     | ' ', '<bos>', 'Response'
+L31      | 2.7775     | 2.1143     | 2.8693     | 0.0594     | ' ', '<bos>', '''
+L32      | 2.5748     | 2.0103     | 2.5602     | 0.0544     | ' ', '<bos>', 'Response'
+L33      | 2.5012     | 2.0016     | 2.5929     | 0.0618     | ' ', '<bos>', 'Response'
+L34      | 2.2312     | 1.7622     | 2.2224     | 0.0554     | '
+', '<bos>', ' '
+L35      | 3.0589     | 2.2993     | 3.1216     | 0.0532     | ' ', '<bos>', ' response'
+L36      | 2.5230     | 2.0690     | 2.5645     | 0.0523     | ' ', '<bos>', '```'
+L37      | 2.9430     | 2.1092     | 2.9753     | 0.0499     | ' ', '<bos>', ' comparing'
+L38      | 1.9291     | 1.5376     | 2.0585     | 0.0605     | ' ', '<bos>', 'Response'
+L39      | 1.8657     | 1.4318     | 2.0797     | 0.0628     | ' ', '<bos>', 'Response'
+L40      | 1.5371     | 0.7994     | 1.4817     | 0.0775     | ' ', '<bos>', 'Response'
+L41      | 2.1338     | 1.1423     | 1.9831     | 0.0436     | ' ', '<bos>', 'You'
+L42      | 2.2737     | 1.5228     | 2.3075     | 0.0628     | ' ', '<bos>', 'Response'
+L43      | 1.4955     | 0.9707     | 1.5439     | 0.0770     | ' ', '<bos>', 'Response'
+L44      | 1.7018     | 1.0711     | 1.7005     | 0.0731     | ' ', '<bos>', ' case'
+L45      | 1.5222     | 1.0092     | 1.6489     | 0.0763     | ' ', '<bos>', '''
+L46      | 1.6720     | 1.1685     | 1.7973     | 0.0731     | ' ', '<bos>', 'Response'
+L47      | 2.5623     | 1.7881     | 2.8188     | 0.0499     | ' ', '<bos>', '''
+L48      | 1.4362     | 0.7638     | 1.4365     | 0.0809     | '<bos>', ' ', 'Response'
+L49      | 1.4354     | 0.6933     | 1.3975     | 0.0836     | ' ', '<bos>', '''
+L50      | 1.3595     | 0.7199     | 1.3566     | 0.0808     | ' ', '<bos>', 'Response'
+L51      | 1.6260     | 0.9333     | 1.6194     | 0.0783     | ' ', '<bos>', '''
+L52      | 1.8159     | 1.1937     | 1.7659     | 0.0698     | ' ', '<bos>', '
+'
+L53      | 2.3532     | 1.6035     | 2.4623     | 0.0597     | ' ', '<bos>', '
+
+'
+L54      | 2.2861     | 1.7520     | 2.3242     | 0.0638     | ' ', '<bos>', ':'
+L55      | 2.3497     | 1.6993     | 2.3625     | 0.0674     | ' ', '<bos>', '''
+L56      | 1.8951     | 1.4404     | 1.9378     | 0.0644     | ' ', '<bos>', '''
+L57      | 1.5486     | 0.8416     | 1.4965     | 0.0742     | ' ', '<bos>', 'reason'
+L58      | 2.3604     | 1.9628     | 2.5132     | 0.0630     | ' ', '<bos>', '
+'
+L59      | 2.7666     | 1.6617     | 2.5628     | 0.0629     | '"""', '<bos>', ' '
+L60      | 1.9485     | 1.3428     | 1.9350     | 0.0607     | ' ', '<bos>', '
+'
+L61      | 1.7253     | 1.4273     | 1.7924     | 0.0557     | '
+', ' ', '<bos>'
+----------------------------------------------------------------------------------------------------------
+
+Overall mean entropy (all tokens): 1.6503
+Overall mean entropy (last token): 2.1917
+Overall mean entropy (last 16 tokens): 2.2601
+Most focused layer (all tokens): L3 (entropy: 0.1831)
+
+Results saved to: /home/ubuntu/CoTLab/outputs/2026-02-26/17-39-59_attention_analysis_medgemma_27b_text_it_histopathology_json_histopathology/results.json
+
+Metrics:
+  num_samples_analyzed: 600
+  num_layers_analyzed: 62
+  num_heads: 32
+  overall_mean_entropy: 1.6502587857987803
+  overall_mean_entropy_all_tokens: 1.6502587857987803
+  overall_mean_entropy_last_token: 2.1916584673671595
+  overall_mean_entropy_last_k_tokens: 2.2600606660760922
+  last_k_tokens: 16
+  most_focused_layer: 3
+  most_focused_entropy: 0.18314137781355044
+  most_focused_layer_all_tokens: 3
+  most_focused_entropy_all_tokens: 0.18314137781355044
+  most_focused_layer_last_token: 3
+  most_focused_entropy_last_token: 0.3107421717748534
+  analyze_generated_tokens: False
+
+Experiment documentation updated: /home/ubuntu/CoTLab/outputs/2026-02-26/17-39-59_attention_analysis_medgemma_27b_text_it_histopathology_json_histopathology/EXPERIMENT.md
+
+Experiment complete.

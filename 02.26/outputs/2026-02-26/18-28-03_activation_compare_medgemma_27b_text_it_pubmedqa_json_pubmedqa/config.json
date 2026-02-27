@@ -1,0 +1,45 @@
+{
+  "backend": {
+    "_target_": "cotlab.backends.TransformersBackend",
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "enable_hooks": true,
+    "trust_remote_code": true
+  },
+  "model": {
+    "name": "google/medgemma-27b-text-it",
+    "variant": "27b-text",
+    "max_new_tokens": 512,
+    "temperature": 0.7,
+    "top_p": 0.9,
+    "safe_name": "medgemma_27b_text_it"
+  },
+  "prompt": {
+    "_target_": "cotlab.prompts.pubmedqa.PubMedQAPromptStrategy",
+    "name": "pubmedqa",
+    "output_format": "json",
+    "few_shot": true,
+    "answer_first": false,
+    "contrarian": false
+  },
+  "dataset": {
+    "_target_": "cotlab.datasets.loaders.PubMedQADataset",
+    "name": "pubmedqa",
+    "filename": "pubmedqa/test.jsonl"
+  },
+  "experiment": {
+    "_target_": "cotlab.experiments.ActivationCompareExperiment",
+    "name": "activation_compare",
+    "description": "Collect mean layer activations for representational comparison",
+    "layer_stride": 1,
+    "num_samples": null,
+    "pooling": "last_token",
+    "max_input_tokens": 1024,
+    "seed": 42,
+    "answer_cue": "\n\nAnswer:",
+    "batch_size": 4
+  },
+  "seed": 42,
+  "verbose": true,
+  "dry_run": false
+}

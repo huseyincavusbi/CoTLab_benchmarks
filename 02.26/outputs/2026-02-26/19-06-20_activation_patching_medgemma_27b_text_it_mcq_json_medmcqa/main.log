@@ -1,0 +1,123 @@
+============================================================
+Configuration:
+============================================================
+backend:
+  _target_: cotlab.backends.TransformersBackend
+  device: cuda
+  dtype: bfloat16
+  enable_hooks: true
+  trust_remote_code: true
+model:
+  name: google/medgemma-27b-text-it
+  variant: 27b-text
+  max_new_tokens: 512
+  temperature: 0.7
+  top_p: 0.9
+  safe_name: medgemma_27b_text_it
+prompt:
+  _target_: cotlab.prompts.mcq.MCQPromptStrategy
+  name: mcq
+  few_shot: true
+  output_format: json
+  answer_first: false
+  contrarian: false
+dataset:
+  _target_: cotlab.datasets.loaders.MedQADataset
+  name: medmcqa
+  filename: medmcqa/validation.jsonl
+  split: validation
+experiment:
+  _target_: cotlab.experiments.ActivationPatchingExperiment
+  name: activation_patching
+  description: Layer-wise causal activation patching (logit recovery)
+  patching_mode: introspect_contrast
+  layer_stride: 2
+  num_samples: 50
+  max_input_tokens: 1024
+  seed: 42
+  answer_cue: '
+
+
+    Answer:'
+  introspect_instruction: Think deeply about this problem. Carefully reason through
+    the underlying mechanisms and consider all relevant factors before committing
+    to your answer.
+seed: 42
+verbose: true
+dry_run: false
+
+============================================================
+Created experiment documentation: /home/ubuntu/CoTLab/outputs/2026-02-26/19-06-20_activation_patching_medgemma_27b_text_it_mcq_json_medmcqa/EXPERIMENT.md
+Loading backend: cotlab.backends.TransformersBackend
+Loading model: google/medgemma-27b-text-it
+  Device map: cuda
+  Dtype: torch.bfloat16
+  Cache: ~/.cache/huggingface (HF default)
+Loading checkpoint shards:   0%|                                           | 0/11 [00:00<?, ?it/s]Loading checkpoint shards:   9%|███▏                               | 1/11 [00:00<00:07,  1.40it/s]Loading checkpoint shards:  18%|██████▎                            | 2/11 [00:01<00:06,  1.38it/s]Loading checkpoint shards:  27%|█████████▌                         | 3/11 [00:02<00:05,  1.39it/s]Loading checkpoint shards:  36%|████████████▋                      | 4/11 [00:02<00:05,  1.38it/s]Loading checkpoint shards:  45%|███████████████▉                   | 5/11 [00:03<00:04,  1.39it/s]Loading checkpoint shards:  55%|███████████████████                | 6/11 [00:04<00:03,  1.40it/s]Loading checkpoint shards:  64%|██████████████████████▎            | 7/11 [00:05<00:02,  1.38it/s]Loading checkpoint shards:  73%|█████████████████████████▍         | 8/11 [00:05<00:02,  1.37it/s]Loading checkpoint shards:  82%|████████████████████████████▋      | 9/11 [00:06<00:01,  1.39it/s]Loading checkpoint shards:  91%|██████████████████████████████▉   | 10/11 [00:07<00:00,  1.40it/s]Loading checkpoint shards: 100%|██████████████████████████████████| 11/11 [00:07<00:00,  1.44it/s]Loading checkpoint shards: 100%|██████████████████████████████████| 11/11 [00:07<00:00,  1.40it/s]
+  Resolved device: cuda:0
+Creating prompt strategy: mcq
+Loading dataset: medmcqa
+Creating experiment: activation_patching
+============================================================
+Running experiment: activation_patching
+============================================================
+Model        : google/medgemma-27b-text-it
+Patching mode: introspect_contrast
+Layers (31): [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60]
+Stride : 2  |  max_input_tokens: 1024
+Samples: 50  (each requires 33 forward passes)
+
+Activation patching:   0%|                                                 | 0/50 [00:00<?, ?it/s]Activation patching:   2%|▊                                        | 1/50 [00:04<03:36,  4.43s/it]Activation patching:   4%|█▋                                       | 2/50 [00:08<03:18,  4.14s/it]Activation patching:   6%|██▍                                      | 3/50 [00:12<03:11,  4.08s/it]Activation patching:   8%|███▎                                     | 4/50 [00:16<03:07,  4.07s/it]Activation patching:  10%|████                                     | 5/50 [00:20<03:02,  4.07s/it]Activation patching:  12%|████▉                                    | 6/50 [00:24<02:58,  4.06s/it]Activation patching:  14%|█████▋                                   | 7/50 [00:28<02:53,  4.04s/it]Activation patching:  16%|██████▌                                  | 8/50 [00:32<02:48,  4.01s/it]Activation patching:  18%|███████▍                                 | 9/50 [00:36<02:44,  4.02s/it]Activation patching:  20%|████████                                | 10/50 [00:40<02:41,  4.03s/it]Activation patching:  22%|████████▊                               | 11/50 [00:44<02:37,  4.03s/it]Activation patching:  24%|█████████▌                              | 12/50 [00:48<02:33,  4.04s/it]Activation patching:  26%|██████████▍                             | 13/50 [00:52<02:31,  4.08s/it]Activation patching:  28%|███████████▏                            | 14/50 [00:56<02:27,  4.10s/it]Activation patching:  30%|████████████                            | 15/50 [01:01<02:23,  4.09s/it]Activation patching:  32%|████████████▊                           | 16/50 [01:05<02:19,  4.11s/it]Activation patching:  34%|█████████████▌                          | 17/50 [01:09<02:15,  4.10s/it]Activation patching:  36%|██████████████▍                         | 18/50 [01:13<02:10,  4.08s/it]Activation patching:  38%|███████████████▏                        | 19/50 [01:17<02:04,  4.03s/it]Activation patching:  40%|████████████████                        | 20/50 [01:21<02:01,  4.04s/it]Activation patching:  42%|████████████████▊                       | 21/50 [01:25<01:56,  4.02s/it]Activation patching:  44%|█████████████████▌                      | 22/50 [01:29<01:51,  3.99s/it]Activation patching:  46%|██████████████████▍                     | 23/50 [01:33<01:48,  4.02s/it]Activation patching:  48%|███████████████████▏                    | 24/50 [01:37<01:44,  4.03s/it]Activation patching:  50%|████████████████████                    | 25/50 [01:41<01:41,  4.05s/it]Activation patching:  52%|████████████████████▊                   | 26/50 [01:45<01:37,  4.05s/it]Activation patching:  54%|█████████████████████▌                  | 27/50 [01:49<01:36,  4.18s/it]Activation patching:  56%|██████████████████████▍                 | 28/50 [01:53<01:30,  4.13s/it]Activation patching:  58%|███████████████████████▏                | 29/50 [01:58<01:26,  4.12s/it]Activation patching:  60%|████████████████████████                | 30/50 [02:02<01:22,  4.14s/it]Activation patching:  62%|████████████████████████▊               | 31/50 [02:06<01:17,  4.09s/it]Activation patching:  64%|█████████████████████████▌              | 32/50 [02:10<01:13,  4.09s/it]Activation patching:  66%|██████████████████████████▍             | 33/50 [02:14<01:08,  4.05s/it]Activation patching:  68%|███████████████████████████▏            | 34/50 [02:18<01:04,  4.03s/it]Activation patching:  70%|████████████████████████████            | 35/50 [02:22<01:00,  4.05s/it]Activation patching:  72%|████████████████████████████▊           | 36/50 [02:26<00:56,  4.03s/it]Activation patching:  74%|█████████████████████████████▌          | 37/50 [02:30<00:52,  4.03s/it]Activation patching:  76%|██████████████████████████████▍         | 38/50 [02:34<00:48,  4.04s/it]Activation patching:  78%|███████████████████████████████▏        | 39/50 [02:38<00:44,  4.06s/it]Activation patching:  80%|████████████████████████████████        | 40/50 [02:42<00:40,  4.06s/it]Activation patching:  82%|████████████████████████████████▊       | 41/50 [02:46<00:36,  4.06s/it]Activation patching:  84%|█████████████████████████████████▌      | 42/50 [02:50<00:32,  4.06s/it]Activation patching:  86%|██████████████████████████████████▍     | 43/50 [02:54<00:28,  4.04s/it]Activation patching:  88%|███████████████████████████████████▏    | 44/50 [02:58<00:24,  4.05s/it]Activation patching:  90%|████████████████████████████████████    | 45/50 [03:02<00:20,  4.08s/it]Activation patching:  92%|████████████████████████████████████▊   | 46/50 [03:07<00:16,  4.08s/it]Activation patching:  94%|█████████████████████████████████████▌  | 47/50 [03:11<00:12,  4.06s/it]Activation patching:  96%|██████████████████████████████████████▍ | 48/50 [03:15<00:08,  4.06s/it]Activation patching:  98%|███████████████████████████████████████▏| 49/50 [03:19<00:04,  4.08s/it]Activation patching: 100%|████████████████████████████████████████| 50/50 [03:23<00:00,  4.08s/it]Activation patching: 100%|████████████████████████████████████████| 50/50 [03:23<00:00,  4.07s/it]
+
+==============================================================
+ACTIVATION PATCHING SUMMARY  (logit-recovery effect)
+==============================================================
+Processed samples : 50 / 50
+Top-5 causal layers: [24, 26, 28, 8, 18]
+
+ Layer   Mean Effect   N samples
+----------------------------------
+     0        0.4033          50
+     2        0.0988          50
+     4        0.3278          50
+     6        0.2629          50
+     8        0.4900          50
+    10        0.2024          50
+    12        0.0998          50
+    14        0.1741          50
+    16        0.4236          50
+    18        0.4599          50
+    20        0.2600          50
+    22        0.3598          50
+    24        0.5000          50
+    26        0.5000          50
+    28        0.5000          50
+    30       -0.0250          50
+    32        0.1217          50
+    34        0.3453          50
+    36        0.1498          50
+    38        0.3519          50
+    40        0.3746          50
+    42        0.1616          50
+    44        0.0609          50
+    46        0.3531          50
+    48        0.1690          50
+    50        0.2271          50
+    52        0.3214          50
+    54        0.3306          50
+    56       -0.0009          50
+    58        0.4316          50
+    60       -0.1317          50
+==============================================================
+
+Results saved to: /home/ubuntu/CoTLab/outputs/2026-02-26/19-06-20_activation_patching_medgemma_27b_text_it_mcq_json_medmcqa/results.json
+
+Metrics:
+  num_samples: 50
+  layer_stride: 2
+  mean_effect_per_layer: {0: 0.4033, 2: 0.0988, 4: 0.3278, 6: 0.2629, 8: 0.49, 10: 0.2024, 12: 0.0998, 14: 0.1741, 16: 0.4236, 18: 0.4599, 20: 0.26, 22: 0.3598, 24: 0.5, 26: 0.5, 28: 0.5, 30: -0.025, 32: 0.1217, 34: 0.3453, 36: 0.1498, 38: 0.3519, 40: 0.3746, 42: 0.1616, 44: 0.0609, 46: 0.3531, 48: 0.169, 50: 0.2271, 52: 0.3214, 54: 0.3306, 56: -0.0009, 58: 0.4316, 60: -0.1317}
+  top_5_causal_layers: [24, 26, 28, 8, 18]
+
+Experiment documentation updated: /home/ubuntu/CoTLab/outputs/2026-02-26/19-06-20_activation_patching_medgemma_27b_text_it_mcq_json_medmcqa/EXPERIMENT.md
+
+Experiment complete.
