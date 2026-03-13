@@ -1,0 +1,367 @@
+============================================================
+Configuration:
+============================================================
+backend:
+  _target_: cotlab.backends.TransformersBackend
+  device: cuda
+  dtype: bfloat16
+  enable_hooks: true
+  trust_remote_code: true
+model:
+  name: google/medgemma-27b-text-it
+  max_new_tokens: 512
+  temperature: 0.7
+  top_p: 0.9
+  safe_name: google_medgemma_27b_text_it
+prompt:
+  _target_: cotlab.prompts.ChainOfThoughtStrategy
+  name: chain_of_thought
+  system_role: 'You are a medical expert. Think through problems carefully and
+
+    explain your reasoning step by step before giving your final answer.
+
+    '
+  include_examples: false
+  cot_trigger: 'Let''s think through this step by step:'
+  output_format: json
+dataset:
+  _target_: cotlab.datasets.loaders.MedQADataset
+  name: medqa
+  filename: medqa/test.jsonl
+  split: test
+experiment:
+  _target_: cotlab.experiments.SAEFeatureAnalysisExperiment
+  name: sae_feature_analysis
+  description: GemmaScope-2 histo feature identification and few-shot contrast
+  sae_repo_id: google/gemma-scope-2-27b-it
+  sae_site: resid_post_all
+  sae_width: 16k
+  sae_l0: small
+  target_layers:
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  top_k_features: 20
+  few_shot_contrast: true
+  num_samples: 500
+  seed: 42
+  max_input_tokens: 1024
+  answer_cue: '
+
+
+    Answer:'
+seed: 42
+verbose: true
+dry_run: false
+
+============================================================
+Created experiment documentation: /home/ubuntu/CoTLab/multirun/2026-03-11/17-11-04/3/EXPERIMENT.md
+Loading backend: cotlab.backends.TransformersBackend
+Loading model: google/medgemma-27b-text-it
+  Device map: cuda
+  Dtype: torch.bfloat16
+  Cache: ~/.cache/huggingface (HF default)
+Loading checkpoint shards:   0%|                                    | 0/11 [00:00<?, ?it/s]Loading checkpoint shards:   9%|██▌                         | 1/11 [00:00<00:06,  1.53it/s]Loading checkpoint shards:  18%|█████                       | 2/11 [00:01<00:06,  1.47it/s]Loading checkpoint shards:  27%|███████▋                    | 3/11 [00:02<00:05,  1.47it/s]Loading checkpoint shards:  36%|██████████▏                 | 4/11 [00:02<00:04,  1.47it/s]Loading checkpoint shards:  45%|████████████▋               | 5/11 [00:03<00:04,  1.46it/s]Loading checkpoint shards:  55%|███████████████▎            | 6/11 [00:04<00:03,  1.40it/s]Loading checkpoint shards:  64%|█████████████████▊          | 7/11 [00:04<00:02,  1.40it/s]Loading checkpoint shards:  73%|████████████████████▎       | 8/11 [00:05<00:02,  1.39it/s]Loading checkpoint shards:  82%|██████████████████████▉     | 9/11 [00:06<00:01,  1.40it/s]Loading checkpoint shards:  91%|████████████████████████▌  | 10/11 [00:06<00:00,  1.42it/s]Loading checkpoint shards: 100%|███████████████████████████| 11/11 [00:07<00:00,  1.43it/s]Loading checkpoint shards: 100%|███████████████████████████| 11/11 [00:07<00:00,  1.43it/s]
+  Resolved device: cuda:0
+Creating prompt strategy: chain_of_thought
+Loading dataset: medqa
+Creating experiment: sae_feature_analysis
+============================================================
+Running experiment: sae_feature_analysis
+============================================================
+Model         : google/medgemma-27b-text-it
+SAE repo      : google/gemma-scope-2-27b-it
+SAE site      : resid_post_all  width=16k  l0=small
+Target layers : [24, 25, 26, 27, 28]
+Histo vocab   : 25 terms
+Few-shot contr: True
+
+Loading SAE weights …
+  [SAE] Fetching layer=24 (resid_post_all/layer_24_width_16k_l0_small/params.safetensors) …
+  [SAE] Loaded  layer=24  d_model=5376  d_sae=16384
+  [SAE] Fetching layer=25 (resid_post_all/layer_25_width_16k_l0_small/params.safetensors) …
+  [SAE] Loaded  layer=25  d_model=5376  d_sae=16384
+  [SAE] Fetching layer=26 (resid_post_all/layer_26_width_16k_l0_small/params.safetensors) …
+  [SAE] Loaded  layer=26  d_model=5376  d_sae=16384
+  [SAE] Fetching layer=27 (resid_post_all/layer_27_width_16k_l0_small/params.safetensors) …
+  [SAE] Loaded  layer=27  d_model=5376  d_sae=16384
+  [SAE] Fetching layer=28 (resid_post_all/layer_28_width_16k_l0_small/params.safetensors) …
+  [SAE] Loaded  layer=28  d_model=5376  d_sae=16384
+
+Phase 1: vocabulary probing over 25 terms …
+Vocab probe:   0%|                                                  | 0/25 [00:00<?, ?it/s]Vocab probe:   8%|███▎                                      | 2/25 [00:00<00:01, 14.68it/s]Vocab probe:  16%|██████▋                                   | 4/25 [00:00<00:01, 15.01it/s]Vocab probe:  24%|██████████                                | 6/25 [00:00<00:01, 15.08it/s]Vocab probe:  32%|█████████████▍                            | 8/25 [00:00<00:01, 15.08it/s]Vocab probe:  40%|████████████████▍                        | 10/25 [00:00<00:00, 15.03it/s]Vocab probe:  48%|███████████████████▋                     | 12/25 [00:00<00:00, 14.89it/s]Vocab probe:  56%|██████████████████████▉                  | 14/25 [00:00<00:00, 14.94it/s]Vocab probe:  64%|██████████████████████████▏              | 16/25 [00:01<00:00, 14.90it/s]Vocab probe:  72%|█████████████████████████████▌           | 18/25 [00:01<00:00, 14.92it/s]Vocab probe:  80%|████████████████████████████████▊        | 20/25 [00:01<00:00, 14.94it/s]Vocab probe:  88%|████████████████████████████████████     | 22/25 [00:01<00:00, 15.01it/s]Vocab probe:  96%|███████████████████████████████████████▎ | 24/25 [00:01<00:00, 15.04it/s]Vocab probe: 100%|█████████████████████████████████████████| 25/25 [00:01<00:00, 14.97it/s]
+
+======================================================================
+PHASE 1 — VOCABULARY PROBING RESULTS
+======================================================================
+
+  Layer 24  (top 20 histo features)
+     Feature   Mean Activation
+  ------------------------------
+       11930         5651.7814
+         326         5041.9894
+          71         4380.1041
+         136         4103.7757
+         215         4059.6877
+          82         4058.9533
+         370         3764.3001
+         452         3533.9227
+         473         3337.1656
+         460         3299.6472
+         526         3286.7652
+         192         3271.4165
+         996         3242.8760
+         170         3232.4720
+          33         3217.4052
+         608         3193.7803
+         269         3178.6097
+           8         3162.2628
+         580         3136.5326
+         804         3076.4520
+
+  Layer 25  (top 20 histo features)
+     Feature   Mean Activation
+  ------------------------------
+       15071         9861.2221
+       10070         7239.1530
+         170         6187.0865
+         526         5210.7808
+         136         5191.8562
+         412         4901.9288
+        4562         4841.4663
+         637         4832.3044
+       13123         4802.3811
+          71         4621.0112
+         463         4581.4835
+        4556         4452.4240
+         619         4189.7926
+        4218         4176.7955
+         370         4119.4831
+         726         4113.6925
+         326         4000.3009
+         148         3998.6766
+       14898         3964.7676
+          82         3899.7466
+
+  Layer 26  (top 20 histo features)
+     Feature   Mean Activation
+  ------------------------------
+       12445        13528.9487
+        9460        10666.3179
+        4749         8676.5054
+       11059         8166.0302
+        9040         7763.4361
+       11885         7692.8122
+         140         7082.4528
+          17         6513.4533
+       12169         6407.4859
+        8567         6191.8789
+         463         6042.5762
+         602         5891.8208
+          86         5822.7265
+          71         5653.4583
+         326         5524.8564
+         478         5416.5106
+         402         5345.0761
+         148         5326.7407
+         456         5209.0102
+       15134         5055.4307
+
+  Layer 27  (top 20 histo features)
+     Feature   Mean Activation
+  ------------------------------
+          17         7332.1223
+         402         7114.8505
+         478         6941.1055
+         243         6526.4379
+        2798         6205.8621
+       16281         6089.4901
+       14444         5970.1249
+       14682         5519.8512
+         207         5412.9635
+       12157         5231.1636
+         376         5221.1308
+       12846         5188.8834
+         310         5161.0089
+        6837         5122.6012
+          39         5091.5426
+       10867         5074.0807
+       11059         5065.5902
+         630         4940.5709
+       13756         4930.6887
+       12445         4876.3554
+
+  Layer 28  (top 20 histo features)
+     Feature   Mean Activation
+  ------------------------------
+         528         7831.8993
+          17         6852.1121
+         394         6554.4227
+       14236         6552.6876
+         402         6369.5015
+       14441         6315.3025
+       14444         6213.3665
+       14682         6204.3014
+       15822         6099.1003
+         412         5936.0337
+       12846         5916.5900
+       16171         5915.9402
+       15068         5723.4391
+          37         5695.1114
+         317         5531.2216
+       16281         5429.3773
+         169         5426.3337
+        8730         5413.9611
+          39         5388.0472
+         318         5361.1094
+
+Phase 2: few-shot contrast over 500 samples …
+Few-shot contrast:   0%|                                           | 0/500 [00:00<?, ?it/s]Few-shot contrast:   0%|                                   | 1/500 [00:00<02:01,  4.10it/s]Few-shot contrast:   0%|▏                                  | 2/500 [00:00<01:41,  4.89it/s]Few-shot contrast:   1%|▏                                  | 3/500 [00:00<01:32,  5.39it/s]Few-shot contrast:   1%|▎                                  | 4/500 [00:00<01:27,  5.65it/s]Few-shot contrast:   1%|▎                                  | 5/500 [00:00<01:28,  5.61it/s]Few-shot contrast:   1%|▍                                  | 6/500 [00:01<01:26,  5.70it/s]Few-shot contrast:   1%|▍                                  | 7/500 [00:01<01:23,  5.93it/s]Few-shot contrast:   2%|▌                                  | 8/500 [00:01<01:26,  5.72it/s]Few-shot contrast:   2%|▋                                  | 9/500 [00:01<01:24,  5.84it/s]Few-shot contrast:   2%|▋                                 | 10/500 [00:01<01:23,  5.88it/s]Few-shot contrast:   2%|▋                                 | 11/500 [00:02<01:32,  5.26it/s]Few-shot contrast:   2%|▊                                 | 12/500 [00:02<01:28,  5.52it/s]Few-shot contrast:   3%|▉                                 | 13/500 [00:02<01:23,  5.80it/s]Few-shot contrast:   3%|▉                                 | 14/500 [00:02<01:21,  5.99it/s]Few-shot contrast:   3%|█                                 | 15/500 [00:02<01:20,  6.04it/s]Few-shot contrast:   3%|█                                 | 16/500 [00:02<01:19,  6.12it/s]Few-shot contrast:   3%|█▏                                | 17/500 [00:02<01:17,  6.23it/s]Few-shot contrast:   4%|█▏                                | 18/500 [00:03<01:41,  4.76it/s]Few-shot contrast:   4%|█▎                                | 19/500 [00:03<01:34,  5.09it/s]Few-shot contrast:   4%|█▎                                | 20/500 [00:03<01:30,  5.28it/s]Few-shot contrast:   4%|█▍                                | 21/500 [00:03<01:25,  5.63it/s]Few-shot contrast:   4%|█▍                                | 22/500 [00:03<01:31,  5.20it/s]Few-shot contrast:   5%|█▌                                | 23/500 [00:04<01:27,  5.45it/s]Few-shot contrast:   5%|█▋                                | 24/500 [00:04<01:23,  5.72it/s]Few-shot contrast:   5%|█▋                                | 25/500 [00:04<01:21,  5.85it/s]Few-shot contrast:   5%|█▊                                | 26/500 [00:04<01:18,  6.05it/s]Few-shot contrast:   5%|█▊                                | 27/500 [00:04<01:21,  5.78it/s]Few-shot contrast:   6%|█▉                                | 28/500 [00:04<01:19,  5.93it/s]Few-shot contrast:   6%|█▉                                | 29/500 [00:05<01:19,  5.89it/s]Few-shot contrast:   6%|██                                | 30/500 [00:05<01:26,  5.46it/s]Few-shot contrast:   6%|██                                | 31/500 [00:05<01:23,  5.64it/s]Few-shot contrast:   6%|██▏                               | 32/500 [00:05<01:24,  5.51it/s]Few-shot contrast:   7%|██▏                               | 33/500 [00:05<01:21,  5.72it/s]Few-shot contrast:   7%|██▎                               | 34/500 [00:06<01:19,  5.83it/s]Few-shot contrast:   7%|██▍                               | 35/500 [00:06<01:19,  5.87it/s]Few-shot contrast:   7%|██▍                               | 36/500 [00:06<01:17,  5.97it/s]Few-shot contrast:   7%|██▌                               | 37/500 [00:06<01:16,  6.09it/s]Few-shot contrast:   8%|██▌                               | 38/500 [00:06<01:15,  6.13it/s]Few-shot contrast:   8%|██▋                               | 39/500 [00:06<01:14,  6.21it/s]Few-shot contrast:   8%|██▋                               | 40/500 [00:07<01:25,  5.40it/s]Few-shot contrast:   8%|██▊                               | 41/500 [00:07<01:20,  5.69it/s]Few-shot contrast:   8%|██▊                               | 42/500 [00:07<01:20,  5.70it/s]Few-shot contrast:   9%|██▉                               | 43/500 [00:07<01:20,  5.68it/s]Few-shot contrast:   9%|██▉                               | 44/500 [00:07<01:16,  5.94it/s]Few-shot contrast:   9%|███                               | 45/500 [00:07<01:15,  6.01it/s]Few-shot contrast:   9%|███▏                              | 46/500 [00:08<01:13,  6.21it/s]Few-shot contrast:   9%|███▏                              | 47/500 [00:08<01:10,  6.40it/s]Few-shot contrast:  10%|███▎                              | 48/500 [00:08<01:11,  6.29it/s]Few-shot contrast:  10%|███▎                              | 49/500 [00:08<01:12,  6.25it/s]Few-shot contrast:  10%|███▍                              | 50/500 [00:08<01:11,  6.29it/s]Few-shot contrast:  10%|███▍                              | 51/500 [00:08<01:10,  6.34it/s]Few-shot contrast:  10%|███▌                              | 52/500 [00:08<01:11,  6.27it/s]Few-shot contrast:  11%|███▌                              | 53/500 [00:09<01:11,  6.23it/s]Few-shot contrast:  11%|███▋                              | 54/500 [00:09<01:10,  6.28it/s]Few-shot contrast:  11%|███▋                              | 55/500 [00:09<01:13,  6.04it/s]Few-shot contrast:  11%|███▊                              | 56/500 [00:09<01:14,  5.93it/s]Few-shot contrast:  11%|███▉                              | 57/500 [00:09<01:13,  6.07it/s]Few-shot contrast:  12%|███▉                              | 58/500 [00:09<01:12,  6.06it/s]Few-shot contrast:  12%|████                              | 59/500 [00:10<01:13,  5.97it/s]Few-shot contrast:  12%|████                              | 60/500 [00:10<01:11,  6.12it/s]Few-shot contrast:  12%|████▏                             | 61/500 [00:10<01:10,  6.21it/s]Few-shot contrast:  12%|████▏                             | 62/500 [00:10<01:12,  6.08it/s]Few-shot contrast:  13%|████▎                             | 63/500 [00:10<01:14,  5.85it/s]Few-shot contrast:  13%|████▎                             | 64/500 [00:11<01:17,  5.60it/s]Few-shot contrast:  13%|████▍                             | 65/500 [00:11<01:20,  5.38it/s]Few-shot contrast:  13%|████▍                             | 66/500 [00:11<01:26,  5.01it/s]Few-shot contrast:  13%|████▌                             | 67/500 [00:11<01:22,  5.27it/s]Few-shot contrast:  14%|████▌                             | 68/500 [00:11<01:18,  5.53it/s]Few-shot contrast:  14%|████▋                             | 69/500 [00:11<01:18,  5.47it/s]Few-shot contrast:  14%|████▊                             | 70/500 [00:12<01:23,  5.12it/s]Few-shot contrast:  14%|████▊                             | 71/500 [00:12<01:25,  5.04it/s]Few-shot contrast:  14%|████▉                             | 72/500 [00:12<01:22,  5.19it/s]Few-shot contrast:  15%|████▉                             | 73/500 [00:12<01:26,  4.95it/s]Few-shot contrast:  15%|█████                             | 74/500 [00:12<01:19,  5.36it/s]Few-shot contrast:  15%|█████                             | 75/500 [00:13<01:17,  5.47it/s]Few-shot contrast:  15%|█████▏                            | 76/500 [00:13<01:15,  5.64it/s]Few-shot contrast:  15%|█████▏                            | 77/500 [00:13<01:22,  5.14it/s]Few-shot contrast:  16%|█████▎                            | 78/500 [00:13<01:19,  5.34it/s]Few-shot contrast:  16%|█████▎                            | 79/500 [00:13<01:14,  5.65it/s]Few-shot contrast:  16%|█████▍                            | 80/500 [00:14<01:11,  5.86it/s]Few-shot contrast:  16%|█████▌                            | 81/500 [00:14<01:11,  5.85it/s]Few-shot contrast:  16%|█████▌                            | 82/500 [00:14<01:12,  5.74it/s]Few-shot contrast:  17%|█████▋                            | 83/500 [00:14<01:17,  5.37it/s]Few-shot contrast:  17%|█████▋                            | 84/500 [00:14<01:13,  5.63it/s]Few-shot contrast:  17%|█████▊                            | 85/500 [00:14<01:11,  5.84it/s]Few-shot contrast:  17%|█████▊                            | 86/500 [00:15<01:19,  5.19it/s]Few-shot contrast:  17%|█████▉                            | 87/500 [00:15<01:16,  5.41it/s]Few-shot contrast:  18%|█████▉                            | 88/500 [00:15<01:15,  5.43it/s]Few-shot contrast:  18%|██████                            | 89/500 [00:15<01:13,  5.63it/s]Few-shot contrast:  18%|██████                            | 90/500 [00:15<01:09,  5.87it/s]Few-shot contrast:  18%|██████▏                           | 91/500 [00:15<01:08,  5.95it/s]Few-shot contrast:  18%|██████▎                           | 92/500 [00:16<01:09,  5.85it/s]Few-shot contrast:  19%|██████▎                           | 93/500 [00:16<01:09,  5.88it/s]Few-shot contrast:  19%|██████▍                           | 94/500 [00:16<01:06,  6.09it/s]Few-shot contrast:  19%|██████▍                           | 95/500 [00:16<01:05,  6.20it/s]Few-shot contrast:  19%|██████▌                           | 96/500 [00:16<01:05,  6.21it/s]Few-shot contrast:  19%|██████▌                           | 97/500 [00:16<01:05,  6.11it/s]Few-shot contrast:  20%|██████▋                           | 98/500 [00:17<01:19,  5.08it/s]Few-shot contrast:  20%|██████▋                           | 99/500 [00:17<01:14,  5.35it/s]Few-shot contrast:  20%|██████▌                          | 100/500 [00:17<01:11,  5.63it/s]Few-shot contrast:  20%|██████▋                          | 101/500 [00:17<01:08,  5.79it/s]Few-shot contrast:  20%|██████▋                          | 102/500 [00:17<01:07,  5.90it/s]Few-shot contrast:  21%|██████▊                          | 103/500 [00:18<01:05,  6.09it/s]Few-shot contrast:  21%|██████▊                          | 104/500 [00:18<01:03,  6.27it/s]Few-shot contrast:  21%|██████▉                          | 105/500 [00:18<01:05,  6.06it/s]Few-shot contrast:  21%|██████▉                          | 106/500 [00:18<01:07,  5.86it/s]Few-shot contrast:  21%|███████                          | 107/500 [00:18<01:05,  6.02it/s]Few-shot contrast:  22%|███████▏                         | 108/500 [00:18<01:07,  5.84it/s]Few-shot contrast:  22%|███████▏                         | 109/500 [00:19<01:05,  5.98it/s]Few-shot contrast:  22%|███████▎                         | 110/500 [00:19<01:06,  5.88it/s]Few-shot contrast:  22%|███████▎                         | 111/500 [00:19<01:04,  6.02it/s]Few-shot contrast:  22%|███████▍                         | 112/500 [00:19<01:06,  5.85it/s]Few-shot contrast:  23%|███████▍                         | 113/500 [00:19<01:05,  5.93it/s]Few-shot contrast:  23%|███████▌                         | 114/500 [00:19<01:06,  5.84it/s]Few-shot contrast:  23%|███████▌                         | 115/500 [00:20<01:07,  5.67it/s]Few-shot contrast:  23%|███████▋                         | 116/500 [00:20<01:06,  5.79it/s]Few-shot contrast:  23%|███████▋                         | 117/500 [00:20<01:07,  5.67it/s]Few-shot contrast:  24%|███████▊                         | 118/500 [00:20<01:16,  5.01it/s]Few-shot contrast:  24%|███████▊                         | 119/500 [00:20<01:13,  5.16it/s]Few-shot contrast:  24%|███████▉                         | 120/500 [00:21<01:11,  5.31it/s]Few-shot contrast:  24%|███████▉                         | 121/500 [00:21<01:07,  5.59it/s]Few-shot contrast:  24%|████████                         | 122/500 [00:21<01:07,  5.63it/s]Few-shot contrast:  25%|████████                         | 123/500 [00:21<01:05,  5.71it/s]Few-shot contrast:  25%|████████▏                        | 124/500 [00:21<01:03,  5.94it/s]Few-shot contrast:  25%|████████▎                        | 125/500 [00:21<01:05,  5.71it/s]Few-shot contrast:  25%|████████▎                        | 126/500 [00:22<01:03,  5.89it/s]Few-shot contrast:  25%|████████▍                        | 127/500 [00:22<01:02,  5.94it/s]Few-shot contrast:  26%|████████▍                        | 128/500 [00:22<01:08,  5.42it/s]Few-shot contrast:  26%|████████▌                        | 129/500 [00:22<01:06,  5.59it/s]Few-shot contrast:  26%|████████▌                        | 130/500 [00:22<01:04,  5.75it/s]Few-shot contrast:  26%|████████▋                        | 131/500 [00:22<01:02,  5.90it/s]Few-shot contrast:  26%|████████▋                        | 132/500 [00:23<01:00,  6.07it/s]Few-shot contrast:  27%|████████▊                        | 133/500 [00:23<01:00,  6.11it/s]Few-shot contrast:  27%|████████▊                        | 134/500 [00:23<00:59,  6.18it/s]Few-shot contrast:  27%|████████▉                        | 135/500 [00:23<00:58,  6.20it/s]Few-shot contrast:  27%|████████▉                        | 136/500 [00:23<00:59,  6.17it/s]Few-shot contrast:  27%|█████████                        | 137/500 [00:23<00:59,  6.14it/s]Few-shot contrast:  28%|█████████                        | 138/500 [00:24<00:59,  6.08it/s]Few-shot contrast:  28%|█████████▏                       | 139/500 [00:24<00:58,  6.17it/s]Few-shot contrast:  28%|█████████▏                       | 140/500 [00:24<00:57,  6.25it/s]Few-shot contrast:  28%|█████████▎                       | 141/500 [00:24<00:56,  6.39it/s]Few-shot contrast:  28%|█████████▎                       | 142/500 [00:24<00:55,  6.50it/s]Few-shot contrast:  29%|█████████▍                       | 143/500 [00:24<00:55,  6.47it/s]Few-shot contrast:  29%|█████████▌                       | 144/500 [00:24<00:57,  6.15it/s]Few-shot contrast:  29%|█████████▌                       | 145/500 [00:25<00:57,  6.21it/s]Few-shot contrast:  29%|█████████▋                       | 146/500 [00:25<00:56,  6.27it/s]Few-shot contrast:  29%|█████████▋                       | 147/500 [00:25<00:56,  6.30it/s]Few-shot contrast:  30%|█████████▊                       | 148/500 [00:25<00:59,  5.91it/s]Few-shot contrast:  30%|█████████▊                       | 149/500 [00:25<00:58,  6.03it/s]Few-shot contrast:  30%|█████████▉                       | 150/500 [00:25<01:01,  5.66it/s]Few-shot contrast:  30%|█████████▉                       | 151/500 [00:26<00:59,  5.84it/s]Few-shot contrast:  30%|██████████                       | 152/500 [00:26<00:58,  5.96it/s]Few-shot contrast:  31%|██████████                       | 153/500 [00:26<00:57,  6.03it/s]Few-shot contrast:  31%|██████████▏                      | 154/500 [00:26<00:59,  5.77it/s]Few-shot contrast:  31%|██████████▏                      | 155/500 [00:26<01:00,  5.72it/s]Few-shot contrast:  31%|██████████▎                      | 156/500 [00:27<01:02,  5.54it/s]Few-shot contrast:  31%|██████████▎                      | 157/500 [00:27<01:01,  5.58it/s]Few-shot contrast:  32%|██████████▍                      | 158/500 [00:27<01:07,  5.10it/s]Few-shot contrast:  32%|██████████▍                      | 159/500 [00:27<01:09,  4.89it/s]Few-shot contrast:  32%|██████████▌                      | 160/500 [00:27<01:04,  5.24it/s]Few-shot contrast:  32%|██████████▋                      | 161/500 [00:27<01:01,  5.55it/s]Few-shot contrast:  32%|██████████▋                      | 162/500 [00:28<00:59,  5.67it/s]Few-shot contrast:  33%|██████████▊                      | 163/500 [00:28<00:57,  5.88it/s]Few-shot contrast:  33%|██████████▊                      | 164/500 [00:28<00:58,  5.75it/s]Few-shot contrast:  33%|██████████▉                      | 165/500 [00:28<00:56,  5.91it/s]Few-shot contrast:  33%|██████████▉                      | 166/500 [00:28<00:55,  6.06it/s]Few-shot contrast:  33%|███████████                      | 167/500 [00:29<01:01,  5.39it/s]Few-shot contrast:  34%|███████████                      | 168/500 [00:29<00:59,  5.54it/s]Few-shot contrast:  34%|███████████▏                     | 169/500 [00:29<01:33,  3.53it/s]Few-shot contrast:  34%|███████████▏                     | 170/500 [00:29<01:21,  4.05it/s]Few-shot contrast:  34%|███████████▎                     | 171/500 [00:30<01:12,  4.55it/s]Few-shot contrast:  34%|███████████▎                     | 172/500 [00:30<01:07,  4.87it/s]Few-shot contrast:  35%|███████████▍                     | 173/500 [00:30<01:03,  5.11it/s]Few-shot contrast:  35%|███████████▍                     | 174/500 [00:30<01:01,  5.27it/s]Few-shot contrast:  35%|███████████▌                     | 175/500 [00:30<00:58,  5.60it/s]Few-shot contrast:  35%|███████████▌                     | 176/500 [00:30<01:00,  5.31it/s]Few-shot contrast:  35%|███████████▋                     | 177/500 [00:31<00:59,  5.43it/s]Few-shot contrast:  36%|███████████▋                     | 178/500 [00:31<01:01,  5.26it/s]Few-shot contrast:  36%|███████████▊                     | 179/500 [00:31<00:59,  5.38it/s]Few-shot contrast:  36%|███████████▉                     | 180/500 [00:31<00:56,  5.65it/s]Few-shot contrast:  36%|███████████▉                     | 181/500 [00:31<00:54,  5.83it/s]Few-shot contrast:  36%|████████████                     | 182/500 [00:31<00:52,  6.09it/s]Few-shot contrast:  37%|████████████                     | 183/500 [00:32<00:52,  6.09it/s]Few-shot contrast:  37%|████████████▏                    | 184/500 [00:32<00:53,  5.96it/s]Few-shot contrast:  37%|████████████▏                    | 185/500 [00:32<00:57,  5.44it/s]Few-shot contrast:  37%|████████████▎                    | 186/500 [00:32<00:56,  5.53it/s]Few-shot contrast:  37%|████████████▎                    | 187/500 [00:32<00:55,  5.66it/s]Few-shot contrast:  38%|████████████▍                    | 188/500 [00:33<00:53,  5.78it/s]Few-shot contrast:  38%|████████████▍                    | 189/500 [00:33<00:53,  5.83it/s]Few-shot contrast:  38%|████████████▌                    | 190/500 [00:33<00:52,  5.86it/s]Few-shot contrast:  38%|████████████▌                    | 191/500 [00:33<00:51,  5.98it/s]Few-shot contrast:  38%|████████████▋                    | 192/500 [00:33<00:51,  6.04it/s]Few-shot contrast:  39%|████████████▋                    | 193/500 [00:33<00:51,  5.93it/s]Few-shot contrast:  39%|████████████▊                    | 194/500 [00:34<00:50,  6.02it/s]Few-shot contrast:  39%|████████████▊                    | 195/500 [00:34<00:50,  6.05it/s]Few-shot contrast:  39%|████████████▉                    | 196/500 [00:34<00:50,  6.01it/s]Few-shot contrast:  39%|█████████████                    | 197/500 [00:34<00:50,  5.99it/s]Few-shot contrast:  40%|█████████████                    | 198/500 [00:34<00:49,  6.06it/s]Few-shot contrast:  40%|█████████████▏                   | 199/500 [00:34<00:49,  6.02it/s]Few-shot contrast:  40%|█████████████▏                   | 200/500 [00:35<00:49,  6.04it/s]Few-shot contrast:  40%|█████████████▎                   | 201/500 [00:35<00:49,  6.00it/s]Few-shot contrast:  40%|█████████████▎                   | 202/500 [00:35<00:51,  5.77it/s]Few-shot contrast:  41%|█████████████▍                   | 203/500 [00:35<00:49,  5.95it/s]Few-shot contrast:  41%|█████████████▍                   | 204/500 [00:35<00:48,  6.11it/s]Few-shot contrast:  41%|█████████████▌                   | 205/500 [00:35<00:48,  6.10it/s]Few-shot contrast:  41%|█████████████▌                   | 206/500 [00:36<00:50,  5.81it/s]Few-shot contrast:  41%|█████████████▋                   | 207/500 [00:36<00:49,  5.89it/s]Few-shot contrast:  42%|█████████████▋                   | 208/500 [00:36<00:52,  5.54it/s]Few-shot contrast:  42%|█████████████▊                   | 209/500 [00:36<00:50,  5.78it/s]Few-shot contrast:  42%|█████████████▊                   | 210/500 [00:36<00:49,  5.84it/s]Few-shot contrast:  42%|█████████████▉                   | 211/500 [00:36<00:55,  5.25it/s]Few-shot contrast:  42%|█████████████▉                   | 212/500 [00:37<00:51,  5.55it/s]Few-shot contrast:  43%|██████████████                   | 213/500 [00:37<00:48,  5.87it/s]Few-shot contrast:  43%|██████████████                   | 214/500 [00:37<00:49,  5.81it/s]Few-shot contrast:  43%|██████████████▏                  | 215/500 [00:37<00:53,  5.30it/s]Few-shot contrast:  43%|██████████████▎                  | 216/500 [00:37<00:51,  5.53it/s]Few-shot contrast:  43%|██████████████▎                  | 217/500 [00:38<00:54,  5.22it/s]Few-shot contrast:  44%|██████████████▍                  | 218/500 [00:38<00:54,  5.21it/s]Few-shot contrast:  44%|██████████████▍                  | 219/500 [00:38<00:50,  5.59it/s]Few-shot contrast:  44%|██████████████▌                  | 220/500 [00:38<00:53,  5.28it/s]Few-shot contrast:  44%|██████████████▌                  | 221/500 [00:38<00:54,  5.15it/s]Few-shot contrast:  44%|██████████████▋                  | 222/500 [00:38<00:50,  5.47it/s]Few-shot contrast:  45%|██████████████▋                  | 223/500 [00:39<00:48,  5.68it/s]Few-shot contrast:  45%|██████████████▊                  | 224/500 [00:39<00:47,  5.83it/s]Few-shot contrast:  45%|██████████████▊                  | 225/500 [00:39<00:45,  6.02it/s]Few-shot contrast:  45%|██████████████▉                  | 226/500 [00:39<00:47,  5.74it/s]Few-shot contrast:  45%|██████████████▉                  | 227/500 [00:39<00:47,  5.71it/s]Few-shot contrast:  46%|███████████████                  | 228/500 [00:39<00:48,  5.63it/s]Few-shot contrast:  46%|███████████████                  | 229/500 [00:40<00:48,  5.62it/s]Few-shot contrast:  46%|███████████████▏                 | 230/500 [00:40<00:49,  5.46it/s]Few-shot contrast:  46%|███████████████▏                 | 231/500 [00:40<00:48,  5.50it/s]Few-shot contrast:  46%|███████████████▎                 | 232/500 [00:40<00:47,  5.62it/s]Few-shot contrast:  47%|███████████████▍                 | 233/500 [00:40<00:45,  5.82it/s]Few-shot contrast:  47%|███████████████▍                 | 234/500 [00:41<00:46,  5.73it/s]Few-shot contrast:  47%|███████████████▌                 | 235/500 [00:41<00:48,  5.45it/s]Few-shot contrast:  47%|███████████████▌                 | 236/500 [00:41<00:50,  5.25it/s]Few-shot contrast:  47%|███████████████▋                 | 237/500 [00:41<00:50,  5.25it/s]Few-shot contrast:  48%|███████████████▋                 | 238/500 [00:41<00:47,  5.56it/s]Few-shot contrast:  48%|███████████████▊                 | 239/500 [00:41<00:44,  5.81it/s]Few-shot contrast:  48%|███████████████▊                 | 240/500 [00:42<00:45,  5.76it/s]Few-shot contrast:  48%|███████████████▉                 | 241/500 [00:42<00:45,  5.64it/s]Few-shot contrast:  48%|███████████████▉                 | 242/500 [00:42<00:44,  5.80it/s]Few-shot contrast:  49%|████████████████                 | 243/500 [00:42<00:48,  5.34it/s]Few-shot contrast:  49%|████████████████                 | 244/500 [00:42<00:47,  5.37it/s]Few-shot contrast:  49%|████████████████▏                | 245/500 [00:43<00:47,  5.32it/s]Few-shot contrast:  49%|████████████████▏                | 246/500 [00:43<00:45,  5.55it/s]Few-shot contrast:  49%|████████████████▎                | 247/500 [00:43<00:44,  5.71it/s]Few-shot contrast:  50%|████████████████▎                | 248/500 [00:43<00:44,  5.61it/s]Few-shot contrast:  50%|████████████████▍                | 249/500 [00:43<00:42,  5.93it/s]Few-shot contrast:  50%|████████████████▌                | 250/500 [00:43<00:41,  6.08it/s]Few-shot contrast:  50%|████████████████▌                | 251/500 [00:44<00:40,  6.14it/s]Few-shot contrast:  50%|████████████████▋                | 252/500 [00:44<00:48,  5.10it/s]Few-shot contrast:  51%|████████████████▋                | 253/500 [00:44<00:46,  5.31it/s]Few-shot contrast:  51%|████████████████▊                | 254/500 [00:44<00:44,  5.49it/s]Few-shot contrast:  51%|████████████████▊                | 255/500 [00:44<00:43,  5.63it/s]Few-shot contrast:  51%|████████████████▉                | 256/500 [00:44<00:42,  5.76it/s]Few-shot contrast:  51%|████████████████▉                | 257/500 [00:45<00:40,  5.94it/s]Few-shot contrast:  52%|█████████████████                | 258/500 [00:45<00:41,  5.87it/s]Few-shot contrast:  52%|█████████████████                | 259/500 [00:45<00:41,  5.82it/s]Few-shot contrast:  52%|█████████████████▏               | 260/500 [00:45<00:39,  6.02it/s]Few-shot contrast:  52%|█████████████████▏               | 261/500 [00:45<00:39,  6.01it/s]Few-shot contrast:  52%|█████████████████▎               | 262/500 [00:46<00:43,  5.49it/s]Few-shot contrast:  53%|█████████████████▎               | 263/500 [00:46<00:42,  5.62it/s]Few-shot contrast:  53%|█████████████████▍               | 264/500 [00:46<00:41,  5.74it/s]Few-shot contrast:  53%|█████████████████▍               | 265/500 [00:46<00:39,  5.95it/s]Few-shot contrast:  53%|█████████████████▌               | 266/500 [00:46<00:43,  5.41it/s]Few-shot contrast:  53%|█████████████████▌               | 267/500 [00:46<00:40,  5.73it/s]Few-shot contrast:  54%|█████████████████▋               | 268/500 [00:47<00:42,  5.40it/s]Few-shot contrast:  54%|█████████████████▊               | 269/500 [00:47<00:41,  5.58it/s]Few-shot contrast:  54%|█████████████████▊               | 270/500 [00:47<00:42,  5.47it/s]Few-shot contrast:  54%|█████████████████▉               | 271/500 [00:47<00:45,  5.06it/s]Few-shot contrast:  54%|█████████████████▉               | 272/500 [00:47<00:42,  5.40it/s]Few-shot contrast:  55%|██████████████████               | 273/500 [00:48<00:39,  5.68it/s]Few-shot contrast:  55%|██████████████████               | 274/500 [00:48<00:38,  5.91it/s]Few-shot contrast:  55%|██████████████████▏              | 275/500 [00:48<00:38,  5.88it/s]Few-shot contrast:  55%|██████████████████▏              | 276/500 [00:48<00:37,  5.91it/s]Few-shot contrast:  55%|██████████████████▎              | 277/500 [00:48<00:41,  5.42it/s]Few-shot contrast:  56%|██████████████████▎              | 278/500 [00:48<00:39,  5.67it/s]Few-shot contrast:  56%|██████████████████▍              | 279/500 [00:49<00:38,  5.76it/s]Few-shot contrast:  56%|██████████████████▍              | 280/500 [00:49<00:37,  5.86it/s]Few-shot contrast:  56%|██████████████████▌              | 281/500 [00:49<00:36,  6.01it/s]Few-shot contrast:  56%|██████████████████▌              | 282/500 [00:49<00:37,  5.86it/s]Few-shot contrast:  57%|██████████████████▋              | 283/500 [00:49<00:38,  5.69it/s]Few-shot contrast:  57%|██████████████████▋              | 284/500 [00:49<00:37,  5.80it/s]Few-shot contrast:  57%|██████████████████▊              | 285/500 [00:50<00:41,  5.20it/s]Few-shot contrast:  57%|██████████████████▉              | 286/500 [00:50<00:38,  5.49it/s]Few-shot contrast:  57%|██████████████████▉              | 287/500 [00:50<00:37,  5.66it/s]Few-shot contrast:  58%|███████████████████              | 288/500 [00:50<00:36,  5.74it/s]Few-shot contrast:  58%|███████████████████              | 289/500 [00:50<00:37,  5.64it/s]Few-shot contrast:  58%|███████████████████▏             | 290/500 [00:51<00:37,  5.58it/s]Few-shot contrast:  58%|███████████████████▏             | 291/500 [00:51<00:37,  5.53it/s]Few-shot contrast:  58%|███████████████████▎             | 292/500 [00:51<00:37,  5.58it/s]Few-shot contrast:  59%|███████████████████▎             | 293/500 [00:51<00:37,  5.46it/s]Few-shot contrast:  59%|███████████████████▍             | 294/500 [00:51<00:36,  5.60it/s]Few-shot contrast:  59%|███████████████████▍             | 295/500 [00:51<00:36,  5.66it/s]Few-shot contrast:  59%|███████████████████▌             | 296/500 [00:52<00:34,  5.95it/s]Few-shot contrast:  59%|███████████████████▌             | 297/500 [00:52<00:35,  5.80it/s]Few-shot contrast:  60%|███████████████████▋             | 298/500 [00:52<00:55,  3.62it/s]Few-shot contrast:  60%|███████████████████▋             | 299/500 [00:52<00:48,  4.16it/s]Few-shot contrast:  60%|███████████████████▊             | 300/500 [00:53<00:42,  4.67it/s]Few-shot contrast:  60%|███████████████████▊             | 301/500 [00:53<00:38,  5.16it/s]Few-shot contrast:  60%|███████████████████▉             | 302/500 [00:53<00:37,  5.27it/s]Few-shot contrast:  61%|███████████████████▉             | 303/500 [00:53<00:35,  5.63it/s]Few-shot contrast:  61%|████████████████████             | 304/500 [00:53<00:34,  5.69it/s]Few-shot contrast:  61%|████████████████████▏            | 305/500 [00:53<00:33,  5.89it/s]Few-shot contrast:  61%|████████████████████▏            | 306/500 [00:54<00:31,  6.12it/s]Few-shot contrast:  61%|████████████████████▎            | 307/500 [00:54<00:33,  5.71it/s]Few-shot contrast:  62%|████████████████████▎            | 308/500 [00:54<00:33,  5.73it/s]Few-shot contrast:  62%|████████████████████▍            | 309/500 [00:54<00:32,  5.93it/s]Few-shot contrast:  62%|████████████████████▍            | 310/500 [00:54<00:31,  6.01it/s]Few-shot contrast:  62%|████████████████████▌            | 311/500 [00:54<00:31,  6.05it/s]Few-shot contrast:  62%|████████████████████▌            | 312/500 [00:55<00:32,  5.83it/s]Few-shot contrast:  63%|████████████████████▋            | 313/500 [00:55<00:31,  5.91it/s]Few-shot contrast:  63%|████████████████████▋            | 314/500 [00:55<00:32,  5.77it/s]Few-shot contrast:  63%|████████████████████▊            | 315/500 [00:55<00:31,  5.87it/s]Few-shot contrast:  63%|████████████████████▊            | 316/500 [00:55<00:31,  5.91it/s]Few-shot contrast:  63%|████████████████████▉            | 317/500 [00:55<00:31,  5.73it/s]Few-shot contrast:  64%|████████████████████▉            | 318/500 [00:56<00:30,  5.93it/s]Few-shot contrast:  64%|█████████████████████            | 319/500 [00:56<00:30,  6.02it/s]Few-shot contrast:  64%|█████████████████████            | 320/500 [00:56<00:29,  6.15it/s]Few-shot contrast:  64%|█████████████████████▏           | 321/500 [00:56<00:29,  6.02it/s]Few-shot contrast:  64%|█████████████████████▎           | 322/500 [00:56<00:28,  6.23it/s]Few-shot contrast:  65%|█████████████████████▎           | 323/500 [00:56<00:28,  6.31it/s]Few-shot contrast:  65%|█████████████████████▍           | 324/500 [00:57<00:27,  6.43it/s]Few-shot contrast:  65%|█████████████████████▍           | 325/500 [00:57<00:26,  6.53it/s]Few-shot contrast:  65%|█████████████████████▌           | 326/500 [00:57<00:30,  5.62it/s]Few-shot contrast:  65%|█████████████████████▌           | 327/500 [00:57<00:30,  5.70it/s]Few-shot contrast:  66%|█████████████████████▋           | 328/500 [00:57<00:29,  5.84it/s]Few-shot contrast:  66%|█████████████████████▋           | 329/500 [00:57<00:31,  5.38it/s]Few-shot contrast:  66%|█████████████████████▊           | 330/500 [00:58<00:30,  5.60it/s]Few-shot contrast:  66%|█████████████████████▊           | 331/500 [00:58<00:28,  5.86it/s]Few-shot contrast:  66%|█████████████████████▉           | 332/500 [00:58<00:30,  5.54it/s]Few-shot contrast:  67%|█████████████████████▉           | 333/500 [00:58<00:29,  5.68it/s]Few-shot contrast:  67%|██████████████████████           | 334/500 [00:58<00:32,  5.18it/s]Few-shot contrast:  67%|██████████████████████           | 335/500 [00:59<00:30,  5.42it/s]Few-shot contrast:  67%|██████████████████████▏          | 336/500 [00:59<00:29,  5.60it/s]Few-shot contrast:  67%|██████████████████████▏          | 337/500 [00:59<00:31,  5.23it/s]Few-shot contrast:  68%|██████████████████████▎          | 338/500 [00:59<00:30,  5.37it/s]Few-shot contrast:  68%|██████████████████████▎          | 339/500 [00:59<00:28,  5.58it/s]Few-shot contrast:  68%|██████████████████████▍          | 340/500 [00:59<00:27,  5.81it/s]Few-shot contrast:  68%|██████████████████████▌          | 341/500 [01:00<00:27,  5.71it/s]Few-shot contrast:  68%|██████████████████████▌          | 342/500 [01:00<00:28,  5.63it/s]Few-shot contrast:  69%|██████████████████████▋          | 343/500 [01:00<00:27,  5.73it/s]Few-shot contrast:  69%|██████████████████████▋          | 344/500 [01:00<00:26,  5.87it/s]Few-shot contrast:  69%|██████████████████████▊          | 345/500 [01:00<00:25,  6.01it/s]Few-shot contrast:  69%|██████████████████████▊          | 346/500 [01:00<00:25,  6.12it/s]Few-shot contrast:  69%|██████████████████████▉          | 347/500 [01:01<00:26,  5.80it/s]Few-shot contrast:  70%|██████████████████████▉          | 348/500 [01:01<00:25,  6.07it/s]Few-shot contrast:  70%|███████████████████████          | 349/500 [01:01<00:24,  6.18it/s]Few-shot contrast:  70%|███████████████████████          | 350/500 [01:01<00:25,  5.97it/s]Few-shot contrast:  70%|███████████████████████▏         | 351/500 [01:01<00:24,  6.05it/s]Few-shot contrast:  70%|███████████████████████▏         | 352/500 [01:01<00:24,  6.04it/s]Few-shot contrast:  71%|███████████████████████▎         | 353/500 [01:02<00:26,  5.65it/s]Few-shot contrast:  71%|███████████████████████▎         | 354/500 [01:02<00:25,  5.67it/s]Few-shot contrast:  71%|███████████████████████▍         | 355/500 [01:02<00:24,  5.80it/s]Few-shot contrast:  71%|███████████████████████▍         | 356/500 [01:02<00:24,  5.87it/s]Few-shot contrast:  71%|███████████████████████▌         | 357/500 [01:02<00:24,  5.93it/s]Few-shot contrast:  72%|███████████████████████▋         | 358/500 [01:03<00:27,  5.17it/s]Few-shot contrast:  72%|███████████████████████▋         | 359/500 [01:03<00:26,  5.25it/s]Few-shot contrast:  72%|███████████████████████▊         | 360/500 [01:03<00:26,  5.30it/s]Few-shot contrast:  72%|███████████████████████▊         | 361/500 [01:03<00:27,  5.12it/s]Few-shot contrast:  72%|███████████████████████▉         | 362/500 [01:03<00:25,  5.33it/s]Few-shot contrast:  73%|███████████████████████▉         | 363/500 [01:03<00:24,  5.57it/s]Few-shot contrast:  73%|████████████████████████         | 364/500 [01:04<00:23,  5.80it/s]Few-shot contrast:  73%|████████████████████████         | 365/500 [01:04<00:22,  5.97it/s]Few-shot contrast:  73%|████████████████████████▏        | 366/500 [01:04<00:22,  5.97it/s]Few-shot contrast:  73%|████████████████████████▏        | 367/500 [01:04<00:23,  5.58it/s]Few-shot contrast:  74%|████████████████████████▎        | 368/500 [01:04<00:22,  5.84it/s]Few-shot contrast:  74%|████████████████████████▎        | 369/500 [01:04<00:22,  5.86it/s]Few-shot contrast:  74%|████████████████████████▍        | 370/500 [01:05<00:21,  5.95it/s]Few-shot contrast:  74%|████████████████████████▍        | 371/500 [01:05<00:23,  5.58it/s]Few-shot contrast:  74%|████████████████████████▌        | 372/500 [01:05<00:22,  5.69it/s]Few-shot contrast:  75%|████████████████████████▌        | 373/500 [01:05<00:21,  5.77it/s]Few-shot contrast:  75%|████████████████████████▋        | 374/500 [01:05<00:21,  5.89it/s]Few-shot contrast:  75%|████████████████████████▊        | 375/500 [01:05<00:21,  5.75it/s]Few-shot contrast:  75%|████████████████████████▊        | 376/500 [01:06<00:21,  5.64it/s]Few-shot contrast:  75%|████████████████████████▉        | 377/500 [01:06<00:20,  5.87it/s]Few-shot contrast:  76%|████████████████████████▉        | 378/500 [01:06<00:20,  5.82it/s]Few-shot contrast:  76%|█████████████████████████        | 379/500 [01:06<00:20,  5.89it/s]Few-shot contrast:  76%|█████████████████████████        | 380/500 [01:06<00:20,  5.94it/s]Few-shot contrast:  76%|█████████████████████████▏       | 381/500 [01:06<00:19,  6.15it/s]Few-shot contrast:  76%|█████████████████████████▏       | 382/500 [01:07<00:19,  6.09it/s]Few-shot contrast:  77%|█████████████████████████▎       | 383/500 [01:07<00:19,  6.07it/s]Few-shot contrast:  77%|█████████████████████████▎       | 384/500 [01:07<00:20,  5.70it/s]Few-shot contrast:  77%|█████████████████████████▍       | 385/500 [01:07<00:19,  5.85it/s]Few-shot contrast:  77%|█████████████████████████▍       | 386/500 [01:07<00:19,  5.97it/s]Few-shot contrast:  77%|█████████████████████████▌       | 387/500 [01:08<00:20,  5.42it/s]Few-shot contrast:  78%|█████████████████████████▌       | 388/500 [01:08<00:20,  5.36it/s]Few-shot contrast:  78%|█████████████████████████▋       | 389/500 [01:08<00:20,  5.53it/s]Few-shot contrast:  78%|█████████████████████████▋       | 390/500 [01:08<00:19,  5.76it/s]Few-shot contrast:  78%|█████████████████████████▊       | 391/500 [01:08<00:19,  5.63it/s]Few-shot contrast:  78%|█████████████████████████▊       | 392/500 [01:08<00:18,  5.71it/s]Few-shot contrast:  79%|█████████████████████████▉       | 393/500 [01:09<00:18,  5.86it/s]Few-shot contrast:  79%|██████████████████████████       | 394/500 [01:09<00:17,  5.90it/s]Few-shot contrast:  79%|██████████████████████████       | 395/500 [01:09<00:17,  6.04it/s]Few-shot contrast:  79%|██████████████████████████▏      | 396/500 [01:09<00:16,  6.24it/s]Few-shot contrast:  79%|██████████████████████████▏      | 397/500 [01:09<00:16,  6.23it/s]Few-shot contrast:  80%|██████████████████████████▎      | 398/500 [01:09<00:16,  6.23it/s]Few-shot contrast:  80%|██████████████████████████▎      | 399/500 [01:10<00:16,  6.28it/s]Few-shot contrast:  80%|██████████████████████████▍      | 400/500 [01:10<00:15,  6.26it/s]Few-shot contrast:  80%|██████████████████████████▍      | 401/500 [01:10<00:15,  6.27it/s]Few-shot contrast:  80%|██████████████████████████▌      | 402/500 [01:10<00:16,  6.12it/s]Few-shot contrast:  81%|██████████████████████████▌      | 403/500 [01:10<00:15,  6.23it/s]Few-shot contrast:  81%|██████████████████████████▋      | 404/500 [01:10<00:15,  6.21it/s]Few-shot contrast:  81%|██████████████████████████▋      | 405/500 [01:11<00:15,  5.97it/s]Few-shot contrast:  81%|██████████████████████████▊      | 406/500 [01:11<00:15,  6.00it/s]Few-shot contrast:  81%|██████████████████████████▊      | 407/500 [01:11<00:16,  5.72it/s]Few-shot contrast:  82%|██████████████████████████▉      | 408/500 [01:11<00:15,  5.98it/s]Few-shot contrast:  82%|██████████████████████████▉      | 409/500 [01:11<00:15,  5.79it/s]Few-shot contrast:  82%|███████████████████████████      | 410/500 [01:11<00:17,  5.23it/s]Few-shot contrast:  82%|███████████████████████████▏     | 411/500 [01:12<00:16,  5.24it/s]Few-shot contrast:  82%|███████████████████████████▏     | 412/500 [01:12<00:15,  5.53it/s]Few-shot contrast:  83%|███████████████████████████▎     | 413/500 [01:12<00:15,  5.69it/s]Few-shot contrast:  83%|███████████████████████████▎     | 414/500 [01:12<00:15,  5.60it/s]Few-shot contrast:  83%|███████████████████████████▍     | 415/500 [01:12<00:14,  5.82it/s]Few-shot contrast:  83%|███████████████████████████▍     | 416/500 [01:13<00:16,  5.15it/s]Few-shot contrast:  83%|███████████████████████████▌     | 417/500 [01:13<00:15,  5.31it/s]Few-shot contrast:  84%|███████████████████████████▌     | 418/500 [01:13<00:14,  5.60it/s]Few-shot contrast:  84%|███████████████████████████▋     | 419/500 [01:13<00:13,  5.83it/s]Few-shot contrast:  84%|███████████████████████████▋     | 420/500 [01:13<00:14,  5.48it/s]Few-shot contrast:  84%|███████████████████████████▊     | 421/500 [01:13<00:13,  5.66it/s]Few-shot contrast:  84%|███████████████████████████▊     | 422/500 [01:14<00:13,  5.87it/s]Few-shot contrast:  85%|███████████████████████████▉     | 423/500 [01:14<00:12,  6.02it/s]Few-shot contrast:  85%|███████████████████████████▉     | 424/500 [01:14<00:12,  6.15it/s]Few-shot contrast:  85%|████████████████████████████     | 425/500 [01:14<00:12,  6.18it/s]Few-shot contrast:  85%|████████████████████████████     | 426/500 [01:14<00:12,  6.13it/s]Few-shot contrast:  85%|████████████████████████████▏    | 427/500 [01:14<00:12,  6.03it/s]Few-shot contrast:  86%|████████████████████████████▏    | 428/500 [01:15<00:13,  5.24it/s]Few-shot contrast:  86%|████████████████████████████▎    | 429/500 [01:15<00:13,  5.28it/s]Few-shot contrast:  86%|████████████████████████████▍    | 430/500 [01:15<00:12,  5.54it/s]Few-shot contrast:  86%|████████████████████████████▍    | 431/500 [01:15<00:12,  5.74it/s]Few-shot contrast:  86%|████████████████████████████▌    | 432/500 [01:15<00:11,  5.93it/s]Few-shot contrast:  87%|████████████████████████████▌    | 433/500 [01:15<00:11,  6.08it/s]Few-shot contrast:  87%|████████████████████████████▋    | 434/500 [01:16<00:11,  5.52it/s]Few-shot contrast:  87%|████████████████████████████▋    | 435/500 [01:16<00:11,  5.83it/s]Few-shot contrast:  87%|████████████████████████████▊    | 436/500 [01:16<00:10,  5.93it/s]Few-shot contrast:  87%|████████████████████████████▊    | 437/500 [01:16<00:11,  5.40it/s]Few-shot contrast:  88%|████████████████████████████▉    | 438/500 [01:16<00:11,  5.62it/s]Few-shot contrast:  88%|████████████████████████████▉    | 439/500 [01:17<00:10,  5.87it/s]Few-shot contrast:  88%|█████████████████████████████    | 440/500 [01:17<00:09,  6.01it/s]Few-shot contrast:  88%|█████████████████████████████    | 441/500 [01:17<00:09,  5.96it/s]Few-shot contrast:  88%|█████████████████████████████▏   | 442/500 [01:17<00:09,  5.99it/s]Few-shot contrast:  89%|█████████████████████████████▏   | 443/500 [01:17<00:09,  5.99it/s]Few-shot contrast:  89%|█████████████████████████████▎   | 444/500 [01:17<00:09,  6.09it/s]Few-shot contrast:  89%|█████████████████████████████▎   | 445/500 [01:18<00:09,  5.90it/s]Few-shot contrast:  89%|█████████████████████████████▍   | 446/500 [01:18<00:10,  5.37it/s]Few-shot contrast:  89%|█████████████████████████████▌   | 447/500 [01:18<00:09,  5.60it/s]Few-shot contrast:  90%|█████████████████████████████▌   | 448/500 [01:18<00:08,  5.85it/s]Few-shot contrast:  90%|█████████████████████████████▋   | 449/500 [01:18<00:08,  5.97it/s]Few-shot contrast:  90%|█████████████████████████████▋   | 450/500 [01:18<00:08,  6.17it/s]Few-shot contrast:  90%|█████████████████████████████▊   | 451/500 [01:19<00:08,  6.02it/s]Few-shot contrast:  90%|█████████████████████████████▊   | 452/500 [01:19<00:07,  6.22it/s]Few-shot contrast:  91%|█████████████████████████████▉   | 453/500 [01:19<00:07,  6.24it/s]Few-shot contrast:  91%|█████████████████████████████▉   | 454/500 [01:19<00:07,  6.39it/s]Few-shot contrast:  91%|██████████████████████████████   | 455/500 [01:19<00:07,  6.41it/s]Few-shot contrast:  91%|██████████████████████████████   | 456/500 [01:19<00:06,  6.36it/s]Few-shot contrast:  91%|██████████████████████████████▏  | 457/500 [01:19<00:06,  6.28it/s]Few-shot contrast:  92%|██████████████████████████████▏  | 458/500 [01:20<00:06,  6.33it/s]Few-shot contrast:  92%|██████████████████████████████▎  | 459/500 [01:20<00:06,  6.42it/s]Few-shot contrast:  92%|██████████████████████████████▎  | 460/500 [01:20<00:06,  6.39it/s]Few-shot contrast:  92%|██████████████████████████████▍  | 461/500 [01:20<00:06,  5.91it/s]Few-shot contrast:  92%|██████████████████████████████▍  | 462/500 [01:20<00:06,  6.03it/s]Few-shot contrast:  93%|██████████████████████████████▌  | 463/500 [01:20<00:06,  5.91it/s]Few-shot contrast:  93%|██████████████████████████████▌  | 464/500 [01:21<00:06,  5.44it/s]Few-shot contrast:  93%|██████████████████████████████▋  | 465/500 [01:21<00:06,  5.45it/s]Few-shot contrast:  93%|██████████████████████████████▊  | 466/500 [01:21<00:06,  5.14it/s]Few-shot contrast:  93%|██████████████████████████████▊  | 467/500 [01:21<00:06,  5.36it/s]Few-shot contrast:  94%|██████████████████████████████▉  | 468/500 [01:21<00:05,  5.56it/s]Few-shot contrast:  94%|██████████████████████████████▉  | 469/500 [01:22<00:05,  5.45it/s]Few-shot contrast:  94%|███████████████████████████████  | 470/500 [01:22<00:05,  5.77it/s]Few-shot contrast:  94%|███████████████████████████████  | 471/500 [01:22<00:04,  5.86it/s]Few-shot contrast:  94%|███████████████████████████████▏ | 472/500 [01:22<00:04,  5.74it/s]Few-shot contrast:  95%|███████████████████████████████▏ | 473/500 [01:22<00:04,  5.90it/s]Few-shot contrast:  95%|███████████████████████████████▎ | 474/500 [01:22<00:04,  5.42it/s]Few-shot contrast:  95%|███████████████████████████████▎ | 475/500 [01:23<00:04,  5.01it/s]Few-shot contrast:  95%|███████████████████████████████▍ | 476/500 [01:23<00:04,  5.32it/s]Few-shot contrast:  95%|███████████████████████████████▍ | 477/500 [01:23<00:04,  5.33it/s]Few-shot contrast:  96%|███████████████████████████████▌ | 478/500 [01:23<00:04,  5.46it/s]Few-shot contrast:  96%|███████████████████████████████▌ | 479/500 [01:23<00:03,  5.70it/s]Few-shot contrast:  96%|███████████████████████████████▋ | 480/500 [01:24<00:03,  5.65it/s]Few-shot contrast:  96%|███████████████████████████████▋ | 481/500 [01:24<00:03,  5.73it/s]Few-shot contrast:  96%|███████████████████████████████▊ | 482/500 [01:24<00:03,  5.81it/s]Few-shot contrast:  97%|███████████████████████████████▉ | 483/500 [01:24<00:03,  5.29it/s]Few-shot contrast:  97%|███████████████████████████████▉ | 484/500 [01:24<00:02,  5.38it/s]Few-shot contrast:  97%|████████████████████████████████ | 485/500 [01:25<00:02,  5.13it/s]Few-shot contrast:  97%|████████████████████████████████ | 486/500 [01:25<00:02,  5.31it/s]Few-shot contrast:  97%|████████████████████████████████▏| 487/500 [01:25<00:02,  5.27it/s]Few-shot contrast:  98%|████████████████████████████████▏| 488/500 [01:25<00:02,  4.98it/s]Few-shot contrast:  98%|████████████████████████████████▎| 489/500 [01:25<00:02,  5.24it/s]Few-shot contrast:  98%|████████████████████████████████▎| 490/500 [01:25<00:01,  5.32it/s]Few-shot contrast:  98%|████████████████████████████████▍| 491/500 [01:26<00:01,  5.64it/s]Few-shot contrast:  98%|████████████████████████████████▍| 492/500 [01:26<00:01,  5.95it/s]Few-shot contrast:  99%|████████████████████████████████▌| 493/500 [01:26<00:01,  6.11it/s]Few-shot contrast:  99%|████████████████████████████████▌| 494/500 [01:26<00:01,  5.98it/s]Few-shot contrast:  99%|████████████████████████████████▋| 495/500 [01:26<00:00,  6.10it/s]Few-shot contrast:  99%|████████████████████████████████▋| 496/500 [01:26<00:00,  5.91it/s]Few-shot contrast:  99%|████████████████████████████████▊| 497/500 [01:27<00:00,  5.59it/s]Few-shot contrast: 100%|████████████████████████████████▊| 498/500 [01:27<00:00,  5.78it/s]Few-shot contrast: 100%|████████████████████████████████▉| 499/500 [01:27<00:00,  5.95it/s]Few-shot contrast: 100%|█████████████████████████████████| 500/500 [01:27<00:00,  5.99it/s]Few-shot contrast: 100%|█████████████████████████████████| 500/500 [01:27<00:00,  5.71it/s]
+
+======================================================================
+PHASE 2 — FEW-SHOT CONTRAST RESULTS
+======================================================================
+
+  Layer 24  — 20/20 features significant (p_bonf<0.05)
+     Feature    Effect      p_raw     p_bonf    mean_fs    mean_zs
+  --------------------------------------------------------------
+         473   +4.684↑     0.0000     0.0000  3707.4615  3535.7616
+          71   +4.560↑     0.0000     0.0000  5039.7193  4779.3388
+         452   +3.874↑     0.0000     0.0000  3932.7394  3720.1516
+         136   +3.767↑     0.0000     0.0000  4603.7406  4398.3229
+           8   +3.661↑     0.0000     0.0000  3537.4247  3414.3024
+         526   +3.641↑     0.0000     0.0000  3817.6306  3626.1559
+         370   +3.489↑     0.0000     0.0000  4292.2259  4113.5341
+         192   +3.473↑     0.0000     0.0000  3728.7733  3554.2574
+         608   +3.454↑     0.0000     0.0000  3594.0220  3433.2586
+         996   +3.410↑     0.0000     0.0000  3511.9664  3386.8185
+         269   +3.340↑     0.0000     0.0000  3721.5603  3545.1737
+         215   +3.207↑     0.0000     0.0000  4503.3532  4258.8089
+         804   +3.188↑     0.0000     0.0000  3365.6405  3252.2361
+         326   +3.079↑     0.0000     0.0000  5372.0012  5281.7222
+         170   +2.948↑     0.0000     0.0000  3615.5037  3516.1979
+          82   +2.412↑     0.0000     0.0000  4474.1791  4334.7177
+         580   +2.283↑     0.0000     0.0000  3648.7434  3531.3383
+       11930   -2.200↓     0.0000     0.0000  5646.0549  5652.9517
+         460   +1.431↑     0.0000     0.0000  3675.9859  3617.2016
+          33   -0.489↓     0.0000     0.0000  3231.0827  3243.8343
+
+  Layer 25  — 19/20 features significant (p_bonf<0.05)
+     Feature    Effect      p_raw     p_bonf    mean_fs    mean_zs
+  --------------------------------------------------------------
+       13123   -3.824↓     0.0000     0.0000  4794.3364  4811.7033
+         170   +3.680↑     0.0000     0.0000  6581.8654  6317.9258
+       10070   -3.210↓     0.0000     0.0000  7239.3593  7252.0518
+         637   +3.115↑     0.0000     0.0000  5215.6981  5026.2219
+          82   +3.072↑     0.0000     0.0000  4216.2482  4053.0082
+         526   +2.891↑     0.0000     0.0000  5562.4305  5380.7833
+         370   +2.777↑     0.0000     0.0000  4528.5802  4330.2334
+          71   +2.742↑     0.0000     0.0000  4877.7159  4700.9576
+        4218   +2.605↑     0.0000     0.0000  4463.0708  4331.4817
+         619   +2.463↑     0.0000     0.0000  4588.6653  4430.4645
+         136   +2.325↑     0.0000     0.0000  5638.6348  5460.4668
+         726   +2.289↑     0.0000     0.0000  4291.1533  4176.8875
+         148   +2.230↑     0.0000     0.0000  4588.8339  4427.5269
+         463   +2.141↑     0.0000     0.0000  4915.9434  4777.0810
+       14898   +1.913↑     0.0000     0.0000  4096.6970  4044.3280
+         326   +1.417↑     0.0000     0.0000  4199.0141  4110.5567
+        4562   +1.301↑     0.0000     0.0000  4800.7869  4778.3579
+         412   +0.825↑     0.0000     0.0000  5107.4680  5069.1473
+        4556   +0.377↑     0.0000     0.0000  4403.8050  4396.9990
+
+  Layer 26  — 19/20 features significant (p_bonf<0.05)
+     Feature    Effect      p_raw     p_bonf    mean_fs    mean_zs
+  --------------------------------------------------------------
+        4749   -3.303↓     0.0000     0.0000  8656.6934  8680.5033
+         402   +2.266↑     0.0000     0.0000  5773.8343  5565.0468
+         326   +2.185↑     0.0000     0.0000  5795.7786  5679.1257
+        8567   +1.254↑     0.0000     0.0000  6204.6484  6196.0908
+         463   +1.168↑     0.0000     0.0000  6496.6669  6387.1811
+         148   +1.163↑     0.0000     0.0000  5856.8570  5736.1183
+       12445   +1.138↑     0.0000     0.0000  14035.7827  13930.6218
+         602   +1.130↑     0.0000     0.0000  6363.9561  6280.3802
+          71   +1.032↑     0.0000     0.0000  5971.2643  5876.8551
+         140   +0.999↑     0.0000     0.0000  7580.8071  7471.6221
+       11059   +0.941↑     0.0000     0.0000  8569.6256  8498.5405
+         478   +0.911↑     0.0000     0.0000  5878.7241  5787.5600
+       11885   +0.880↑     0.0000     0.0000  8011.9308  7964.6987
+        9460   +0.843↑     0.0000     0.0000  11137.6025  11066.4506
+          86   +0.780↑     0.0000     0.0000  6076.6426  6038.6220
+       12169   +0.683↑     0.0000     0.0000  6713.2977  6678.5512
+        9040   +0.583↑     0.0000     0.0000  8176.0883  8136.9370
+          17   +0.521↑     0.0000     0.0000  6912.5755  6870.7868
+         456   -0.233↓     0.0008     0.0161  5609.4971  5624.3795
+
+  Layer 27  — 20/20 features significant (p_bonf<0.05)
+     Feature    Effect      p_raw     p_bonf    mean_fs    mean_zs
+  --------------------------------------------------------------
+         376   +2.207↑     0.0000     0.0000  5735.0221  5574.5512
+          17   +2.132↑     0.0000     0.0000  8197.3838  8052.2358
+       16281   +1.565↑     0.0000     0.0000  6407.6320  6356.5316
+         243   +1.553↑     0.0000     0.0000  7008.5999  6927.1949
+        6837   +1.444↑     0.0000     0.0000  5794.3627  5719.9606
+       14444   +1.440↑     0.0000     0.0000  6282.9725  6228.9927
+        2798   +1.362↑     0.0000     0.0000  7031.8108  6930.7665
+       12157   +1.328↑     0.0000     0.0000  5521.8181  5487.8224
+         478   +1.274↑     0.0000     0.0000  7617.8118  7519.5802
+       12445   +1.167↑     0.0000     0.0000  5106.2635  5075.2165
+         310   +1.115↑     0.0000     0.0000  5810.2541  5720.1438
+         402   +1.111↑     0.0000     0.0000  7823.3574  7732.6823
+       13756   +1.073↑     0.0000     0.0000  5222.7396  5191.9987
+       11059   +1.053↑     0.0000     0.0000  5372.9700  5343.7074
+       10867   +0.981↑     0.0000     0.0000  5437.4795  5406.9863
+         630   +0.865↑     0.0000     0.0000  5398.3272  5342.4884
+       14682   +0.844↑     0.0000     0.0000  5782.8684  5758.3816
+       12846   +0.775↑     0.0000     0.0000  5432.8039  5412.2281
+          39   +0.532↑     0.0000     0.0000  5660.8965  5625.8950
+         207   -0.209↓     0.0001     0.0011  5893.8130  5904.6434
+
+  Layer 28  — 15/20 features significant (p_bonf<0.05)
+     Feature    Effect      p_raw     p_bonf    mean_fs    mean_zs
+  --------------------------------------------------------------
+         402   +2.300↑     0.0000     0.0000  6261.5457  6127.6994
+          37   +1.352↑     0.0000     0.0000  5763.7510  5695.5211
+         169   +1.270↑     0.0000     0.0000  5424.2664  5364.4394
+         317   +1.195↑     0.0000     0.0000  5310.9030  5247.9029
+       14444   +1.183↑     0.0000     0.0000  6203.5178  6174.2743
+         318   +1.019↑     0.0000     0.0000  5438.1111  5388.4805
+         412   +0.931↑     0.0000     0.0000  5871.2244  5813.3170
+        8730   -0.725↓     0.0000     0.0000  5509.9894  5534.5975
+       12846   +0.714↑     0.0000     0.0000  5920.2982  5905.1712
+         528   +0.567↑     0.0000     0.0000  7775.2018  7750.1259
+       15068   +0.486↑     0.0000     0.0000  5701.9460  5691.7180
+       14441   -0.469↓     0.0000     0.0000  6303.3500  6313.0385
+       15822   +0.422↑     0.0000     0.0000  6103.9488  6094.8769
+          39   +0.345↑     0.0000     0.0000  5660.0244  5637.3640
+       16171   +0.247↑     0.0001     0.0019  5913.0222  5907.9435
+
+  Positive effect = higher activation with few-shot exemplars.
+======================================================================
+
+Results saved to: /home/ubuntu/CoTLab/multirun/2026-03-11/17-11-04/3/results.json
+
+Metrics:
+  layers_analysed: [24, 25, 26, 27, 28]
+  sae_repo_id: google/gemma-scope-2-27b-it
+  top_k_features: 20
+  layer_24_top_feature: 11930
+  layer_24_top_histo_score: 5651.7814
+  layer_24_n_significant_features: 20
+  layer_25_top_feature: 15071
+  layer_25_top_histo_score: 9861.2221
+  layer_25_n_significant_features: 19
+  layer_26_top_feature: 12445
+  layer_26_top_histo_score: 13528.9487
+  layer_26_n_significant_features: 19
+  layer_27_top_feature: 17
+  layer_27_top_histo_score: 7332.1223
+  layer_27_n_significant_features: 20
+  layer_28_top_feature: 528
+  layer_28_top_histo_score: 7831.8993
+  layer_28_n_significant_features: 15
+
+Experiment documentation updated: /home/ubuntu/CoTLab/multirun/2026-03-11/17-11-04/3/EXPERIMENT.md
+
+Experiment complete.

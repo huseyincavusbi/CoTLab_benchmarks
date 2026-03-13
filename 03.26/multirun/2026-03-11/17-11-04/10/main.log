@@ -1,0 +1,366 @@
+============================================================
+Configuration:
+============================================================
+backend:
+  _target_: cotlab.backends.TransformersBackend
+  device: cuda
+  dtype: bfloat16
+  enable_hooks: true
+  trust_remote_code: true
+model:
+  name: google/medgemma-27b-text-it
+  max_new_tokens: 512
+  temperature: 0.7
+  top_p: 0.9
+  safe_name: google_medgemma_27b_text_it
+prompt:
+  _target_: cotlab.prompts.ChainOfThoughtStrategy
+  name: chain_of_thought
+  system_role: 'You are a medical expert. Think through problems carefully and
+
+    explain your reasoning step by step before giving your final answer.
+
+    '
+  include_examples: false
+  cot_trigger: 'Let''s think through this step by step:'
+  output_format: json
+dataset:
+  _target_: cotlab.datasets.PediatricsDataset
+  name: pediatrics
+  path: data/Pediatrics_Synthetic_Data.csv
+  text_column: Scenario
+  label_column: Diagnosis
+experiment:
+  _target_: cotlab.experiments.SAEFeatureAnalysisExperiment
+  name: sae_feature_analysis
+  description: GemmaScope-2 histo feature identification and few-shot contrast
+  sae_repo_id: google/gemma-scope-2-27b-it
+  sae_site: resid_post_all
+  sae_width: 16k
+  sae_l0: small
+  target_layers:
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  top_k_features: 20
+  few_shot_contrast: true
+  num_samples: 500
+  seed: 42
+  max_input_tokens: 1024
+  answer_cue: '
+
+
+    Answer:'
+seed: 42
+verbose: true
+dry_run: false
+
+============================================================
+Created experiment documentation: /home/ubuntu/CoTLab/multirun/2026-03-11/17-11-04/10/EXPERIMENT.md
+Loading backend: cotlab.backends.TransformersBackend
+Loading model: google/medgemma-27b-text-it
+  Device map: cuda
+  Dtype: torch.bfloat16
+  Cache: ~/.cache/huggingface (HF default)
+Loading checkpoint shards:   0%| | 0/11 [00:00<?, Loading checkpoint shards:   9%| | 1/11 [00:00<00:Loading checkpoint shards:  18%|▏| 2/11 [00:01<00:Loading checkpoint shards:  27%|▎| 3/11 [00:02<00:Loading checkpoint shards:  36%|▎| 4/11 [00:02<00:Loading checkpoint shards:  45%|▍| 5/11 [00:03<00:Loading checkpoint shards:  55%|▌| 6/11 [00:04<00:Loading checkpoint shards:  64%|▋| 7/11 [00:04<00:Loading checkpoint shards:  73%|▋| 8/11 [00:05<00:Loading checkpoint shards:  82%|▊| 9/11 [00:06<00:Loading checkpoint shards:  91%|▉| 10/11 [00:07<00Loading checkpoint shards: 100%|█| 11/11 [00:07<00Loading checkpoint shards: 100%|█| 11/11 [00:07<00
+  Resolved device: cuda:0
+Creating prompt strategy: chain_of_thought
+Loading dataset: pediatrics
+Creating experiment: sae_feature_analysis
+============================================================
+Running experiment: sae_feature_analysis
+============================================================
+Warning: experiment.num_samples=500 exceeds dataset size (100) for 'pediatrics'. Using 100 samples.
+Model         : google/medgemma-27b-text-it
+SAE repo      : google/gemma-scope-2-27b-it
+SAE site      : resid_post_all  width=16k  l0=small
+Target layers : [24, 25, 26, 27, 28]
+Histo vocab   : 25 terms
+Few-shot contr: True
+
+Loading SAE weights …
+  [SAE] Fetching layer=24 (resid_post_all/layer_24_width_16k_l0_small/params.safetensors) …
+  [SAE] Loaded  layer=24  d_model=5376  d_sae=16384
+  [SAE] Fetching layer=25 (resid_post_all/layer_25_width_16k_l0_small/params.safetensors) …
+  [SAE] Loaded  layer=25  d_model=5376  d_sae=16384
+  [SAE] Fetching layer=26 (resid_post_all/layer_26_width_16k_l0_small/params.safetensors) …
+  [SAE] Loaded  layer=26  d_model=5376  d_sae=16384
+  [SAE] Fetching layer=27 (resid_post_all/layer_27_width_16k_l0_small/params.safetensors) …
+  [SAE] Loaded  layer=27  d_model=5376  d_sae=16384
+  [SAE] Fetching layer=28 (resid_post_all/layer_28_width_16k_l0_small/params.safetensors) …
+  [SAE] Loaded  layer=28  d_model=5376  d_sae=16384
+
+Phase 1: vocabulary probing over 25 terms …
+Vocab probe:   0%|         | 0/25 [00:00<?, ?it/s]Vocab probe:   8%| | 2/25 [00:00<00:01, 14.79it/s]Vocab probe:  16%|▏| 4/25 [00:00<00:01, 15.03it/s]Vocab probe:  24%|▏| 6/25 [00:00<00:01, 13.65it/s]Vocab probe:  32%|▎| 8/25 [00:00<00:01, 14.19it/s]Vocab probe:  40%|▍| 10/25 [00:00<00:01, 13.64it/sVocab probe:  48%|▍| 12/25 [00:00<00:00, 13.76it/sVocab probe:  56%|▌| 14/25 [00:01<00:00, 13.14it/sVocab probe:  64%|▋| 16/25 [00:01<00:00, 13.64it/sVocab probe:  72%|▋| 18/25 [00:01<00:00, 14.01it/sVocab probe:  80%|▊| 20/25 [00:01<00:00, 14.27it/sVocab probe:  88%|▉| 22/25 [00:01<00:00, 14.49it/sVocab probe:  96%|▉| 24/25 [00:01<00:00, 14.63it/sVocab probe: 100%|█| 25/25 [00:01<00:00, 14.16it/s
+
+======================================================================
+PHASE 1 — VOCABULARY PROBING RESULTS
+======================================================================
+
+  Layer 24  (top 20 histo features)
+     Feature   Mean Activation
+  ------------------------------
+       11930         5651.7814
+         326         5041.9894
+          71         4380.1041
+         136         4103.7757
+         215         4059.6877
+          82         4058.9533
+         370         3764.3001
+         452         3533.9227
+         473         3337.1656
+         460         3299.6472
+         526         3286.7652
+         192         3271.4165
+         996         3242.8760
+         170         3232.4720
+          33         3217.4052
+         608         3193.7803
+         269         3178.6097
+           8         3162.2628
+         580         3136.5326
+         804         3076.4520
+
+  Layer 25  (top 20 histo features)
+     Feature   Mean Activation
+  ------------------------------
+       15071         9861.2221
+       10070         7239.1530
+         170         6187.0865
+         526         5210.7808
+         136         5191.8562
+         412         4901.9288
+        4562         4841.4663
+         637         4832.3044
+       13123         4802.3811
+          71         4621.0112
+         463         4581.4835
+        4556         4452.4240
+         619         4189.7926
+        4218         4176.7955
+         370         4119.4831
+         726         4113.6925
+         326         4000.3009
+         148         3998.6766
+       14898         3964.7676
+          82         3899.7466
+
+  Layer 26  (top 20 histo features)
+     Feature   Mean Activation
+  ------------------------------
+       12445        13528.9487
+        9460        10666.3179
+        4749         8676.5054
+       11059         8166.0302
+        9040         7763.4361
+       11885         7692.8122
+         140         7082.4528
+          17         6513.4533
+       12169         6407.4859
+        8567         6191.8789
+         463         6042.5762
+         602         5891.8208
+          86         5822.7265
+          71         5653.4583
+         326         5524.8564
+         478         5416.5106
+         402         5345.0761
+         148         5326.7407
+         456         5209.0102
+       15134         5055.4307
+
+  Layer 27  (top 20 histo features)
+     Feature   Mean Activation
+  ------------------------------
+          17         7332.1223
+         402         7114.8505
+         478         6941.1055
+         243         6526.4379
+        2798         6205.8621
+       16281         6089.4901
+       14444         5970.1249
+       14682         5519.8512
+         207         5412.9635
+       12157         5231.1636
+         376         5221.1308
+       12846         5188.8834
+         310         5161.0089
+        6837         5122.6012
+          39         5091.5426
+       10867         5074.0807
+       11059         5065.5902
+         630         4940.5709
+       13756         4930.6887
+       12445         4876.3554
+
+  Layer 28  (top 20 histo features)
+     Feature   Mean Activation
+  ------------------------------
+         528         7831.8993
+          17         6852.1121
+         394         6554.4227
+       14236         6552.6876
+         402         6369.5015
+       14441         6315.3025
+       14444         6213.3665
+       14682         6204.3014
+       15822         6099.1003
+         412         5936.0337
+       12846         5916.5900
+       16171         5915.9402
+       15068         5723.4391
+          37         5695.1114
+         317         5531.2216
+       16281         5429.3773
+         169         5426.3337
+        8730         5413.9611
+          39         5388.0472
+         318         5361.1094
+
+Phase 2: few-shot contrast over 100 samples …
+Few-shot contrast:   0%|  | 0/100 [00:00<?, ?it/s]Few-shot contrast:   1%| | 1/100 [00:00<00:14,  6.Few-shot contrast:   2%| | 2/100 [00:00<00:14,  6.Few-shot contrast:   3%| | 3/100 [00:00<00:13,  6.Few-shot contrast:   4%| | 4/100 [00:00<00:13,  6.Few-shot contrast:   5%| | 5/100 [00:00<00:13,  6.Few-shot contrast:   6%| | 6/100 [00:00<00:13,  6.Few-shot contrast:   7%| | 7/100 [00:01<00:13,  6.Few-shot contrast:   8%| | 8/100 [00:01<00:13,  6.Few-shot contrast:   9%| | 9/100 [00:01<00:12,  7.Few-shot contrast:  10%| | 10/100 [00:01<00:12,  7Few-shot contrast:  11%| | 11/100 [00:01<00:12,  7Few-shot contrast:  12%| | 12/100 [00:01<00:12,  7Few-shot contrast:  13%|▏| 13/100 [00:01<00:12,  7Few-shot contrast:  14%|▏| 14/100 [00:01<00:12,  7Few-shot contrast:  15%|▏| 15/100 [00:02<00:11,  7Few-shot contrast:  16%|▏| 16/100 [00:02<00:11,  7Few-shot contrast:  17%|▏| 17/100 [00:02<00:11,  7Few-shot contrast:  18%|▏| 18/100 [00:02<00:11,  7Few-shot contrast:  19%|▏| 19/100 [00:02<00:11,  7Few-shot contrast:  20%|▏| 20/100 [00:02<00:10,  7Few-shot contrast:  21%|▏| 21/100 [00:02<00:10,  7Few-shot contrast:  22%|▏| 22/100 [00:03<00:10,  7Few-shot contrast:  23%|▏| 23/100 [00:03<00:10,  7Few-shot contrast:  24%|▏| 24/100 [00:03<00:10,  7Few-shot contrast:  25%|▎| 25/100 [00:03<00:10,  7Few-shot contrast:  26%|▎| 26/100 [00:03<00:10,  7Few-shot contrast:  27%|▎| 27/100 [00:03<00:10,  7Few-shot contrast:  28%|▎| 28/100 [00:03<00:09,  7Few-shot contrast:  29%|▎| 29/100 [00:04<00:09,  7Few-shot contrast:  30%|▎| 30/100 [00:04<00:09,  7Few-shot contrast:  31%|▎| 31/100 [00:04<00:11,  6Few-shot contrast:  32%|▎| 32/100 [00:04<00:10,  6Few-shot contrast:  33%|▎| 33/100 [00:04<00:09,  6Few-shot contrast:  34%|▎| 34/100 [00:04<00:09,  6Few-shot contrast:  35%|▎| 35/100 [00:04<00:09,  7Few-shot contrast:  36%|▎| 36/100 [00:05<00:09,  7Few-shot contrast:  37%|▎| 37/100 [00:05<00:08,  7Few-shot contrast:  38%|▍| 38/100 [00:05<00:08,  7Few-shot contrast:  39%|▍| 39/100 [00:05<00:08,  7Few-shot contrast:  40%|▍| 40/100 [00:05<00:08,  7Few-shot contrast:  41%|▍| 41/100 [00:05<00:08,  7Few-shot contrast:  42%|▍| 42/100 [00:05<00:08,  7Few-shot contrast:  43%|▍| 43/100 [00:06<00:07,  7Few-shot contrast:  44%|▍| 44/100 [00:06<00:07,  7Few-shot contrast:  45%|▍| 45/100 [00:06<00:07,  7Few-shot contrast:  46%|▍| 46/100 [00:06<00:07,  7Few-shot contrast:  47%|▍| 47/100 [00:06<00:07,  7Few-shot contrast:  48%|▍| 48/100 [00:06<00:07,  7Few-shot contrast:  49%|▍| 49/100 [00:06<00:06,  7Few-shot contrast:  50%|▌| 50/100 [00:07<00:06,  7Few-shot contrast:  51%|▌| 51/100 [00:07<00:06,  7Few-shot contrast:  52%|▌| 52/100 [00:07<00:06,  7Few-shot contrast:  53%|▌| 53/100 [00:07<00:06,  7Few-shot contrast:  54%|▌| 54/100 [00:07<00:06,  7Few-shot contrast:  55%|▌| 55/100 [00:07<00:06,  7Few-shot contrast:  56%|▌| 56/100 [00:07<00:06,  7Few-shot contrast:  57%|▌| 57/100 [00:07<00:05,  7Few-shot contrast:  58%|▌| 58/100 [00:08<00:05,  7Few-shot contrast:  59%|▌| 59/100 [00:08<00:05,  7Few-shot contrast:  60%|▌| 60/100 [00:08<00:05,  7Few-shot contrast:  61%|▌| 61/100 [00:08<00:05,  7Few-shot contrast:  62%|▌| 62/100 [00:08<00:05,  7Few-shot contrast:  63%|▋| 63/100 [00:08<00:05,  7Few-shot contrast:  64%|▋| 64/100 [00:08<00:05,  7Few-shot contrast:  65%|▋| 65/100 [00:09<00:04,  7Few-shot contrast:  66%|▋| 66/100 [00:09<00:04,  7Few-shot contrast:  67%|▋| 67/100 [00:09<00:05,  6Few-shot contrast:  68%|▋| 68/100 [00:09<00:04,  6Few-shot contrast:  69%|▋| 69/100 [00:09<00:04,  6Few-shot contrast:  70%|▋| 70/100 [00:09<00:04,  6Few-shot contrast:  71%|▋| 71/100 [00:09<00:04,  6Few-shot contrast:  72%|▋| 72/100 [00:10<00:04,  6Few-shot contrast:  73%|▋| 73/100 [00:10<00:03,  7Few-shot contrast:  74%|▋| 74/100 [00:10<00:03,  7Few-shot contrast:  75%|▊| 75/100 [00:10<00:03,  7Few-shot contrast:  76%|▊| 76/100 [00:10<00:03,  7Few-shot contrast:  77%|▊| 77/100 [00:10<00:03,  7Few-shot contrast:  78%|▊| 78/100 [00:10<00:03,  7Few-shot contrast:  79%|▊| 79/100 [00:11<00:02,  7Few-shot contrast:  80%|▊| 80/100 [00:11<00:02,  7Few-shot contrast:  81%|▊| 81/100 [00:11<00:02,  7Few-shot contrast:  82%|▊| 82/100 [00:11<00:02,  7Few-shot contrast:  83%|▊| 83/100 [00:11<00:02,  7Few-shot contrast:  84%|▊| 84/100 [00:11<00:02,  7Few-shot contrast:  85%|▊| 85/100 [00:11<00:02,  7Few-shot contrast:  86%|▊| 86/100 [00:12<00:01,  7Few-shot contrast:  87%|▊| 87/100 [00:12<00:01,  7Few-shot contrast:  88%|▉| 88/100 [00:12<00:01,  7Few-shot contrast:  89%|▉| 89/100 [00:12<00:01,  7Few-shot contrast:  90%|▉| 90/100 [00:12<00:01,  7Few-shot contrast:  91%|▉| 91/100 [00:12<00:01,  7Few-shot contrast:  92%|▉| 92/100 [00:12<00:01,  7Few-shot contrast:  93%|▉| 93/100 [00:13<00:00,  7Few-shot contrast:  94%|▉| 94/100 [00:13<00:00,  7Few-shot contrast:  95%|▉| 95/100 [00:13<00:00,  7Few-shot contrast:  96%|▉| 96/100 [00:13<00:00,  7Few-shot contrast:  97%|▉| 97/100 [00:13<00:00,  7Few-shot contrast:  98%|▉| 98/100 [00:13<00:00,  7Few-shot contrast:  99%|▉| 99/100 [00:13<00:00,  7Few-shot contrast: 100%|█| 100/100 [00:14<00:00,  Few-shot contrast: 100%|█| 100/100 [00:14<00:00,  
+
+======================================================================
+PHASE 2 — FEW-SHOT CONTRAST RESULTS
+======================================================================
+
+  Layer 24  — 20/20 features significant (p_bonf<0.05)
+     Feature    Effect      p_raw     p_bonf    mean_fs    mean_zs
+  --------------------------------------------------------------
+          71   +6.510↑     0.0000     0.0000  4988.3182  4709.2054
+         473   +5.737↑     0.0000     0.0000  3634.2815  3473.3816
+         192   +5.218↑     0.0000     0.0000  3627.4128  3452.2862
+         608   +4.736↑     0.0000     0.0000  3576.1639  3407.9744
+         452   +4.732↑     0.0000     0.0000  3956.4766  3731.4533
+           8   +4.397↑     0.0000     0.0000  3488.7350  3372.2231
+         269   +4.213↑     0.0000     0.0000  3785.1937  3610.4922
+         996   +3.852↑     0.0000     0.0000  3521.6448  3414.1231
+         370   +3.389↑     0.0000     0.0000  4276.8182  4144.5744
+         136   +3.143↑     0.0000     0.0000  4569.5519  4426.9190
+         526   +2.861↑     0.0000     0.0000  3711.5086  3595.6269
+       11930   +2.745↑     0.0000     0.0000  5645.0589  5639.7547
+          33   -2.517↓     0.0000     0.0000  3199.3205  3240.2751
+         215   +2.472↑     0.0000     0.0000  4478.2691  4352.5355
+         326   +2.265↑     0.0000     0.0000  5362.0128  5306.6451
+         580   +2.156↑     0.0000     0.0000  3532.4999  3458.3272
+         170   +1.550↑     0.0000     0.0000  3554.5282  3514.8798
+         804   +1.037↑     0.0000     0.0000  3323.2607  3296.2787
+         460   -0.619↓     0.0000     0.0002  3634.8928  3655.6959
+          82   +0.553↑     0.0000     0.0004  4427.1362  4405.3579
+
+  Layer 25  — 19/20 features significant (p_bonf<0.05)
+     Feature    Effect      p_raw     p_bonf    mean_fs    mean_zs
+  --------------------------------------------------------------
+       15071  -14.001↓     0.0000     0.0000     0.0000  11639.0760
+       10070   -6.011↓     0.0000     0.0000  7220.1672  7234.7379
+        4556   -5.580↓     0.0000     0.0000  4380.6604  4439.3271
+       13123   -4.978↓     0.0000     0.0000  4795.7015  4808.9710
+        4562   -3.683↓     0.0000     0.0000  4797.5288  4833.3543
+         463   -3.297↓     0.0000     0.0000  4748.5908  4856.1708
+         619   -3.152↓     0.0000     0.0000  4414.1526  4513.0171
+         326   -2.927↓     0.0000     0.0000  3991.4220  4085.6740
+         726   -2.334↓     0.0000     0.0000  4151.2369  4205.5819
+         412   -2.305↓     0.0000     0.0000  4958.4176  5024.6784
+         637   -2.108↓     0.0000     0.0000  5078.8561  5128.6977
+         526   -2.106↓     0.0000     0.0000  5412.3072  5478.3776
+       14898   -1.733↓     0.0000     0.0000  4012.5870  4035.4669
+         148   -1.714↓     0.0000     0.0000  4366.7473  4424.9328
+        4218   -1.285↓     0.0000     0.0000  4324.5187  4355.5972
+         370   -1.236↓     0.0000     0.0000  4381.6281  4420.4289
+          71   -1.126↓     0.0000     0.0000  4733.8226  4771.3640
+          82   +1.121↑     0.0000     0.0000  4048.2649  4014.5497
+         170   -0.455↓     0.0010     0.0206  6484.8898  6499.8664
+
+  Layer 26  — 14/20 features significant (p_bonf<0.05)
+     Feature    Effect      p_raw     p_bonf    mean_fs    mean_zs
+  --------------------------------------------------------------
+        4749  -12.158↓     0.0000     0.0000  8666.2986  8700.5760
+        8567   +2.878↑     0.0000     0.0000  6206.3024  6198.0382
+       15134   -2.102↓     0.0000     0.0000  5497.8544  5559.8888
+         326   -1.836↓     0.0000     0.0000  5898.4666  5941.7026
+         140   -1.473↓     0.0000     0.0000  7878.7369  7958.7614
+         148   -1.164↓     0.0000     0.0000  6065.2485  6120.9855
+         456   -1.076↓     0.0000     0.0000  5671.6111  5704.8242
+       11885   -1.062↓     0.0000     0.0000  8087.7103  8116.8816
+          17   -1.030↓     0.0000     0.0000  7017.5149  7056.9570
+       12169   -0.997↓     0.0000     0.0000  6806.0784  6831.5027
+         602   +0.667↑     0.0000     0.0003  6528.0317  6503.3930
+         463   -0.549↓     0.0001     0.0022  6710.6292  6736.2806
+          71   -0.517↓     0.0001     0.0024  6129.6921  6153.5870
+         478   -0.505↓     0.0003     0.0054  6215.3615  6241.2066
+
+  Layer 27  — 17/20 features significant (p_bonf<0.05)
+     Feature    Effect      p_raw     p_bonf    mean_fs    mean_zs
+  --------------------------------------------------------------
+         310   -4.273↓     0.0000     0.0000  5692.9179  5884.3477
+          17   +2.248↑     0.0000     0.0000  8012.4321  7921.3292
+       14682   -1.823↓     0.0000     0.0000  5718.7722  5752.7365
+       13756   -1.706↓     0.0000     0.0000  5151.4278  5180.3060
+         207   -1.655↓     0.0000     0.0000  5813.3387  5860.2764
+       10867   -1.627↓     0.0000     0.0000  5378.7019  5408.8821
+         243   -1.548↓     0.0000     0.0000  6861.1525  6909.7339
+       11059   -1.512↓     0.0000     0.0000  5308.8759  5334.1015
+       12157   -1.351↓     0.0000     0.0000  5458.3701  5478.7237
+          39   -1.235↓     0.0000     0.0000  5457.7852  5520.1643
+         478   -1.185↓     0.0000     0.0000  7398.8422  7452.5090
+       14444   -1.099↓     0.0000     0.0000  6193.2863  6214.9834
+       12846   -1.041↓     0.0000     0.0000  5381.9880  5398.1755
+        2798   -0.674↓     0.0000     0.0002  6835.9417  6862.2847
+         402   -0.628↓     0.0000     0.0007  7501.0261  7529.6838
+         630   -0.615↓     0.0000     0.0006  5200.1663  5222.2622
+         376   -0.571↓     0.0002     0.0033  5583.6856  5604.2777
+
+  Layer 28  — 20/20 features significant (p_bonf<0.05)
+     Feature    Effect      p_raw     p_bonf    mean_fs    mean_zs
+  --------------------------------------------------------------
+          39   +7.743↑     0.0000     0.0000  5671.6650  5382.9647
+       15822   +7.502↑     0.0000     0.0000  6123.3042  6041.7602
+       14444   +7.444↑     0.0000     0.0000  6228.3004  6141.9910
+       16171   +7.281↑     0.0000     0.0000  5931.5953  5852.6155
+       15068   +6.604↑     0.0000     0.0000  5745.4676  5678.1636
+       12846   +6.523↑     0.0000     0.0000  5944.8131  5876.9417
+       14236   +6.122↑     0.0000     0.0000  6533.5540  6471.8239
+         402   +5.937↑     0.0000     0.0000  6327.9456  6148.5051
+          37   +5.706↑     0.0000     0.0000  5752.8348  5624.5485
+         528   +5.056↑     0.0000     0.0000  7836.6077  7728.4156
+       14682   +4.909↑     0.0000     0.0000  6209.1617  6158.4424
+         169   +4.694↑     0.0000     0.0000  5503.0436  5376.0145
+       14441   +4.593↑     0.0000     0.0000  6302.1672  6253.6172
+         412   +4.280↑     0.0000     0.0000  5842.6875  5706.9312
+       16281   +3.612↑     0.0000     0.0000  5422.3211  5385.0655
+         318   +2.988↑     0.0000     0.0000  5454.8255  5373.9811
+         317   +2.660↑     0.0000     0.0000  5322.0749  5236.4331
+        8730   +2.619↑     0.0000     0.0000  5547.5459  5503.5023
+          17   +2.357↑     0.0000     0.0000  6855.6967  6793.9541
+         394   +1.031↑     0.0000     0.0000  6592.0261  6568.9204
+
+  Positive effect = higher activation with few-shot exemplars.
+======================================================================
+
+Results saved to: /home/ubuntu/CoTLab/multirun/2026-03-11/17-11-04/10/results.json
+
+Metrics:
+  layers_analysed: [24, 25, 26, 27, 28]
+  sae_repo_id: google/gemma-scope-2-27b-it
+  top_k_features: 20
+  layer_24_top_feature: 11930
+  layer_24_top_histo_score: 5651.7814
+  layer_24_n_significant_features: 20
+  layer_25_top_feature: 15071
+  layer_25_top_histo_score: 9861.2221
+  layer_25_n_significant_features: 19
+  layer_26_top_feature: 12445
+  layer_26_top_histo_score: 13528.9487
+  layer_26_n_significant_features: 14
+  layer_27_top_feature: 17
+  layer_27_top_histo_score: 7332.1223
+  layer_27_n_significant_features: 17
+  layer_28_top_feature: 528
+  layer_28_top_histo_score: 7831.8993
+  layer_28_n_significant_features: 20
+
+Experiment documentation updated: /home/ubuntu/CoTLab/multirun/2026-03-11/17-11-04/10/EXPERIMENT.md
+
+Experiment complete.

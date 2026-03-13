@@ -1,0 +1,143 @@
+============================================================
+Configuration:
+============================================================
+backend:
+  _target_: cotlab.backends.TransformersBackend
+  device: cuda
+  dtype: bfloat16
+  enable_hooks: true
+  trust_remote_code: true
+model:
+  name: google/medgemma-27b-text-it
+  max_new_tokens: 512
+  temperature: 0.7
+  top_p: 0.9
+  safe_name: google_medgemma_27b_text_it
+prompt:
+  _target_: cotlab.prompts.ChainOfThoughtStrategy
+  name: chain_of_thought
+  system_role: 'You are a medical expert. Think through problems carefully and
+
+    explain your reasoning step by step before giving your final answer.
+
+    '
+  include_examples: false
+  cot_trigger: 'Let''s think through this step by step:'
+  output_format: json
+dataset:
+  _target_: cotlab.datasets.loaders.MedQADataset
+  name: afrimedqa
+  filename: afrimedqa/mcq.jsonl
+  split: mcq
+experiment:
+  _target_: cotlab.experiments.SAEFeatureAnalysisExperiment
+  name: sae_feature_analysis
+  description: GemmaScope-2 histo feature identification and few-shot contrast
+  sae_repo_id: google/gemma-scope-2-27b-it
+  sae_site: resid_post_all
+  sae_width: 64k
+  sae_l0: medium
+  target_layers:
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  top_k_features: 20
+  few_shot_contrast: true
+  num_samples: 500
+  seed: 42
+  max_input_tokens: 1024
+  answer_cue: '
+
+
+    Answer:'
+seed: 42
+verbose: true
+dry_run: false
+
+============================================================
+Created experiment documentation: /home/ubuntu/CoTLab/multirun/2026-03-11/16-59-54/0/EXPERIMENT.md
+Loading backend: cotlab.backends.TransformersBackend
+Loading model: google/medgemma-27b-text-it
+  Device map: cuda
+  Dtype: torch.bfloat16
+  Cache: ~/.cache/huggingface (HF default)
+Loading checkpoint shards:   0%| | 0/11 [00:00<?, ?it/sLoading checkpoint shards:   9%| | 1/11 [00:00<00:06,  Loading checkpoint shards:  18%|▏| 2/11 [00:01<00:06,  Loading checkpoint shards:  27%|▎| 3/11 [00:02<00:05,  Loading checkpoint shards:  36%|▎| 4/11 [00:02<00:04,  Loading checkpoint shards:  45%|▍| 5/11 [00:03<00:04,  Loading checkpoint shards:  55%|▌| 6/11 [00:04<00:03,  Loading checkpoint shards:  64%|▋| 7/11 [00:04<00:02,  Loading checkpoint shards:  73%|▋| 8/11 [00:05<00:02,  Loading checkpoint shards:  82%|▊| 9/11 [00:06<00:01,  Loading checkpoint shards:  91%|▉| 10/11 [00:07<00:00, Loading checkpoint shards: 100%|█| 11/11 [00:07<00:00, Loading checkpoint shards: 100%|█| 11/11 [00:07<00:00, 
+  Resolved device: cuda:0
+Creating prompt strategy: chain_of_thought
+Loading dataset: afrimedqa
+Creating experiment: sae_feature_analysis
+============================================================
+Running experiment: sae_feature_analysis
+============================================================
+Model         : google/medgemma-27b-text-it
+SAE repo      : google/gemma-scope-2-27b-it
+SAE site      : resid_post_all  width=64k  l0=medium
+Target layers : [24, 25, 26, 27, 28]
+Histo vocab   : 25 terms
+Few-shot contr: True
+
+Loading SAE weights …
+  [SAE] Fetching layer=24 (resid_post_all/layer_24_width_64k_l0_medium/params.safetensors) …
+  [SAE] Direct path not found — scanning repo …
+
+Experiment complete.
+Traceback (most recent call last):
+  File "/home/ubuntu/.venv/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 403, in hf_raise_for_status
+    response.raise_for_status()
+  File "/home/ubuntu/.venv/lib/python3.12/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://huggingface.co/google/gemma-scope-2-27b-it/resolve/main/resid_post_all/layer_24_width_64k_l0_medium/params.safetensors
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/CoTLab/src/cotlab/patching/sae.py", line 103, in from_pretrained
+    local_path = hf_hub_download(repo_id=repo_id, filename=direct, token=token)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.venv/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.venv/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1014, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.venv/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1077, in _hf_hub_download_to_cache_dir
+    (url_to_download, etag, commit_hash, expected_size, xet_file_data, head_call_error) = _get_metadata_or_catch_error(
+                                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.venv/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1550, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.venv/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.venv/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1467, in get_hf_file_metadata
+    r = _request_wrapper(
+        ^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.venv/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 283, in _request_wrapper
+    response = _request_wrapper(
+               ^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.venv/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 307, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/home/ubuntu/.venv/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 414, in hf_raise_for_status
+    raise _format(EntryNotFoundError, message, response) from e
+huggingface_hub.errors.EntryNotFoundError: 404 Client Error. (Request ID: Root=1-69b19f96-694fb40f3c61da9f5bc8ef48;d29d133b-2a7c-4bb4-9e8c-c7d298b8f5a8)
+
+Entry Not Found for url: https://huggingface.co/google/gemma-scope-2-27b-it/resolve/main/resid_post_all/layer_24_width_64k_l0_medium/params.safetensors.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/CoTLab/src/cotlab/main.py", line 322, in _hydra_main
+    result = experiment.run(**run_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/CoTLab/src/cotlab/experiments/sae_feature_analysis.py", line 518, in run
+    saes = self._load_saes(layers, backend.device)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/CoTLab/src/cotlab/experiments/sae_feature_analysis.py", line 154, in _load_saes
+    sae = GemmaScopeLayer.from_pretrained(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/CoTLab/src/cotlab/patching/sae.py", line 127, in from_pretrained
+    raise FileNotFoundError(
+FileNotFoundError: No SAE found for site='resid_post_all', layer=24, width='64k' in google/gemma-scope-2-27b-it.
+Available layers (any site/width): ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61']

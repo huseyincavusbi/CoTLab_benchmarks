@@ -1,0 +1,3300 @@
+{
+  "metadata": {
+    "config": {
+      "backend": {
+        "_target_": "cotlab.backends.TransformersBackend",
+        "device": "cuda",
+        "dtype": "bfloat16",
+        "enable_hooks": true,
+        "trust_remote_code": true
+      },
+      "model": {
+        "name": "google/medgemma-27b-text-it",
+        "max_new_tokens": 512,
+        "temperature": 0.7,
+        "top_p": 0.9
+      },
+      "prompt": {
+        "_target_": "cotlab.prompts.ChainOfThoughtStrategy",
+        "name": "chain_of_thought",
+        "system_role": "You are a medical expert. Think through problems carefully and\nexplain your reasoning step by step before giving your final answer.\n",
+        "include_examples": false,
+        "cot_trigger": "Let's think through this step by step:",
+        "output_format": "plain"
+      },
+      "dataset": {
+        "_target_": "cotlab.datasets.loaders.MedQADataset",
+        "name": "afrimedqa",
+        "filename": "afrimedqa/mcq.jsonl",
+        "split": "mcq"
+      },
+      "experiment": {
+        "_target_": "cotlab.experiments.HNeuronAnalysisExperiment",
+        "name": "h_neuron_analysis",
+        "description": "CETT-based H-Neuron discovery and causal validation (arXiv:2512.01797)",
+        "num_samples": 500,
+        "validation_split": 0.2,
+        "l1_C": 0.1,
+        "alpha_values": [
+          0.0,
+          0.5,
+          1.5,
+          2.0
+        ],
+        "layer_stride": 1,
+        "seed": 42,
+        "max_input_tokens": 1024,
+        "answer_cue": "\n\nAnswer:"
+      },
+      "seed": 42,
+      "verbose": true,
+      "dry_run": false
+    },
+    "start_time": "2026-03-13T08:54:01.693150"
+  },
+  "experiment": "h_neuron_analysis",
+  "model": "google/medgemma-27b-text-it",
+  "prompt_strategy": "chain_of_thought",
+  "metrics": {
+    "dataset": "afrimedqa",
+    "n_samples": 500,
+    "n_layers": 62,
+    "intermediate_dim": 21504,
+    "n_features": 1333248,
+    "accuracy": 0.724,
+    "probe_balanced_accuracy": 0.6984126984126984,
+    "probe_auroc": 0.7043650793650793,
+    "n_h_neurons": 48,
+    "h_neuron_ratio_permille": 0.036002304147465435,
+    "layer_distribution": {
+      "29": 3,
+      "30": 1,
+      "57": 1,
+      "26": 2,
+      "46": 1,
+      "36": 3,
+      "44": 1,
+      "59": 6,
+      "60": 4,
+      "32": 4,
+      "31": 1,
+      "23": 1,
+      "55": 4,
+      "58": 6,
+      "35": 2,
+      "27": 1,
+      "22": 1,
+      "50": 1,
+      "51": 1,
+      "20": 1,
+      "43": 2,
+      "33": 1
+    },
+    "top_h_neurons": [
+      {
+        "layer": 29,
+        "neuron": 13578
+      },
+      {
+        "layer": 30,
+        "neuron": 19805
+      },
+      {
+        "layer": 57,
+        "neuron": 19946
+      },
+      {
+        "layer": 26,
+        "neuron": 13241
+      },
+      {
+        "layer": 46,
+        "neuron": 21113
+      },
+      {
+        "layer": 36,
+        "neuron": 11383
+      },
+      {
+        "layer": 44,
+        "neuron": 20359
+      },
+      {
+        "layer": 59,
+        "neuron": 14328
+      },
+      {
+        "layer": 60,
+        "neuron": 2032
+      },
+      {
+        "layer": 32,
+        "neuron": 2358
+      },
+      {
+        "layer": 31,
+        "neuron": 18392
+      },
+      {
+        "layer": 23,
+        "neuron": 17425
+      },
+      {
+        "layer": 55,
+        "neuron": 1484
+      },
+      {
+        "layer": 58,
+        "neuron": 15990
+      },
+      {
+        "layer": 55,
+        "neuron": 19955
+      },
+      {
+        "layer": 60,
+        "neuron": 21365
+      },
+      {
+        "layer": 60,
+        "neuron": 3622
+      },
+      {
+        "layer": 59,
+        "neuron": 20901
+      },
+      {
+        "layer": 58,
+        "neuron": 13512
+      },
+      {
+        "layer": 59,
+        "neuron": 13081
+      },
+      {
+        "layer": 35,
+        "neuron": 11808
+      },
+      {
+        "layer": 58,
+        "neuron": 18767
+      },
+      {
+        "layer": 27,
+        "neuron": 1622
+      },
+      {
+        "layer": 22,
+        "neuron": 14692
+      },
+      {
+        "layer": 60,
+        "neuron": 1339
+      },
+      {
+        "layer": 55,
+        "neuron": 15272
+      },
+      {
+        "layer": 36,
+        "neuron": 19503
+      },
+      {
+        "layer": 29,
+        "neuron": 17912
+      },
+      {
+        "layer": 26,
+        "neuron": 11293
+      },
+      {
+        "layer": 29,
+        "neuron": 9767
+      },
+      {
+        "layer": 58,
+        "neuron": 7825
+      },
+      {
+        "layer": 50,
+        "neuron": 20904
+      },
+      {
+        "layer": 51,
+        "neuron": 9122
+      },
+      {
+        "layer": 32,
+        "neuron": 20818
+      },
+      {
+        "layer": 59,
+        "neuron": 5929
+      },
+      {
+        "layer": 58,
+        "neuron": 4039
+      },
+      {
+        "layer": 59,
+        "neuron": 2487
+      },
+      {
+        "layer": 58,
+        "neuron": 3844
+      },
+      {
+        "layer": 55,
+        "neuron": 7600
+      },
+      {
+        "layer": 32,
+        "neuron": 10535
+      },
+      {
+        "layer": 59,
+        "neuron": 2381
+      },
+      {
+        "layer": 20,
+        "neuron": 13018
+      },
+      {
+        "layer": 35,
+        "neuron": 16343
+      },
+      {
+        "layer": 43,
+        "neuron": 16542
+      },
+      {
+        "layer": 32,
+        "neuron": 16983
+      },
+      {
+        "layer": 43,
+        "neuron": 14341
+      },
+      {
+        "layer": 33,
+        "neuron": 13706
+      },
+      {
+        "layer": 36,
+        "neuron": 6101
+      }
+    ],
+    "accuracy_alpha_0.0": 0.73,
+    "accuracy_alpha_0.5": 0.72,
+    "accuracy_alpha_1.5": 0.7,
+    "accuracy_alpha_2.0": 0.73
+  },
+  "raw_outputs": {
+    "per_sample": [
+      {
+        "sample_idx": 2619,
+        "predicted": "A",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 456,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 102,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3037,
+        "predicted": "E",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1126,
+        "predicted": "D",
+        "ground_truth": "E",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1003,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 914,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 571,
+        "predicted": "A",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3016,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 419,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2771,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3033,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3654,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2233,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 356,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2418,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1728,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 130,
+        "predicted": "D",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 122,
+        "predicted": "A",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 383,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 895,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 952,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2069,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2465,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 108,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2298,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 814,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2932,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2661,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2872,
+        "predicted": "A",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2232,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1718,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 902,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1839,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2413,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1139,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3315,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3560,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 26,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3108,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3300,
+        "predicted": "D",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 653,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2859,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1731,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1393,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1138,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 636,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 881,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3127,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1378,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 418,
+        "predicted": "D",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 379,
+        "predicted": "E",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1556,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 396,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1470,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3471,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1408,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2472,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1083,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3305,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 177,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2988,
+        "predicted": "A",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1881,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2196,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 511,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3777,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1550,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 322,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2261,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1200,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3397,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2574,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2533,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3626,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3529,
+        "predicted": "A",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1481,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2364,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 787,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2885,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 284,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 187,
+        "predicted": "A",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2708,
+        "predicted": "E",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 933,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3166,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1185,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 326,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3503,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 953,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3549,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 413,
+        "predicted": "C",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3905,
+        "predicted": "B",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3912,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1857,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2603,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3416,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1494,
+        "predicted": "A",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 666,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1516,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1455,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 858,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2745,
+        "predicted": "D",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1093,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2874,
+        "predicted": "A",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3836,
+        "predicted": "B",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2799,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2654,
+        "predicted": "C",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 292,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2495,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2600,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 700,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2187,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2986,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1002,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 669,
+        "predicted": "E",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1893,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1554,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1105,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3790,
+        "predicted": "A",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2621,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2818,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2281,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 899,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2804,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1328,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3452,
+        "predicted": "A",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3147,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3178,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 229,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 938,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3366,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 131,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3297,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1292,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1643,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1096,
+        "predicted": "A",
+        "ground_truth": "E",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 271,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 864,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3740,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2323,
+        "predicted": "D",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3589,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2940,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1288,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 870,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2684,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2044,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1620,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3623,
+        "predicted": "E",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3745,
+        "predicted": "A",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2633,
+        "predicted": "A",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1879,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 585,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1084,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3950,
+        "predicted": "A",
+        "ground_truth": "E",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1010,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3051,
+        "predicted": "C",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2299,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2207,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1076,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3059,
+        "predicted": "A",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2394,
+        "predicted": "D",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1754,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3677,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2390,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1635,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1482,
+        "predicted": "A",
+        "ground_truth": "E",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 898,
+        "predicted": "D",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 566,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2087,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2021,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 372,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3095,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 192,
+        "predicted": "D",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3527,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 449,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 626,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2570,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 655,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3244,
+        "predicted": "D",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2787,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1729,
+        "predicted": "B",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2442,
+        "predicted": "A",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 260,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1576,
+        "predicted": "D",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1563,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2440,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1917,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2167,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1029,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2266,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3525,
+        "predicted": "E",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 47,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2786,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2952,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 469,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2792,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3624,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2199,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3075,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1092,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3148,
+        "predicted": "B",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2625,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3913,
+        "predicted": "D",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3956,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1202,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1780,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 647,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1858,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 13,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2957,
+        "predicted": "B",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3587,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2947,
+        "predicted": "A",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1078,
+        "predicted": "E",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2050,
+        "predicted": "E",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3120,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 731,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2079,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3738,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 435,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3565,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2561,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1222,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3447,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2617,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3742,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2494,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3931,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3783,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1531,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3123,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 661,
+        "predicted": "C",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2209,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3189,
+        "predicted": "A",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2172,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2,
+        "predicted": "C",
+        "ground_truth": "E",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2453,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1327,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2001,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 79,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 458,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1486,
+        "predicted": "B",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3599,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3406,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3304,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1259,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 980,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 237,
+        "predicted": "C",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 986,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3596,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3819,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3890,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 350,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2997,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1990,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3342,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 283,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3115,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2181,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3136,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 515,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 525,
+        "predicted": "C",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2702,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1946,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2251,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 676,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1085,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2161,
+        "predicted": "B",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3573,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2484,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1733,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 867,
+        "predicted": "E",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2208,
+        "predicted": "D",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3093,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2989,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2825,
+        "predicted": "A",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 823,
+        "predicted": "A",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2920,
+        "predicted": "A",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1276,
+        "predicted": "C",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1634,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2751,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3929,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1529,
+        "predicted": "A",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1794,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2119,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1849,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 495,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1015,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 920,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 262,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1384,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 86,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2409,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2268,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 942,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2410,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3925,
+        "predicted": "C",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 29,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 290,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2899,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2584,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 241,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 937,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 276,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 128,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3521,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1353,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3661,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2105,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 974,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1140,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2740,
+        "predicted": "C",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1988,
+        "predicted": "A",
+        "ground_truth": "E",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 877,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3687,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 541,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2962,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3614,
+        "predicted": "C",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2338,
+        "predicted": "A",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2360,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1936,
+        "predicted": "B",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 995,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3213,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1937,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3307,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1667,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 779,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 386,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 397,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2699,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1765,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1451,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1734,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1683,
+        "predicted": "C",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1912,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3538,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3846,
+        "predicted": "A",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 221,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2758,
+        "predicted": "B",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2676,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2646,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 403,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 248,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1649,
+        "predicted": "A",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2982,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1389,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3279,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3883,
+        "predicted": "E",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 447,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1018,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 784,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3633,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3894,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1837,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 574,
+        "predicted": "C",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3941,
+        "predicted": "A",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 751,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3649,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1894,
+        "predicted": "B",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1023,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3581,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 308,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1815,
+        "predicted": "B",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3309,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3528,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3506,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2254,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 401,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 207,
+        "predicted": "B",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2671,
+        "predicted": "C",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2214,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3424,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 60,
+        "predicted": "A",
+        "ground_truth": "E",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 382,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3086,
+        "predicted": "B",
+        "ground_truth": "E",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3476,
+        "predicted": "B",
+        "ground_truth": "E",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 968,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 681,
+        "predicted": "A",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1664,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1989,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1971,
+        "predicted": "C",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 875,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3541,
+        "predicted": "C",
+        "ground_truth": "E",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1642,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 240,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 674,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1552,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 8,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1599,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1086,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3211,
+        "predicted": "A",
+        "ground_truth": "E",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3215,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1863,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1168,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1732,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2853,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2992,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3208,
+        "predicted": "A",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2276,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2711,
+        "predicted": "C",
+        "ground_truth": "E",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2942,
+        "predicted": "C",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1993,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 634,
+        "predicted": "A",
+        "ground_truth": "E",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 777,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1215,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 891,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 239,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2372,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3013,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2220,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 249,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3063,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1284,
+        "predicted": "C",
+        "ground_truth": "E",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 234,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 205,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2392,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1952,
+        "predicted": "A",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2059,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3492,
+        "predicted": "C",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2175,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 644,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 232,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2080,
+        "predicted": "D",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 328,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3487,
+        "predicted": "E",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 761,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 280,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2437,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 278,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2765,
+        "predicted": "E",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 963,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1653,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 491,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2333,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1008,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2371,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2435,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 162,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2536,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 335,
+        "predicted": "A",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1717,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2692,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3795,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2315,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2141,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1295,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1068,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 836,
+        "predicted": "A",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2743,
+        "predicted": "C",
+        "ground_truth": "E",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2933,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1286,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 977,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1087,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1621,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 536,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3679,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2643,
+        "predicted": "C",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1228,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1872,
+        "predicted": "C",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3514,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3079,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 297,
+        "predicted": "A",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 38,
+        "predicted": "E",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1877,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2544,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2306,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 409,
+        "predicted": "E",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 300,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2202,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 873,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2072,
+        "predicted": "E",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3570,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 542,
+        "predicted": "D",
+        "ground_truth": "E",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1429,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 281,
+        "predicted": "B",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1000,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1513,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1167,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 646,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3676,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3415,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2225,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2881,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1239,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2505,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3898,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2678,
+        "predicted": "C",
+        "ground_truth": "E",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2166,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 32,
+        "predicted": "A",
+        "ground_truth": "E",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2735,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3346,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2271,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1226,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2717,
+        "predicted": "E",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 424,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 550,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3899,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 472,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 438,
+        "predicted": "E",
+        "ground_truth": "E",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3040,
+        "predicted": "B",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3769,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3911,
+        "predicted": "E",
+        "ground_truth": "D",
+        "is_correct": false
+      }
+    ]
+  },
+  "num_samples": 0,
+  "samples": [],
+  "end_time": "2026-03-13T08:56:38.292141",
+  "duration_seconds": 156.598993
+}

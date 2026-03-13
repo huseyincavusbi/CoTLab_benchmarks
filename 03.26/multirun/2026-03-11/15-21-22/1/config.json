@@ -1,0 +1,43 @@
+{
+  "backend": {
+    "_target_": "cotlab.backends.TransformersBackend",
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "enable_hooks": true,
+    "trust_remote_code": true
+  },
+  "model": {
+    "name": "google/medgemma-27b-text-it",
+    "max_new_tokens": 512,
+    "temperature": 0.7,
+    "top_p": 0.9,
+    "safe_name": "google_medgemma_27b_text_it"
+  },
+  "prompt": {
+    "_target_": "cotlab.prompts.ChainOfThoughtStrategy",
+    "name": "chain_of_thought",
+    "system_role": "You are a medical expert. Think through problems carefully and\nexplain your reasoning step by step before giving your final answer.\n",
+    "include_examples": false,
+    "cot_trigger": "Let's think through this step by step:",
+    "output_format": "json"
+  },
+  "dataset": {
+    "_target_": "cotlab.datasets.NeurologyDataset",
+    "name": "neurology",
+    "path": "data/neurology.json"
+  },
+  "experiment": {
+    "_target_": "cotlab.experiments.ResidualNormOODExperiment",
+    "name": "residual_norm_ood",
+    "description": "L2 residual norm OOD flag vs logit entropy baseline",
+    "target_layer": null,
+    "num_samples": null,
+    "seed": 42,
+    "max_input_tokens": 1024,
+    "answer_cue": "\n\nAnswer:",
+    "threshold_percentile_step": 5
+  },
+  "seed": 42,
+  "verbose": true,
+  "dry_run": false
+}

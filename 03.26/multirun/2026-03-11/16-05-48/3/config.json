@@ -1,0 +1,45 @@
+{
+  "backend": {
+    "_target_": "cotlab.backends.TransformersBackend",
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "enable_hooks": true,
+    "trust_remote_code": true
+  },
+  "model": {
+    "name": "google/medgemma-27b-text-it",
+    "max_new_tokens": 512,
+    "temperature": 0.7,
+    "top_p": 0.9,
+    "safe_name": "google_medgemma_27b_text_it"
+  },
+  "prompt": {
+    "_target_": "cotlab.prompts.ChainOfThoughtStrategy",
+    "name": "chain_of_thought",
+    "system_role": "You are a medical expert. Think through problems carefully and\nexplain your reasoning step by step before giving your final answer.\n",
+    "include_examples": false,
+    "cot_trigger": "Let's think through this step by step:",
+    "output_format": "json"
+  },
+  "dataset": {
+    "_target_": "cotlab.datasets.loaders.MedQADataset",
+    "name": "medqa",
+    "filename": "medqa/test.jsonl",
+    "split": "test"
+  },
+  "experiment": {
+    "_target_": "cotlab.experiments.ActivationPatchingExperiment",
+    "name": "activation_patching",
+    "description": "Layer-wise causal activation patching (logit recovery)",
+    "patching_mode": "cot_contrast",
+    "layer_stride": 2,
+    "num_samples": 100,
+    "max_input_tokens": 1024,
+    "seed": 42,
+    "answer_cue": "\n\nAnswer:",
+    "introspect_instruction": "Think deeply about this problem. Carefully reason through the underlying mechanisms and consider all relevant factors before committing to your answer."
+  },
+  "seed": 42,
+  "verbose": true,
+  "dry_run": false
+}

@@ -1,0 +1,116 @@
+============================================================
+Configuration:
+============================================================
+backend:
+  _target_: cotlab.backends.TransformersBackend
+  device: cuda
+  dtype: bfloat16
+  enable_hooks: true
+  trust_remote_code: true
+model:
+  name: google/medgemma-27b-text-it
+  max_new_tokens: 512
+  temperature: 0.7
+  top_p: 0.9
+  safe_name: google_medgemma_27b_text_it
+prompt:
+  _target_: cotlab.prompts.ChainOfThoughtStrategy
+  name: chain_of_thought
+  system_role: 'You are a medical expert. Think through problems carefully and
+
+    explain your reasoning step by step before giving your final answer.
+
+    '
+  include_examples: false
+  cot_trigger: 'Let''s think through this step by step:'
+  output_format: json
+dataset:
+  _target_: cotlab.datasets.OncologyDataset
+  name: oncology
+  path: data/oncology.json
+experiment:
+  _target_: cotlab.experiments.CompositeShiftDetectorExperiment
+  name: composite_shift_detector
+  description: L61 norm + L3 entropy Mahalanobis OOD detector
+  norm_layer: null
+  attn_layer: 3
+  num_samples: null
+  calibration_fraction: 0.3
+  window_size: 20
+  num_bins: 5
+  seed: 42
+  max_input_tokens: 1024
+  answer_cue: '
+
+
+    Answer:'
+seed: 42
+verbose: true
+dry_run: false
+
+============================================================
+Created experiment documentation: /home/ubuntu/CoTLab/multirun/2026-03-11/15-28-26/9/EXPERIMENT.md
+Loading backend: cotlab.backends.TransformersBackend
+Loading model: google/medgemma-27b-text-it
+  Device map: cuda
+  Dtype: torch.bfloat16
+  Cache: ~/.cache/huggingface (HF default)
+Loading checkpoint shards:   0%| | 0/11 [00:00<?, ?it/sLoading checkpoint shards:   9%| | 1/11 [00:00<00:06,  Loading checkpoint shards:  18%|▏| 2/11 [00:01<00:06,  Loading checkpoint shards:  27%|▎| 3/11 [00:02<00:05,  Loading checkpoint shards:  36%|▎| 4/11 [00:02<00:04,  Loading checkpoint shards:  45%|▍| 5/11 [00:03<00:04,  Loading checkpoint shards:  55%|▌| 6/11 [00:04<00:03,  Loading checkpoint shards:  64%|▋| 7/11 [00:04<00:02,  Loading checkpoint shards:  73%|▋| 8/11 [00:05<00:02,  Loading checkpoint shards:  82%|▊| 9/11 [00:06<00:01,  Loading checkpoint shards:  91%|▉| 10/11 [00:07<00:00, Loading checkpoint shards: 100%|█| 11/11 [00:07<00:00, Loading checkpoint shards: 100%|█| 11/11 [00:07<00:00, 
+  Resolved device: cuda:0
+Creating prompt strategy: chain_of_thought
+Loading dataset: oncology
+Creating experiment: composite_shift_detector
+============================================================
+Running experiment: composite_shift_detector
+============================================================
+Switching attention implementation: sdpa → eager
+Model             : google/medgemma-27b-text-it
+Dataset           : oncology
+Norm layer        : L61
+Attention layer   : L3
+Samples           : 100
+Calibration frac  : 0.3
+Composite signal:   0%|        | 0/100 [00:00<?, ?it/s]Composite signal:   2%| | 2/100 [00:00<00:08, 12.18it/sComposite signal:   4%| | 4/100 [00:00<00:08, 12.00it/sComposite signal:   6%| | 6/100 [00:00<00:07, 12.21it/sComposite signal:   8%| | 8/100 [00:00<00:07, 12.32it/sComposite signal:  10%| | 10/100 [00:00<00:07, 12.34it/Composite signal:  12%| | 12/100 [00:00<00:07, 12.28it/Composite signal:  14%|▏| 14/100 [00:01<00:07, 12.25it/Composite signal:  16%|▏| 16/100 [00:01<00:06, 12.31it/Composite signal:  18%|▏| 18/100 [00:01<00:06, 12.31it/Composite signal:  20%|▏| 20/100 [00:01<00:06, 12.26it/Composite signal:  22%|▏| 22/100 [00:01<00:06, 12.35it/Composite signal:  24%|▏| 24/100 [00:01<00:06, 12.29it/Composite signal:  26%|▎| 26/100 [00:02<00:06, 12.31it/Composite signal:  28%|▎| 28/100 [00:02<00:05, 12.37it/Composite signal:  30%|▎| 30/100 [00:02<00:05, 12.23it/Composite signal:  32%|▎| 32/100 [00:02<00:05, 12.32it/Composite signal:  34%|▎| 34/100 [00:02<00:05, 12.26it/Composite signal:  36%|▎| 36/100 [00:02<00:05, 12.27it/Composite signal:  38%|▍| 38/100 [00:03<00:05, 10.87it/Composite signal:  40%|▍| 40/100 [00:03<00:05, 11.32it/Composite signal:  42%|▍| 42/100 [00:03<00:05, 11.55it/Composite signal:  44%|▍| 44/100 [00:03<00:04, 11.85it/Composite signal:  46%|▍| 46/100 [00:03<00:04, 12.03it/Composite signal:  48%|▍| 48/100 [00:03<00:04, 12.23it/Composite signal:  50%|▌| 50/100 [00:04<00:04, 12.32it/Composite signal:  52%|▌| 52/100 [00:04<00:03, 12.36it/Composite signal:  54%|▌| 54/100 [00:04<00:03, 12.35it/Composite signal:  56%|▌| 56/100 [00:04<00:03, 12.38it/Composite signal:  58%|▌| 58/100 [00:04<00:03, 12.37it/Composite signal:  60%|▌| 60/100 [00:04<00:03, 12.29it/Composite signal:  62%|▌| 62/100 [00:05<00:03, 12.29it/Composite signal:  64%|▋| 64/100 [00:05<00:02, 12.40it/Composite signal:  66%|▋| 66/100 [00:05<00:02, 12.36it/Composite signal:  68%|▋| 68/100 [00:05<00:02, 12.32it/Composite signal:  70%|▋| 70/100 [00:05<00:02, 12.40it/Composite signal:  72%|▋| 72/100 [00:05<00:02, 12.31it/Composite signal:  74%|▋| 74/100 [00:06<00:02, 12.36it/Composite signal:  76%|▊| 76/100 [00:06<00:01, 12.39it/Composite signal:  78%|▊| 78/100 [00:06<00:01, 12.39it/Composite signal:  80%|▊| 80/100 [00:06<00:01, 12.18it/Composite signal:  82%|▊| 82/100 [00:06<00:01, 12.25it/Composite signal:  84%|▊| 84/100 [00:06<00:01, 12.26it/Composite signal:  86%|▊| 86/100 [00:07<00:01, 12.40it/Composite signal:  88%|▉| 88/100 [00:07<00:00, 12.31it/Composite signal:  90%|▉| 90/100 [00:07<00:00, 12.26it/Composite signal:  92%|▉| 92/100 [00:07<00:00, 12.35it/Composite signal:  94%|▉| 94/100 [00:07<00:00, 12.45it/Composite signal:  96%|▉| 96/100 [00:07<00:00, 12.52it/Composite signal:  98%|▉| 98/100 [00:08<00:00, 12.39it/Composite signal: 100%|█| 100/100 [00:08<00:00, 10.90itComposite signal: 100%|█| 100/100 [00:08<00:00, 12.13it
+/home/ubuntu/CoTLab/src/cotlab/experiments/composite_shift_detector.py:237: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  res = spearmanr(x, y)
+
+==================================================================
+COMPOSITE SHIFT DETECTOR — oncology  (norm=L61, attn=L3)
+==================================================================
+  Samples          : 100  (calibration: 30)
+  Accuracy         : 0.0000
+
+  Mahalanobis AUROC                : n/a
+  Mean score (correct)             : 0.0000
+  Mean score (incorrect)           : 1.3913
+
+  Spearman ρ (score vs acc window) : nan  p=nan
+
+   Bin             Score range      N  Accuracy
+  --------------------------------------------
+     1  [  0.1627,   0.8678]     20    0.0000
+     2  [  0.8678,   1.2123]     20    0.0000
+     3  [  1.2123,   1.5495]     20    0.0000
+     4  [  1.5495,   1.8578]     20    0.0000
+     5  [  1.8578,   3.4966]     20    0.0000
+==================================================================
+
+Results saved to: /home/ubuntu/CoTLab/multirun/2026-03-11/15-28-26/9/results.json
+
+Metrics:
+  dataset: oncology
+  norm_layer: 61
+  attn_layer: 3
+  num_samples: 100
+  calibration_n: 30
+  accuracy: 0.0
+  auroc_mahalanobis: None
+  spearman_rho_score_vs_acc: None
+  spearman_p: None
+  mean_score_correct: 0.0
+  mean_score_incorrect: 1.3913
+  accuracy_by_bin: [{'bin': 1, 'score_range': [0.1627, 0.8678], 'n': 20, 'accuracy': 0.0}, {'bin': 2, 'score_range': [0.8678, 1.2123], 'n': 20, 'accuracy': 0.0}, {'bin': 3, 'score_range': [1.2123, 1.5495], 'n': 20, 'accuracy': 0.0}, {'bin': 4, 'score_range': [1.5495, 1.8578], 'n': 20, 'accuracy': 0.0}, {'bin': 5, 'score_range': [1.8578, 3.4966], 'n': 20, 'accuracy': 0.0}]
+
+Experiment documentation updated: /home/ubuntu/CoTLab/multirun/2026-03-11/15-28-26/9/EXPERIMENT.md
+
+Experiment complete.

@@ -1,0 +1,106 @@
+============================================================
+Configuration:
+============================================================
+backend:
+  _target_: cotlab.backends.TransformersBackend
+  device: cuda
+  dtype: bfloat16
+  enable_hooks: true
+  trust_remote_code: true
+model:
+  name: google/medgemma-27b-text-it
+  max_new_tokens: 512
+  temperature: 0.7
+  top_p: 0.9
+  safe_name: google_medgemma_27b_text_it
+prompt:
+  _target_: cotlab.prompts.ChainOfThoughtStrategy
+  name: chain_of_thought
+  system_role: 'You are a medical expert. Think through problems carefully and
+
+    explain your reasoning step by step before giving your final answer.
+
+    '
+  include_examples: false
+  cot_trigger: 'Let''s think through this step by step:'
+  output_format: json
+dataset:
+  _target_: cotlab.datasets.loaders.MedBulletsDataset
+  name: medbullets
+  split: op5_test
+experiment:
+  _target_: cotlab.experiments.ResidualNormOODExperiment
+  name: residual_norm_ood
+  description: L2 residual norm OOD flag vs logit entropy baseline
+  target_layer: null
+  num_samples: null
+  seed: 42
+  max_input_tokens: 1024
+  answer_cue: '
+
+
+    Answer:'
+  threshold_percentile_step: 5
+seed: 42
+verbose: true
+dry_run: false
+
+============================================================
+Created experiment documentation: /home/ubuntu/CoTLab/multirun/2026-03-11/15-02-03/1/EXPERIMENT.md
+Loading backend: cotlab.backends.TransformersBackend
+Loading model: google/medgemma-27b-text-it
+  Device map: cuda
+  Dtype: torch.bfloat16
+  Cache: ~/.cache/huggingface (HF default)
+Loading checkpoint shards:   0%| | 0/11 [00:00<?, ?it/sLoading checkpoint shards:   9%| | 1/11 [00:00<00:06,  Loading checkpoint shards:  18%|▏| 2/11 [00:01<00:06,  Loading checkpoint shards:  27%|▎| 3/11 [00:02<00:05,  Loading checkpoint shards:  36%|▎| 4/11 [00:02<00:04,  Loading checkpoint shards:  45%|▍| 5/11 [00:03<00:04,  Loading checkpoint shards:  55%|▌| 6/11 [00:04<00:03,  Loading checkpoint shards:  64%|▋| 7/11 [00:04<00:02,  Loading checkpoint shards:  73%|▋| 8/11 [00:05<00:02,  Loading checkpoint shards:  82%|▊| 9/11 [00:06<00:01,  Loading checkpoint shards:  91%|▉| 10/11 [00:07<00:00, Loading checkpoint shards: 100%|█| 11/11 [00:07<00:00, Loading checkpoint shards: 100%|█| 11/11 [00:07<00:00, 
+  Resolved device: cuda:0
+Creating prompt strategy: chain_of_thought
+Loading dataset: medbullets
+medbullets/op5_test-00000-of-00001.parqu(…):   0%| | 0.medbullets/op5_test-00000-of-00001.parqu(…):   0%| | 0.medbullets/op5_test-00000-of-00001.parqu(…):  22%|▏| 13medbullets/op5_test-00000-of-00001.parqu(…): 100%|█| 60medbullets/op5_test-00000-of-00001.parqu(…): 100%|█| 60
+Creating experiment: residual_norm_ood
+============================================================
+Running experiment: residual_norm_ood
+============================================================
+Model         : google/medgemma-27b-text-it
+Dataset       : medbullets
+Target layer  : L61
+Samples       : 308
+MCQ letter ids: 14 token ids
+Residual norm:   0%|           | 0/308 [00:00<?, ?it/s]Residual norm:   1%|   | 2/308 [00:00<00:28, 10.56it/s]Residual norm:   1%|   | 4/308 [00:00<00:28, 10.61it/s]Residual norm:   2%|   | 6/308 [00:00<00:32,  9.30it/s]Residual norm:   3%|   | 8/308 [00:00<00:29, 10.16it/s]Residual norm:   3%|  | 10/308 [00:00<00:28, 10.29it/s]Residual norm:   4%|  | 12/308 [00:01<00:27, 10.91it/s]Residual norm:   5%|  | 14/308 [00:01<00:26, 11.28it/s]Residual norm:   5%|  | 16/308 [00:01<00:25, 11.35it/s]Residual norm:   6%|  | 18/308 [00:01<00:25, 11.29it/s]Residual norm:   6%|▏ | 20/308 [00:01<00:24, 11.63it/s]Residual norm:   7%|▏ | 22/308 [00:01<00:24, 11.76it/s]Residual norm:   8%|▏ | 24/308 [00:02<00:23, 11.91it/s]Residual norm:   8%|▏ | 26/308 [00:02<00:24, 11.70it/s]Residual norm:   9%|▏ | 28/308 [00:02<00:24, 11.57it/s]Residual norm:  10%|▏ | 30/308 [00:02<00:24, 11.29it/s]Residual norm:  10%|▏ | 32/308 [00:02<00:24, 11.47it/s]Residual norm:  11%|▏ | 34/308 [00:03<00:24, 11.06it/s]Residual norm:  12%|▏ | 36/308 [00:03<00:24, 11.08it/s]Residual norm:  12%|▏ | 38/308 [00:03<00:24, 11.21it/s]Residual norm:  13%|▎ | 40/308 [00:03<00:23, 11.30it/s]Residual norm:  14%|▎ | 42/308 [00:03<00:23, 11.48it/s]Residual norm:  14%|▎ | 44/308 [00:03<00:24, 10.77it/s]Residual norm:  15%|▎ | 46/308 [00:04<00:23, 10.96it/s]Residual norm:  16%|▎ | 48/308 [00:04<00:23, 11.04it/s]Residual norm:  16%|▎ | 50/308 [00:04<00:23, 10.88it/s]Residual norm:  17%|▎ | 52/308 [00:04<00:23, 11.09it/s]Residual norm:  18%|▎ | 54/308 [00:04<00:22, 11.09it/s]Residual norm:  18%|▎ | 56/308 [00:05<00:22, 11.31it/s]Residual norm:  19%|▍ | 58/308 [00:05<00:22, 11.20it/s]Residual norm:  19%|▍ | 60/308 [00:05<00:21, 11.46it/s]Residual norm:  20%|▍ | 62/308 [00:05<00:22, 11.07it/s]Residual norm:  21%|▍ | 64/308 [00:05<00:23, 10.33it/s]Residual norm:  21%|▍ | 66/308 [00:05<00:23, 10.41it/s]Residual norm:  22%|▍ | 68/308 [00:06<00:22, 10.55it/s]Residual norm:  23%|▍ | 70/308 [00:06<00:22, 10.73it/s]Residual norm:  23%|▍ | 72/308 [00:06<00:21, 11.11it/s]Residual norm:  24%|▍ | 74/308 [00:06<00:20, 11.27it/s]Residual norm:  25%|▍ | 76/308 [00:06<00:21, 10.86it/s]Residual norm:  25%|▌ | 78/308 [00:07<00:20, 10.96it/s]Residual norm:  26%|▌ | 80/308 [00:07<00:20, 11.21it/s]Residual norm:  27%|▌ | 82/308 [00:07<00:19, 11.33it/s]Residual norm:  27%|▌ | 84/308 [00:07<00:19, 11.39it/s]Residual norm:  28%|▌ | 86/308 [00:07<00:19, 11.20it/s]Residual norm:  29%|▌ | 88/308 [00:07<00:19, 11.25it/s]Residual norm:  29%|▌ | 90/308 [00:08<00:18, 11.49it/s]Residual norm:  30%|▌ | 92/308 [00:08<00:19, 11.02it/s]Residual norm:  31%|▌ | 94/308 [00:08<00:19, 10.73it/s]Residual norm:  31%|▌ | 96/308 [00:08<00:19, 11.05it/s]Residual norm:  32%|▋ | 98/308 [00:08<00:19, 10.99it/s]Residual norm:  32%|▎| 100/308 [00:09<00:18, 11.44it/s]Residual norm:  33%|▎| 102/308 [00:09<00:17, 11.52it/s]Residual norm:  34%|▎| 104/308 [00:09<00:17, 11.56it/s]Residual norm:  34%|▎| 106/308 [00:09<00:17, 11.68it/s]Residual norm:  35%|▎| 108/308 [00:09<00:17, 11.42it/s]Residual norm:  36%|▎| 110/308 [00:09<00:17, 11.40it/s]Residual norm:  36%|▎| 112/308 [00:10<00:16, 11.74it/s]Residual norm:  37%|▎| 114/308 [00:10<00:16, 11.58it/s]Residual norm:  38%|▍| 116/308 [00:10<00:15, 12.09it/s]Residual norm:  38%|▍| 118/308 [00:10<00:16, 11.65it/s]Residual norm:  39%|▍| 120/308 [00:10<00:17, 10.51it/s]Residual norm:  40%|▍| 122/308 [00:10<00:17, 10.62it/s]Residual norm:  40%|▍| 124/308 [00:11<00:16, 11.05it/s]Residual norm:  41%|▍| 126/308 [00:11<00:16, 11.18it/s]Residual norm:  42%|▍| 128/308 [00:11<00:15, 11.59it/s]Residual norm:  42%|▍| 130/308 [00:11<00:15, 11.53it/s]Residual norm:  43%|▍| 132/308 [00:11<00:14, 11.86it/s]Residual norm:  44%|▍| 134/308 [00:11<00:15, 11.50it/s]Residual norm:  44%|▍| 136/308 [00:12<00:14, 11.67it/s]Residual norm:  45%|▍| 138/308 [00:12<00:14, 11.67it/s]Residual norm:  45%|▍| 140/308 [00:12<00:14, 11.31it/s]Residual norm:  46%|▍| 142/308 [00:12<00:14, 11.27it/s]Residual norm:  47%|▍| 144/308 [00:12<00:13, 11.74it/s]Residual norm:  47%|▍| 146/308 [00:13<00:13, 11.87it/s]Residual norm:  48%|▍| 148/308 [00:13<00:14, 11.35it/s]Residual norm:  49%|▍| 150/308 [00:13<00:13, 11.66it/s]Residual norm:  49%|▍| 152/308 [00:13<00:12, 12.01it/s]Residual norm:  50%|▌| 154/308 [00:13<00:12, 12.09it/s]Residual norm:  51%|▌| 156/308 [00:13<00:13, 11.19it/s]Residual norm:  51%|▌| 158/308 [00:14<00:13, 11.16it/s]Residual norm:  52%|▌| 160/308 [00:14<00:12, 11.53it/s]Residual norm:  53%|▌| 162/308 [00:14<00:12, 11.62it/s]Residual norm:  53%|▌| 164/308 [00:14<00:12, 11.11it/s]Residual norm:  54%|▌| 166/308 [00:14<00:12, 11.12it/s]Residual norm:  55%|▌| 168/308 [00:14<00:12, 11.26it/s]Residual norm:  55%|▌| 170/308 [00:15<00:11, 11.60it/s]Residual norm:  56%|▌| 172/308 [00:15<00:12, 11.32it/s]Residual norm:  56%|▌| 174/308 [00:15<00:11, 11.55it/s]Residual norm:  57%|▌| 176/308 [00:15<00:11, 11.54it/s]Residual norm:  58%|▌| 178/308 [00:15<00:12, 10.38it/s]Residual norm:  58%|▌| 180/308 [00:16<00:12, 10.65it/s]Residual norm:  59%|▌| 182/308 [00:16<00:11, 10.80it/s]Residual norm:  60%|▌| 184/308 [00:16<00:11, 10.99it/s]Residual norm:  60%|▌| 186/308 [00:16<00:10, 11.14it/s]Residual norm:  61%|▌| 188/308 [00:16<00:10, 11.04it/s]Residual norm:  62%|▌| 190/308 [00:16<00:10, 11.18it/s]Residual norm:  62%|▌| 192/308 [00:17<00:10, 11.39it/s]Residual norm:  63%|▋| 194/308 [00:17<00:09, 11.42it/s]Residual norm:  64%|▋| 196/308 [00:17<00:10, 10.96it/s]Residual norm:  64%|▋| 198/308 [00:17<00:09, 11.13it/s]Residual norm:  65%|▋| 200/308 [00:17<00:09, 10.90it/s]Residual norm:  66%|▋| 202/308 [00:18<00:09, 11.17it/s]Residual norm:  66%|▋| 204/308 [00:18<00:09, 11.44it/s]Residual norm:  67%|▋| 206/308 [00:18<00:08, 11.78it/s]Residual norm:  68%|▋| 208/308 [00:18<00:08, 11.62it/s]Residual norm:  68%|▋| 210/308 [00:18<00:08, 11.76it/s]Residual norm:  69%|▋| 212/308 [00:18<00:08, 11.64it/s]Residual norm:  69%|▋| 214/308 [00:19<00:07, 11.80it/s]Residual norm:  70%|▋| 216/308 [00:19<00:07, 11.62it/s]Residual norm:  71%|▋| 218/308 [00:19<00:07, 11.55it/s]Residual norm:  71%|▋| 220/308 [00:19<00:07, 11.33it/s]Residual norm:  72%|▋| 222/308 [00:19<00:07, 11.44it/s]Residual norm:  73%|▋| 224/308 [00:19<00:07, 11.56it/s]Residual norm:  73%|▋| 226/308 [00:20<00:07, 11.59it/s]Residual norm:  74%|▋| 228/308 [00:20<00:06, 11.72it/s]Residual norm:  75%|▋| 230/308 [00:20<00:06, 11.58it/s]Residual norm:  75%|▊| 232/308 [00:20<00:06, 11.94it/s]Residual norm:  76%|▊| 234/308 [00:20<00:06, 11.99it/s]Residual norm:  77%|▊| 236/308 [00:20<00:06, 10.99it/s]Residual norm:  77%|▊| 238/308 [00:21<00:06, 11.36it/s]Residual norm:  78%|▊| 240/308 [00:21<00:06, 11.00it/s]Residual norm:  79%|▊| 242/308 [00:21<00:05, 11.24it/s]Residual norm:  79%|▊| 244/308 [00:21<00:05, 11.45it/s]Residual norm:  80%|▊| 246/308 [00:21<00:05, 11.95it/s]Residual norm:  81%|▊| 248/308 [00:21<00:04, 12.08it/s]Residual norm:  81%|▊| 250/308 [00:22<00:04, 11.97it/s]Residual norm:  82%|▊| 252/308 [00:22<00:04, 11.60it/s]Residual norm:  82%|▊| 254/308 [00:22<00:04, 11.63it/s]Residual norm:  83%|▊| 256/308 [00:22<00:04, 11.48it/s]Residual norm:  84%|▊| 258/308 [00:22<00:04, 11.61it/s]Residual norm:  84%|▊| 260/308 [00:22<00:04, 11.82it/s]Residual norm:  85%|▊| 262/308 [00:23<00:03, 12.02it/s]Residual norm:  86%|▊| 264/308 [00:23<00:03, 11.91it/s]Residual norm:  86%|▊| 266/308 [00:23<00:03, 12.12it/s]Residual norm:  87%|▊| 268/308 [00:23<00:03, 12.03it/s]Residual norm:  88%|▉| 270/308 [00:23<00:03, 11.64it/s]Residual norm:  88%|▉| 272/308 [00:23<00:03, 11.84it/s]Residual norm:  89%|▉| 274/308 [00:24<00:02, 12.13it/s]Residual norm:  90%|▉| 276/308 [00:24<00:02, 12.20it/s]Residual norm:  90%|▉| 278/308 [00:24<00:02, 11.93it/s]Residual norm:  91%|▉| 280/308 [00:24<00:02, 12.02it/s]Residual norm:  92%|▉| 282/308 [00:24<00:02, 12.08it/s]Residual norm:  92%|▉| 284/308 [00:24<00:01, 12.25it/s]Residual norm:  93%|▉| 286/308 [00:25<00:01, 12.21it/s]Residual norm:  94%|▉| 288/308 [00:25<00:01, 12.62it/s]Residual norm:  94%|▉| 290/308 [00:25<00:01, 12.79it/s]Residual norm:  95%|▉| 292/308 [00:25<00:01, 11.81it/s]Residual norm:  95%|▉| 294/308 [00:25<00:01, 10.94it/s]Residual norm:  96%|▉| 296/308 [00:26<00:01, 10.23it/s]Residual norm:  97%|▉| 298/308 [00:26<00:00, 10.50it/s]Residual norm:  97%|▉| 300/308 [00:26<00:00, 10.95it/s]Residual norm:  98%|▉| 302/308 [00:26<00:00, 11.24it/s]Residual norm:  99%|▉| 304/308 [00:26<00:00, 11.21it/s]Residual norm:  99%|▉| 306/308 [00:26<00:00, 11.25it/s]Residual norm: 100%|█| 308/308 [00:27<00:00, 11.70it/s]Residual norm: 100%|█| 308/308 [00:27<00:00, 11.37it/s]
+
+==================================================================
+RESIDUAL NORM OOD — medbullets  (L61)
+==================================================================
+  Samples      : 308
+  Accuracy     : 0.4416
+
+  Metric                    AUROC   mean(corr)  mean(incorr)
+  --------------------------------------------------------
+  L2 norm...............   0.5331     26933.38      26433.03
+  Logit entropy (neg)...   0.6915       0.6540        0.8855
+
+  Norm threshold τ* : 23784.46
+  Balanced acc @ τ* : 0.5527
+
+  SE literature baseline (Kuhn et al. 2023): AUROC ~0.65–0.75
+==================================================================
+
+Results saved to: /home/ubuntu/CoTLab/multirun/2026-03-11/15-02-03/1/results.json
+
+Metrics:
+  dataset: medbullets
+  target_layer: 61
+  num_samples: 308
+  accuracy: 0.4416
+  auroc_l2_norm: 0.5331
+  auroc_logit_entropy: 0.6915
+  norm_threshold_tau: 23784.4644
+  balanced_acc_at_tau: 0.5527
+  mean_norm_correct: 26933.3828
+  mean_norm_incorrect: 26433.0253
+  mean_entropy_correct: 0.654
+  mean_entropy_incorrect: 0.8855
+
+Experiment documentation updated: /home/ubuntu/CoTLab/multirun/2026-03-11/15-02-03/1/EXPERIMENT.md
+
+Experiment complete.

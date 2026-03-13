@@ -1,0 +1,126 @@
+============================================================
+Configuration:
+============================================================
+backend:
+  _target_: cotlab.backends.TransformersBackend
+  device: cuda
+  dtype: bfloat16
+  enable_hooks: true
+  trust_remote_code: true
+model:
+  name: google/medgemma-27b-text-it
+  max_new_tokens: 512
+  temperature: 0.7
+  top_p: 0.9
+  safe_name: google_medgemma_27b_text_it
+prompt:
+  _target_: cotlab.prompts.ChainOfThoughtStrategy
+  name: chain_of_thought
+  system_role: 'You are a medical expert. Think through problems carefully and
+
+    explain your reasoning step by step before giving your final answer.
+
+    '
+  include_examples: false
+  cot_trigger: 'Let''s think through this step by step:'
+  output_format: json
+dataset:
+  _target_: cotlab.datasets.loaders.MedQADataset
+  name: medxpertqa
+  filename: medxpertqa/test.jsonl
+  split: test
+experiment:
+  _target_: cotlab.experiments.ActivationPatchingExperiment
+  name: activation_patching
+  description: Layer-wise causal activation patching (logit recovery)
+  patching_mode: cot_contrast
+  layer_stride: 2
+  num_samples: 100
+  max_input_tokens: 1024
+  seed: 42
+  answer_cue: '
+
+
+    Answer:'
+  introspect_instruction: Think deeply about this problem. Carefully reason through
+    the underlying mechanisms and consider all relevant factors before committing
+    to your answer.
+seed: 42
+verbose: true
+dry_run: false
+
+============================================================
+Created experiment documentation: /home/ubuntu/CoTLab/multirun/2026-03-11/16-05-48/4/EXPERIMENT.md
+Loading backend: cotlab.backends.TransformersBackend
+Loading model: google/medgemma-27b-text-it
+  Device map: cuda
+  Dtype: torch.bfloat16
+  Cache: ~/.cache/huggingface (HF default)
+Loading checkpoint shards:   0%| | 0/11 [00:00<?, ?it/sLoading checkpoint shards:   9%| | 1/11 [00:00<00:06,  Loading checkpoint shards:  18%|▏| 2/11 [00:01<00:06,  Loading checkpoint shards:  27%|▎| 3/11 [00:02<00:05,  Loading checkpoint shards:  36%|▎| 4/11 [00:02<00:04,  Loading checkpoint shards:  45%|▍| 5/11 [00:03<00:04,  Loading checkpoint shards:  55%|▌| 6/11 [00:04<00:03,  Loading checkpoint shards:  64%|▋| 7/11 [00:04<00:02,  Loading checkpoint shards:  73%|▋| 8/11 [00:05<00:02,  Loading checkpoint shards:  82%|▊| 9/11 [00:06<00:01,  Loading checkpoint shards:  91%|▉| 10/11 [00:06<00:00, Loading checkpoint shards: 100%|█| 11/11 [00:07<00:00, Loading checkpoint shards: 100%|█| 11/11 [00:07<00:00, 
+  Resolved device: cuda:0
+Creating prompt strategy: chain_of_thought
+Loading dataset: medxpertqa
+Creating experiment: activation_patching
+============================================================
+Running experiment: activation_patching
+============================================================
+Model        : google/medgemma-27b-text-it
+Patching mode: cot_contrast
+Layers (31): [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60]
+Stride : 2  |  max_input_tokens: 1024
+Samples: 100  (each requires 33 forward passes)
+
+Activation patching:   0%|     | 0/100 [00:00<?, ?it/s]Activation patching:   1%| | 1/100 [00:03<05:40,  3.44sActivation patching:   2%| | 2/100 [00:06<05:06,  3.13sActivation patching:   3%| | 3/100 [00:09<04:43,  2.92sActivation patching:   4%| | 4/100 [00:12<04:48,  3.00sActivation patching:   5%| | 5/100 [00:15<04:51,  3.06sActivation patching:   6%| | 6/100 [00:18<05:01,  3.21sActivation patching:   7%| | 7/100 [00:22<05:05,  3.29sActivation patching:   8%| | 8/100 [00:25<05:04,  3.31sActivation patching:   9%| | 9/100 [00:28<04:49,  3.18sActivation patching:  10%| | 10/100 [00:31<04:39,  3.11Activation patching:  11%| | 11/100 [00:34<04:22,  2.95Activation patching:  12%| | 12/100 [00:36<04:10,  2.84Activation patching:  13%|▏| 13/100 [00:39<04:16,  2.95Activation patching:  14%|▏| 14/100 [00:42<04:17,  2.99Activation patching:  15%|▏| 15/100 [00:46<04:28,  3.16Activation patching:  16%|▏| 16/100 [00:49<04:32,  3.25Activation patching:  17%|▏| 17/100 [00:52<04:08,  3.00Activation patching:  18%|▏| 18/100 [00:54<03:52,  2.84Activation patching:  19%|▏| 19/100 [00:57<03:48,  2.82Activation patching:  20%|▏| 20/100 [01:00<03:47,  2.85Activation patching:  21%|▏| 21/100 [01:04<04:19,  3.28Activation patching:  22%|▏| 22/100 [01:07<04:12,  3.24Activation patching:  23%|▏| 23/100 [01:10<03:57,  3.08Activation patching:  24%|▏| 24/100 [01:14<04:05,  3.23Activation patching:  25%|▎| 25/100 [01:16<03:46,  3.02Activation patching:  26%|▎| 26/100 [01:20<03:53,  3.15Activation patching:  27%|▎| 27/100 [01:23<03:48,  3.13Activation patching:  28%|▎| 28/100 [01:26<03:47,  3.16Activation patching:  29%|▎| 29/100 [01:30<03:53,  3.29Activation patching:  30%|▎| 30/100 [01:33<03:47,  3.25Activation patching:  31%|▎| 31/100 [01:36<03:44,  3.25Activation patching:  32%|▎| 32/100 [01:39<03:28,  3.07Activation patching:  33%|▎| 33/100 [01:42<03:25,  3.07Activation patching:  34%|▎| 34/100 [01:48<04:19,  3.93Activation patching:  35%|▎| 35/100 [01:51<04:05,  3.78Activation patching:  36%|▎| 36/100 [01:54<03:45,  3.52Activation patching:  37%|▎| 37/100 [01:58<03:46,  3.60Activation patching:  38%|▍| 38/100 [02:00<03:23,  3.28Activation patching:  39%|▍| 39/100 [02:03<03:13,  3.18Activation patching:  40%|▍| 40/100 [02:06<03:06,  3.11Activation patching:  41%|▍| 41/100 [02:10<03:23,  3.44Activation patching:  42%|▍| 42/100 [02:14<03:17,  3.40Activation patching:  43%|▍| 43/100 [02:17<03:09,  3.33Activation patching:  44%|▍| 44/100 [02:20<03:05,  3.31Activation patching:  45%|▍| 45/100 [02:24<03:03,  3.33Activation patching:  46%|▍| 46/100 [02:27<02:55,  3.26Activation patching:  47%|▍| 47/100 [02:30<02:57,  3.35Activation patching:  48%|▍| 48/100 [02:33<02:44,  3.16Activation patching:  49%|▍| 49/100 [02:37<02:57,  3.49Activation patching:  50%|▌| 50/100 [02:40<02:48,  3.37Activation patching:  51%|▌| 51/100 [02:43<02:35,  3.17Activation patching:  52%|▌| 52/100 [02:46<02:33,  3.19Activation patching:  53%|▌| 53/100 [02:50<02:33,  3.27Activation patching:  54%|▌| 54/100 [02:53<02:33,  3.34Activation patching:  55%|▌| 55/100 [02:56<02:25,  3.24Activation patching:  56%|▌| 56/100 [02:59<02:20,  3.20Activation patching:  57%|▌| 57/100 [03:02<02:09,  3.02Activation patching:  58%|▌| 58/100 [03:05<02:01,  2.89Activation patching:  59%|▌| 59/100 [03:08<02:03,  3.01Activation patching:  60%|▌| 60/100 [03:10<01:56,  2.90Activation patching:  61%|▌| 61/100 [03:14<01:59,  3.06Activation patching:  62%|▌| 62/100 [03:19<02:15,  3.57Activation patching:  63%|▋| 63/100 [03:23<02:18,  3.75Activation patching:  64%|▋| 64/100 [03:25<02:02,  3.41Activation patching:  65%|▋| 65/100 [03:28<01:50,  3.15Activation patching:  66%|▋| 66/100 [03:32<01:53,  3.34Activation patching:  67%|▋| 67/100 [03:35<01:49,  3.33Activation patching:  68%|▋| 68/100 [03:38<01:46,  3.32Activation patching:  69%|▋| 69/100 [03:42<01:50,  3.55Activation patching:  70%|▋| 70/100 [03:45<01:36,  3.22Activation patching:  71%|▋| 71/100 [03:49<01:42,  3.52Activation patching:  72%|▋| 72/100 [03:52<01:33,  3.33Activation patching:  73%|▋| 73/100 [03:56<01:31,  3.41Activation patching:  74%|▋| 74/100 [03:59<01:29,  3.44Activation patching:  75%|▊| 75/100 [04:02<01:23,  3.36Activation patching:  76%|▊| 76/100 [04:05<01:16,  3.20Activation patching:  77%|▊| 77/100 [04:07<01:07,  2.94Activation patching:  78%|▊| 78/100 [04:12<01:12,  3.32Activation patching:  79%|▊| 79/100 [04:14<01:04,  3.07Activation patching:  80%|▊| 80/100 [04:17<00:57,  2.87Activation patching:  81%|▊| 81/100 [04:19<00:54,  2.84Activation patching:  82%|▊| 82/100 [04:23<00:54,  3.03Activation patching:  83%|▊| 83/100 [04:25<00:48,  2.85Activation patching:  84%|▊| 84/100 [04:28<00:43,  2.70Activation patching:  85%|▊| 85/100 [04:32<00:46,  3.12Activation patching:  86%|▊| 86/100 [04:34<00:42,  3.03Activation patching:  87%|▊| 87/100 [04:37<00:38,  2.96Activation patching:  88%|▉| 88/100 [04:40<00:36,  3.01Activation patching:  89%|▉| 89/100 [04:43<00:32,  2.97Activation patching:  90%|▉| 90/100 [04:46<00:28,  2.83Activation patching:  91%|▉| 91/100 [04:49<00:26,  2.96Activation patching:  92%|▉| 92/100 [04:53<00:26,  3.34Activation patching:  93%|▉| 93/100 [04:56<00:22,  3.18Activation patching:  94%|▉| 94/100 [04:59<00:17,  2.97Activation patching:  95%|▉| 95/100 [05:02<00:15,  3.16Activation patching:  96%|▉| 96/100 [05:06<00:13,  3.36Activation patching:  97%|▉| 97/100 [05:09<00:09,  3.17Activation patching:  98%|▉| 98/100 [05:12<00:06,  3.09Activation patching:  99%|▉| 99/100 [05:15<00:03,  3.11Activation patching: 100%|█| 100/100 [05:17<00:00,  2.8Activation patching: 100%|█| 100/100 [05:17<00:00,  3.1
+
+==============================================================
+ACTIVATION PATCHING SUMMARY  (logit-recovery effect)
+==============================================================
+Processed samples : 100 / 100
+Top-5 causal layers: [0, 22, 12, 10, 24]
+
+ Layer   Mean Effect   N samples
+----------------------------------
+     0        0.7533         100
+     2       -0.0385         100
+     4        0.3384         100
+     6        0.2992         100
+     8        0.1624         100
+    10        0.6065         100
+    12        0.6283         100
+    14        0.2868         100
+    16        0.3302         100
+    18       -0.0449         100
+    20        0.1915         100
+    22        0.7244         100
+    24        0.5474         100
+    26        0.3059         100
+    28        0.0242         100
+    30        0.3079         100
+    32        0.1336         100
+    34        0.1991         100
+    36        0.2059         100
+    38        0.1499         100
+    40        0.1769         100
+    42        0.1544         100
+    44        0.3536         100
+    46        0.1128         100
+    48        0.3180         100
+    50        0.0493         100
+    52        0.0990         100
+    54        0.1629         100
+    56        0.1355         100
+    58        0.2136         100
+    60        0.1750         100
+==============================================================
+
+Results saved to: /home/ubuntu/CoTLab/multirun/2026-03-11/16-05-48/4/results.json
+
+Metrics:
+  num_samples: 100
+  layer_stride: 2
+  mean_effect_per_layer: {0: 0.7533, 2: -0.0385, 4: 0.3384, 6: 0.2992, 8: 0.1624, 10: 0.6065, 12: 0.6283, 14: 0.2868, 16: 0.3302, 18: -0.0449, 20: 0.1915, 22: 0.7244, 24: 0.5474, 26: 0.3059, 28: 0.0242, 30: 0.3079, 32: 0.1336, 34: 0.1991, 36: 0.2059, 38: 0.1499, 40: 0.1769, 42: 0.1544, 44: 0.3536, 46: 0.1128, 48: 0.318, 50: 0.0493, 52: 0.099, 54: 0.1629, 56: 0.1355, 58: 0.2136, 60: 0.175}
+  top_5_causal_layers: [0, 22, 12, 10, 24]
+
+Experiment documentation updated: /home/ubuntu/CoTLab/multirun/2026-03-11/16-05-48/4/EXPERIMENT.md
+
+Experiment complete.

@@ -1,0 +1,114 @@
+============================================================
+Configuration:
+============================================================
+backend:
+  _target_: cotlab.backends.TransformersBackend
+  device: cuda
+  dtype: bfloat16
+  enable_hooks: true
+  trust_remote_code: true
+model:
+  name: google/medgemma-27b-text-it
+  max_new_tokens: 512
+  temperature: 0.7
+  top_p: 0.9
+  safe_name: google_medgemma_27b_text_it
+prompt:
+  _target_: cotlab.prompts.ChainOfThoughtStrategy
+  name: chain_of_thought
+  system_role: 'You are a medical expert. Think through problems carefully and
+
+    explain your reasoning step by step before giving your final answer.
+
+    '
+  include_examples: false
+  cot_trigger: 'Let''s think through this step by step:'
+  output_format: json
+dataset:
+  _target_: cotlab.datasets.loaders.MMLUMedicalDataset
+  name: mmlu_medical
+  filename: mmlu/medical_test.jsonl
+experiment:
+  _target_: cotlab.experiments.CompositeShiftDetectorExperiment
+  name: composite_shift_detector
+  description: L61 norm + L3 entropy Mahalanobis OOD detector
+  norm_layer: null
+  attn_layer: 3
+  num_samples: null
+  calibration_fraction: 0.3
+  window_size: 20
+  num_bins: 5
+  seed: 42
+  max_input_tokens: 1024
+  answer_cue: '
+
+
+    Answer:'
+seed: 42
+verbose: true
+dry_run: false
+
+============================================================
+Created experiment documentation: /home/ubuntu/CoTLab/multirun/2026-03-11/15-28-26/5/EXPERIMENT.md
+Loading backend: cotlab.backends.TransformersBackend
+Loading model: google/medgemma-27b-text-it
+  Device map: cuda
+  Dtype: torch.bfloat16
+  Cache: ~/.cache/huggingface (HF default)
+Loading checkpoint shards:   0%| | 0/11 [00:00<?, ?it/sLoading checkpoint shards:   9%| | 1/11 [00:00<00:06,  Loading checkpoint shards:  18%|▏| 2/11 [00:01<00:06,  Loading checkpoint shards:  27%|▎| 3/11 [00:02<00:05,  Loading checkpoint shards:  36%|▎| 4/11 [00:02<00:04,  Loading checkpoint shards:  45%|▍| 5/11 [00:03<00:04,  Loading checkpoint shards:  55%|▌| 6/11 [00:04<00:03,  Loading checkpoint shards:  64%|▋| 7/11 [00:04<00:02,  Loading checkpoint shards:  73%|▋| 8/11 [00:05<00:02,  Loading checkpoint shards:  82%|▊| 9/11 [00:06<00:01,  Loading checkpoint shards:  91%|▉| 10/11 [00:07<00:00, Loading checkpoint shards: 100%|█| 11/11 [00:07<00:00, Loading checkpoint shards: 100%|█| 11/11 [00:07<00:00, 
+  Resolved device: cuda:0
+Creating prompt strategy: chain_of_thought
+Loading dataset: mmlu_medical
+Creating experiment: composite_shift_detector
+============================================================
+Running experiment: composite_shift_detector
+============================================================
+Switching attention implementation: sdpa → eager
+Model             : google/medgemma-27b-text-it
+Dataset           : mmlu_medical
+Norm layer        : L61
+Attention layer   : L3
+Samples           : 644
+Calibration frac  : 0.3
+Composite signal:   0%|        | 0/644 [00:00<?, ?it/s]Composite signal:   0%| | 2/644 [00:00<00:50, 12.64it/sComposite signal:   1%| | 4/644 [00:00<00:52, 12.21it/sComposite signal:   1%| | 6/644 [00:00<00:51, 12.38it/sComposite signal:   1%| | 8/644 [00:00<00:51, 12.40it/sComposite signal:   2%| | 10/644 [00:00<00:51, 12.30it/Composite signal:   2%| | 12/644 [00:00<00:51, 12.25it/Composite signal:   2%| | 14/644 [00:01<00:51, 12.24it/Composite signal:   2%| | 16/644 [00:01<00:50, 12.36it/Composite signal:   3%| | 18/644 [00:01<00:50, 12.32it/Composite signal:   3%| | 20/644 [00:01<00:50, 12.33it/Composite signal:   3%| | 22/644 [00:01<00:50, 12.26it/Composite signal:   4%| | 24/644 [00:01<00:50, 12.23it/Composite signal:   4%| | 26/644 [00:02<00:50, 12.34it/Composite signal:   4%| | 28/644 [00:02<00:50, 12.12it/Composite signal:   5%| | 30/644 [00:02<00:51, 11.97it/Composite signal:   5%| | 32/644 [00:02<00:51, 11.89it/Composite signal:   5%| | 34/644 [00:02<00:51, 11.89it/Composite signal:   6%| | 36/644 [00:02<00:51, 11.88it/Composite signal:   6%| | 38/644 [00:03<00:50, 12.03it/Composite signal:   6%| | 40/644 [00:03<00:49, 12.08it/Composite signal:   7%| | 42/644 [00:03<00:49, 12.14it/Composite signal:   7%| | 44/644 [00:03<00:48, 12.26it/Composite signal:   7%| | 46/644 [00:03<00:48, 12.42it/Composite signal:   7%| | 48/644 [00:03<00:48, 12.31it/Composite signal:   8%| | 50/644 [00:04<00:48, 12.34it/Composite signal:   8%| | 52/644 [00:04<00:48, 12.28it/Composite signal:   8%| | 54/644 [00:04<00:47, 12.37it/Composite signal:   9%| | 56/644 [00:04<00:53, 10.93it/Composite signal:   9%| | 58/644 [00:04<00:51, 11.38it/Composite signal:   9%| | 60/644 [00:04<00:50, 11.65it/Composite signal:  10%| | 62/644 [00:05<00:48, 11.96it/Composite signal:  10%| | 64/644 [00:05<00:48, 12.08it/Composite signal:  10%| | 66/644 [00:05<00:46, 12.31it/Composite signal:  11%| | 68/644 [00:05<00:46, 12.27it/Composite signal:  11%| | 70/644 [00:05<00:46, 12.38it/Composite signal:  11%| | 72/644 [00:05<00:46, 12.41it/Composite signal:  11%| | 74/644 [00:06<00:45, 12.49it/Composite signal:  12%| | 76/644 [00:06<00:45, 12.43it/Composite signal:  12%| | 78/644 [00:06<00:46, 12.25it/Composite signal:  12%| | 80/644 [00:06<00:45, 12.36it/Composite signal:  13%|▏| 82/644 [00:06<00:45, 12.28it/Composite signal:  13%|▏| 84/644 [00:06<00:45, 12.31it/Composite signal:  13%|▏| 86/644 [00:07<00:44, 12.41it/Composite signal:  14%|▏| 88/644 [00:07<00:44, 12.40it/Composite signal:  14%|▏| 90/644 [00:07<00:44, 12.49it/Composite signal:  14%|▏| 92/644 [00:07<01:01,  9.03it/Composite signal:  15%|▏| 94/644 [00:07<00:55,  9.86it/Composite signal:  15%|▏| 96/644 [00:08<00:52, 10.43it/Composite signal:  15%|▏| 98/644 [00:08<00:49, 10.95it/Composite signal:  16%|▏| 100/644 [00:08<00:47, 11.35itComposite signal:  16%|▏| 102/644 [00:08<00:46, 11.54itComposite signal:  16%|▏| 104/644 [00:08<00:46, 11.71itComposite signal:  16%|▏| 106/644 [00:08<00:44, 12.03itComposite signal:  17%|▏| 108/644 [00:09<00:44, 12.12itComposite signal:  17%|▏| 110/644 [00:09<00:43, 12.25itComposite signal:  17%|▏| 112/644 [00:09<00:43, 12.29itComposite signal:  18%|▏| 114/644 [00:09<00:42, 12.36itComposite signal:  18%|▏| 116/644 [00:09<00:48, 10.82itComposite signal:  18%|▏| 118/644 [00:09<00:46, 11.23itComposite signal:  19%|▏| 120/644 [00:10<00:45, 11.62itComposite signal:  19%|▏| 122/644 [00:10<00:44, 11.74itComposite signal:  19%|▏| 124/644 [00:10<00:43, 11.87itComposite signal:  20%|▏| 126/644 [00:10<00:43, 12.04itComposite signal:  20%|▏| 128/644 [00:10<00:42, 12.04itComposite signal:  20%|▏| 130/644 [00:10<00:42, 12.20itComposite signal:  20%|▏| 132/644 [00:11<00:41, 12.20itComposite signal:  21%|▏| 134/644 [00:11<00:41, 12.32itComposite signal:  21%|▏| 136/644 [00:11<00:41, 12.30itComposite signal:  21%|▏| 138/644 [00:11<00:41, 12.33itComposite signal:  22%|▏| 140/644 [00:11<00:40, 12.29itComposite signal:  22%|▏| 142/644 [00:11<00:40, 12.26itComposite signal:  22%|▏| 144/644 [00:12<00:40, 12.31itComposite signal:  23%|▏| 146/644 [00:12<00:40, 12.29itComposite signal:  23%|▏| 148/644 [00:12<00:39, 12.44itComposite signal:  23%|▏| 150/644 [00:12<00:39, 12.38itComposite signal:  24%|▏| 152/644 [00:12<00:39, 12.34itComposite signal:  24%|▏| 154/644 [00:12<00:39, 12.37itComposite signal:  24%|▏| 156/644 [00:12<00:39, 12.41itComposite signal:  25%|▏| 158/644 [00:13<00:38, 12.54itComposite signal:  25%|▏| 160/644 [00:13<00:38, 12.48itComposite signal:  25%|▎| 162/644 [00:13<00:38, 12.40itComposite signal:  25%|▎| 164/644 [00:13<00:38, 12.43itComposite signal:  26%|▎| 166/644 [00:13<00:38, 12.44itComposite signal:  26%|▎| 168/644 [00:13<00:38, 12.46itComposite signal:  26%|▎| 170/644 [00:14<00:38, 12.33itComposite signal:  27%|▎| 172/644 [00:14<00:38, 12.28itComposite signal:  27%|▎| 174/644 [00:14<00:38, 12.26itComposite signal:  27%|▎| 176/644 [00:14<00:43, 10.79itComposite signal:  28%|▎| 178/644 [00:14<00:41, 11.19itComposite signal:  28%|▎| 180/644 [00:15<00:40, 11.49itComposite signal:  28%|▎| 182/644 [00:15<00:39, 11.69itComposite signal:  29%|▎| 184/644 [00:15<00:38, 11.85itComposite signal:  29%|▎| 186/644 [00:15<00:38, 12.00itComposite signal:  29%|▎| 188/644 [00:15<00:37, 12.06itComposite signal:  30%|▎| 190/644 [00:15<00:37, 12.09itComposite signal:  30%|▎| 192/644 [00:16<00:37, 12.11itComposite signal:  30%|▎| 194/644 [00:16<00:37, 12.14itComposite signal:  30%|▎| 196/644 [00:16<00:36, 12.13itComposite signal:  31%|▎| 198/644 [00:16<00:36, 12.22itComposite signal:  31%|▎| 200/644 [00:16<00:35, 12.34itComposite signal:  31%|▎| 202/644 [00:16<00:35, 12.29itComposite signal:  32%|▎| 204/644 [00:16<00:36, 12.14itComposite signal:  32%|▎| 206/644 [00:17<00:35, 12.17itComposite signal:  32%|▎| 208/644 [00:17<00:35, 12.31itComposite signal:  33%|▎| 210/644 [00:17<00:35, 12.36itComposite signal:  33%|▎| 212/644 [00:17<00:35, 12.32itComposite signal:  33%|▎| 214/644 [00:17<00:34, 12.43itComposite signal:  34%|▎| 216/644 [00:17<00:34, 12.37itComposite signal:  34%|▎| 218/644 [00:18<00:34, 12.32itComposite signal:  34%|▎| 220/644 [00:18<00:33, 12.48itComposite signal:  34%|▎| 222/644 [00:18<00:34, 12.38itComposite signal:  35%|▎| 224/644 [00:18<00:33, 12.47itComposite signal:  35%|▎| 226/644 [00:18<00:33, 12.54itComposite signal:  35%|▎| 228/644 [00:18<00:33, 12.46itComposite signal:  36%|▎| 230/644 [00:19<00:33, 12.42itComposite signal:  36%|▎| 232/644 [00:19<00:33, 12.44itComposite signal:  36%|▎| 234/644 [00:19<00:33, 12.38itComposite signal:  37%|▎| 236/644 [00:19<00:32, 12.47itComposite signal:  37%|▎| 238/644 [00:19<00:36, 11.03itComposite signal:  37%|▎| 240/644 [00:19<00:35, 11.41itComposite signal:  38%|▍| 242/644 [00:20<00:34, 11.63itComposite signal:  38%|▍| 244/644 [00:20<00:33, 11.77itComposite signal:  38%|▍| 246/644 [00:20<00:33, 12.01itComposite signal:  39%|▍| 248/644 [00:20<00:32, 12.08itComposite signal:  39%|▍| 250/644 [00:20<00:32, 12.18itComposite signal:  39%|▍| 252/644 [00:20<00:32, 12.16itComposite signal:  39%|▍| 254/644 [00:21<00:32, 12.13itComposite signal:  40%|▍| 256/644 [00:21<00:31, 12.28itComposite signal:  40%|▍| 258/644 [00:21<00:31, 12.29itComposite signal:  40%|▍| 260/644 [00:21<00:31, 12.24itComposite signal:  41%|▍| 262/644 [00:21<00:31, 12.27itComposite signal:  41%|▍| 264/644 [00:21<00:30, 12.29itComposite signal:  41%|▍| 266/644 [00:22<00:30, 12.27itComposite signal:  42%|▍| 268/644 [00:22<00:30, 12.29itComposite signal:  42%|▍| 270/644 [00:22<00:30, 12.34itComposite signal:  42%|▍| 272/644 [00:22<00:29, 12.41itComposite signal:  43%|▍| 274/644 [00:22<00:30, 12.33itComposite signal:  43%|▍| 276/644 [00:22<00:29, 12.39itComposite signal:  43%|▍| 278/644 [00:23<00:29, 12.34itComposite signal:  43%|▍| 280/644 [00:23<00:29, 12.44itComposite signal:  44%|▍| 282/644 [00:23<00:29, 12.36itComposite signal:  44%|▍| 284/644 [00:23<00:28, 12.51itComposite signal:  44%|▍| 286/644 [00:23<00:28, 12.53itComposite signal:  45%|▍| 288/644 [00:23<00:28, 12.50itComposite signal:  45%|▍| 290/644 [00:23<00:28, 12.48itComposite signal:  45%|▍| 292/644 [00:24<00:28, 12.47itComposite signal:  46%|▍| 294/644 [00:24<00:28, 12.35itComposite signal:  46%|▍| 296/644 [00:24<00:28, 12.37itComposite signal:  46%|▍| 298/644 [00:24<00:27, 12.51itComposite signal:  47%|▍| 300/644 [00:24<00:31, 10.98itComposite signal:  47%|▍| 302/644 [00:25<00:30, 11.34itComposite signal:  47%|▍| 304/644 [00:25<00:29, 11.72itComposite signal:  48%|▍| 306/644 [00:25<00:28, 11.90itComposite signal:  48%|▍| 308/644 [00:25<00:28, 11.99itComposite signal:  48%|▍| 310/644 [00:25<00:27, 12.06itComposite signal:  48%|▍| 312/644 [00:25<00:27, 12.18itComposite signal:  49%|▍| 314/644 [00:25<00:26, 12.30itComposite signal:  49%|▍| 316/644 [00:26<00:26, 12.22itComposite signal:  49%|▍| 318/644 [00:26<00:26, 12.25itComposite signal:  50%|▍| 320/644 [00:26<00:26, 12.27itComposite signal:  50%|▌| 322/644 [00:26<00:26, 12.29itComposite signal:  50%|▌| 324/644 [00:26<00:25, 12.31itComposite signal:  51%|▌| 326/644 [00:26<00:25, 12.44itComposite signal:  51%|▌| 328/644 [00:27<00:25, 12.42itComposite signal:  51%|▌| 330/644 [00:27<00:25, 12.35itComposite signal:  52%|▌| 332/644 [00:27<00:25, 12.33itComposite signal:  52%|▌| 334/644 [00:27<00:25, 12.26itComposite signal:  52%|▌| 336/644 [00:27<00:24, 12.42itComposite signal:  52%|▌| 338/644 [00:27<00:24, 12.47itComposite signal:  53%|▌| 340/644 [00:28<00:24, 12.35itComposite signal:  53%|▌| 342/644 [00:28<00:24, 12.36itComposite signal:  53%|▌| 344/644 [00:28<00:24, 12.36itComposite signal:  54%|▌| 346/644 [00:28<00:24, 12.36itComposite signal:  54%|▌| 348/644 [00:28<00:24, 12.29itComposite signal:  54%|▌| 350/644 [00:28<00:23, 12.31itComposite signal:  55%|▌| 352/644 [00:29<00:23, 12.36itComposite signal:  55%|▌| 354/644 [00:29<00:23, 12.42itComposite signal:  55%|▌| 356/644 [00:29<00:22, 12.53itComposite signal:  56%|▌| 358/644 [00:29<00:22, 12.46itComposite signal:  56%|▌| 360/644 [00:29<00:22, 12.46itComposite signal:  56%|▌| 362/644 [00:29<00:25, 10.94itComposite signal:  57%|▌| 364/644 [00:30<00:24, 11.29itComposite signal:  57%|▌| 366/644 [00:30<00:24, 11.53itComposite signal:  57%|▌| 368/644 [00:30<00:23, 11.72itComposite signal:  57%|▌| 370/644 [00:30<00:22, 11.93itComposite signal:  58%|▌| 372/644 [00:30<00:22, 11.97itComposite signal:  58%|▌| 374/644 [00:30<00:22, 12.05itComposite signal:  58%|▌| 376/644 [00:31<00:21, 12.19itComposite signal:  59%|▌| 378/644 [00:31<00:21, 12.16itComposite signal:  59%|▌| 380/644 [00:31<00:21, 12.35itComposite signal:  59%|▌| 382/644 [00:31<00:21, 12.29itComposite signal:  60%|▌| 384/644 [00:31<00:21, 12.30itComposite signal:  60%|▌| 386/644 [00:31<00:20, 12.35itComposite signal:  60%|▌| 388/644 [00:32<00:20, 12.28itComposite signal:  61%|▌| 390/644 [00:32<00:20, 12.26itComposite signal:  61%|▌| 392/644 [00:32<00:20, 12.32itComposite signal:  61%|▌| 394/644 [00:32<00:20, 12.42itComposite signal:  61%|▌| 396/644 [00:32<00:19, 12.43itComposite signal:  62%|▌| 398/644 [00:32<00:19, 12.33itComposite signal:  62%|▌| 400/644 [00:33<00:19, 12.43itComposite signal:  62%|▌| 402/644 [00:33<00:19, 12.38itComposite signal:  63%|▋| 404/644 [00:33<00:19, 12.46itComposite signal:  63%|▋| 406/644 [00:33<00:19, 12.47itComposite signal:  63%|▋| 408/644 [00:33<00:19, 12.30itComposite signal:  64%|▋| 410/644 [00:33<00:18, 12.32itComposite signal:  64%|▋| 412/644 [00:34<00:18, 12.26itComposite signal:  64%|▋| 414/644 [00:34<00:18, 12.30itComposite signal:  65%|▋| 416/644 [00:34<00:18, 12.25itComposite signal:  65%|▋| 418/644 [00:34<00:18, 12.42itComposite signal:  65%|▋| 420/644 [00:34<00:17, 12.46itComposite signal:  66%|▋| 422/644 [00:34<00:17, 12.51itComposite signal:  66%|▋| 424/644 [00:35<00:20, 10.88itComposite signal:  66%|▋| 426/644 [00:35<00:19, 11.28itComposite signal:  66%|▋| 428/644 [00:35<00:18, 11.41itComposite signal:  67%|▋| 430/644 [00:35<00:18, 11.61itComposite signal:  67%|▋| 432/644 [00:35<00:17, 11.87itComposite signal:  67%|▋| 434/644 [00:35<00:17, 11.93itComposite signal:  68%|▋| 436/644 [00:36<00:17, 11.99itComposite signal:  68%|▋| 438/644 [00:36<00:17, 12.06itComposite signal:  68%|▋| 440/644 [00:36<00:16, 12.07itComposite signal:  69%|▋| 442/644 [00:36<00:16, 12.18itComposite signal:  69%|▋| 444/644 [00:36<00:16, 12.15itComposite signal:  69%|▋| 446/644 [00:36<00:16, 12.22itComposite signal:  70%|▋| 448/644 [00:37<00:15, 12.28itComposite signal:  70%|▋| 450/644 [00:37<00:15, 12.29itComposite signal:  70%|▋| 452/644 [00:37<00:15, 12.31itComposite signal:  70%|▋| 454/644 [00:37<00:15, 12.33itComposite signal:  71%|▋| 456/644 [00:37<00:15, 12.33itComposite signal:  71%|▋| 458/644 [00:37<00:15, 12.25itComposite signal:  71%|▋| 460/644 [00:37<00:15, 12.19itComposite signal:  72%|▋| 462/644 [00:38<00:14, 12.21itComposite signal:  72%|▋| 464/644 [00:38<00:14, 12.36itComposite signal:  72%|▋| 466/644 [00:38<00:14, 12.31itComposite signal:  73%|▋| 468/644 [00:38<00:14, 12.28itComposite signal:  73%|▋| 470/644 [00:38<00:14, 12.24itComposite signal:  73%|▋| 472/644 [00:38<00:14, 12.22itComposite signal:  74%|▋| 474/644 [00:39<00:13, 12.31itComposite signal:  74%|▋| 476/644 [00:39<00:13, 12.36itComposite signal:  74%|▋| 478/644 [00:39<00:13, 12.32itComposite signal:  75%|▋| 480/644 [00:39<00:13, 12.26itComposite signal:  75%|▋| 482/644 [00:39<00:13, 12.22itComposite signal:  75%|▊| 484/644 [00:39<00:13, 12.05itComposite signal:  75%|▊| 486/644 [00:40<00:14, 10.67itComposite signal:  76%|▊| 488/644 [00:40<00:14, 11.04itComposite signal:  76%|▊| 490/644 [00:40<00:13, 11.33itComposite signal:  76%|▊| 492/644 [00:40<00:13, 11.60itComposite signal:  77%|▊| 494/644 [00:40<00:12, 11.75itComposite signal:  77%|▊| 496/644 [00:41<00:12, 11.85itComposite signal:  77%|▊| 498/644 [00:41<00:12, 12.02itComposite signal:  78%|▊| 500/644 [00:41<00:11, 12.03itComposite signal:  78%|▊| 502/644 [00:41<00:11, 12.24itComposite signal:  78%|▊| 504/644 [00:41<00:11, 12.27itComposite signal:  79%|▊| 506/644 [00:41<00:11, 12.33itComposite signal:  79%|▊| 508/644 [00:41<00:11, 12.34itComposite signal:  79%|▊| 510/644 [00:42<00:10, 12.33itComposite signal:  80%|▊| 512/644 [00:42<00:10, 12.26itComposite signal:  80%|▊| 514/644 [00:42<00:10, 12.23itComposite signal:  80%|▊| 516/644 [00:42<00:10, 12.16itComposite signal:  80%|▊| 518/644 [00:42<00:10, 12.32itComposite signal:  81%|▊| 520/644 [00:42<00:10, 12.38itComposite signal:  81%|▊| 522/644 [00:43<00:09, 12.38itComposite signal:  81%|▊| 524/644 [00:43<00:09, 12.27itComposite signal:  82%|▊| 526/644 [00:43<00:09, 12.29itComposite signal:  82%|▊| 528/644 [00:43<00:09, 12.23itComposite signal:  82%|▊| 530/644 [00:43<00:09, 12.27itComposite signal:  83%|▊| 532/644 [00:43<00:09, 12.31itComposite signal:  83%|▊| 534/644 [00:44<00:08, 12.37itComposite signal:  83%|▊| 536/644 [00:44<00:08, 12.31itComposite signal:  84%|▊| 538/644 [00:44<00:08, 12.34itComposite signal:  84%|▊| 540/644 [00:44<00:08, 12.38itComposite signal:  84%|▊| 542/644 [00:44<00:08, 12.22itComposite signal:  84%|▊| 544/644 [00:44<00:08, 12.34itComposite signal:  85%|▊| 546/644 [00:45<00:07, 12.38itComposite signal:  85%|▊| 548/644 [00:45<00:08, 10.92itComposite signal:  85%|▊| 550/644 [00:45<00:08, 11.32itComposite signal:  86%|▊| 552/644 [00:45<00:07, 11.58itComposite signal:  86%|▊| 554/644 [00:45<00:07, 11.79itComposite signal:  86%|▊| 556/644 [00:45<00:07, 11.90itComposite signal:  87%|▊| 558/644 [00:46<00:09,  9.36itComposite signal:  87%|▊| 560/644 [00:46<00:08, 10.02itComposite signal:  87%|▊| 562/644 [00:46<00:07, 10.67itComposite signal:  88%|▉| 564/644 [00:46<00:07, 11.13itComposite signal:  88%|▉| 566/644 [00:46<00:06, 11.49itComposite signal:  88%|▉| 568/644 [00:47<00:06, 11.66itComposite signal:  89%|▉| 570/644 [00:47<00:06, 11.77itComposite signal:  89%|▉| 572/644 [00:47<00:06, 11.88itComposite signal:  89%|▉| 574/644 [00:47<00:05, 11.92itComposite signal:  89%|▉| 576/644 [00:47<00:05, 11.97itComposite signal:  90%|▉| 578/644 [00:47<00:05, 12.09itComposite signal:  90%|▉| 580/644 [00:48<00:05, 12.14itComposite signal:  90%|▉| 582/644 [00:48<00:05, 12.14itComposite signal:  91%|▉| 584/644 [00:48<00:04, 12.07itComposite signal:  91%|▉| 586/644 [00:48<00:04, 12.13itComposite signal:  91%|▉| 588/644 [00:48<00:04, 12.14itComposite signal:  92%|▉| 590/644 [00:48<00:04, 12.12itComposite signal:  92%|▉| 592/644 [00:49<00:04, 12.21itComposite signal:  92%|▉| 594/644 [00:49<00:04, 12.22itComposite signal:  93%|▉| 596/644 [00:49<00:03, 12.12itComposite signal:  93%|▉| 598/644 [00:49<00:03, 12.21itComposite signal:  93%|▉| 600/644 [00:49<00:03, 12.18itComposite signal:  93%|▉| 602/644 [00:49<00:03, 12.25itComposite signal:  94%|▉| 604/644 [00:50<00:03, 12.32itComposite signal:  94%|▉| 606/644 [00:50<00:03, 10.83itComposite signal:  94%|▉| 608/644 [00:50<00:03, 11.21itComposite signal:  95%|▉| 610/644 [00:50<00:02, 11.50itComposite signal:  95%|▉| 612/644 [00:50<00:02, 11.72itComposite signal:  95%|▉| 614/644 [00:50<00:02, 11.81itComposite signal:  96%|▉| 616/644 [00:51<00:02, 12.07itComposite signal:  96%|▉| 618/644 [00:51<00:02, 12.17itComposite signal:  96%|▉| 620/644 [00:51<00:01, 12.11itComposite signal:  97%|▉| 622/644 [00:51<00:01, 12.11itComposite signal:  97%|▉| 624/644 [00:51<00:01, 12.23itComposite signal:  97%|▉| 626/644 [00:51<00:01, 12.28itComposite signal:  98%|▉| 628/644 [00:52<00:01, 12.32itComposite signal:  98%|▉| 630/644 [00:52<00:01, 12.32itComposite signal:  98%|▉| 632/644 [00:52<00:00, 12.32itComposite signal:  98%|▉| 634/644 [00:52<00:00, 12.25itComposite signal:  99%|▉| 636/644 [00:52<00:00, 12.22itComposite signal:  99%|▉| 638/644 [00:52<00:00, 12.26itComposite signal:  99%|▉| 640/644 [00:53<00:00, 12.20itComposite signal: 100%|▉| 642/644 [00:53<00:00, 12.20itComposite signal: 100%|█| 644/644 [00:53<00:00, 12.22itComposite signal: 100%|█| 644/644 [00:53<00:00, 12.06it
+
+==================================================================
+COMPOSITE SHIFT DETECTOR — mmlu_medical  (norm=L61, attn=L3)
+==================================================================
+  Samples          : 644  (calibration: 193)
+  Accuracy         : 0.8230
+
+  Mahalanobis AUROC                : 0.5600
+  Mean score (correct)             : 1.2536
+  Mean score (incorrect)           : 1.4065
+
+  Spearman ρ (score vs acc window) : -0.2647*  p=0.0000
+
+   Bin             Score range      N  Accuracy
+  --------------------------------------------
+     1  [  0.0638,   0.7445]    129    0.8450
+     2  [  0.7445,   1.0292]    129    0.8372
+     3  [  1.0292,   1.3793]    128    0.8828
+     4  [  1.3793,   1.8359]    129    0.7597
+     5  [  1.8359,   3.2007]    129    0.7907
+==================================================================
+
+Results saved to: /home/ubuntu/CoTLab/multirun/2026-03-11/15-28-26/5/results.json
+
+Metrics:
+  dataset: mmlu_medical
+  norm_layer: 61
+  attn_layer: 3
+  num_samples: 644
+  calibration_n: 193
+  accuracy: 0.823
+  auroc_mahalanobis: 0.56
+  spearman_rho_score_vs_acc: -0.2647
+  spearman_p: 0.0
+  mean_score_correct: 1.2536
+  mean_score_incorrect: 1.4065
+  accuracy_by_bin: [{'bin': 1, 'score_range': [0.0638, 0.7445], 'n': 129, 'accuracy': 0.845}, {'bin': 2, 'score_range': [0.7445, 1.0292], 'n': 129, 'accuracy': 0.8372}, {'bin': 3, 'score_range': [1.0292, 1.3793], 'n': 128, 'accuracy': 0.8828}, {'bin': 4, 'score_range': [1.3793, 1.8359], 'n': 129, 'accuracy': 0.7597}, {'bin': 5, 'score_range': [1.8359, 3.2007], 'n': 129, 'accuracy': 0.7907}]
+
+Experiment documentation updated: /home/ubuntu/CoTLab/multirun/2026-03-11/15-28-26/5/EXPERIMENT.md
+
+Experiment complete.
