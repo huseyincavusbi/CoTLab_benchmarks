@@ -1,0 +1,722 @@
+{
+  "metadata": {
+    "config": {
+      "backend": {
+        "_target_": "cotlab.backends.TransformersBackend",
+        "device": "mps",
+        "dtype": "bfloat16",
+        "enable_hooks": true,
+        "trust_remote_code": true
+      },
+      "model": {
+        "name": "google/medgemma-4b-it",
+        "max_new_tokens": 512,
+        "temperature": 0.7,
+        "top_p": 0.9
+      },
+      "prompt": {
+        "_target_": "cotlab.prompts.ChainOfThoughtStrategy",
+        "name": "chain_of_thought",
+        "system_role": "You are a medical expert. Think through problems carefully and\nexplain your reasoning step by step before giving your final answer.\n",
+        "include_examples": false,
+        "cot_trigger": "Let's think through this step by step:",
+        "output_format": "plain"
+      },
+      "dataset": {
+        "_target_": "cotlab.datasets.loaders.MedQADataset",
+        "name": "medmcqa",
+        "filename": "medmcqa/validation.jsonl",
+        "split": "validation"
+      },
+      "experiment": {
+        "_target_": "cotlab.experiments.HNeuronAnalysisExperiment",
+        "name": "h_neuron_analysis",
+        "description": "CETT-based H-Neuron discovery and causal validation",
+        "num_samples": 100,
+        "validation_split": 0.2,
+        "l1_C": 0.1,
+        "alpha_values": [
+          0.0,
+          0.5,
+          1.0,
+          1.5,
+          2.0
+        ],
+        "layer_stride": 1,
+        "seed": 42,
+        "max_input_tokens": 1024,
+        "answer_cue": "\n\nAnswer:",
+        "contrastive_labeling": false
+      },
+      "seed": 42,
+      "verbose": true,
+      "dry_run": false
+    },
+    "start_time": "2026-03-18T09:14:29.404147"
+  },
+  "experiment": "h_neuron_analysis",
+  "model": "google/medgemma-4b-it",
+  "prompt_strategy": "chain_of_thought",
+  "metrics": {
+    "dataset": "medmcqa",
+    "n_samples": 100,
+    "n_training_rows": 100,
+    "n_layers": 34,
+    "intermediate_dim": 10240,
+    "n_features": 348160,
+    "accuracy": 0.47,
+    "probe_balanced_accuracy": 0.6414141414141414,
+    "probe_auroc": 0.5757575757575758,
+    "random_baseline_balanced_accuracy": 0.5151515151515151,
+    "random_baseline_auroc": 0.5353535353535354,
+    "n_h_neurons": 6,
+    "h_neuron_ratio_permille": 0.017233455882352942,
+    "layer_distribution": {
+      "32": 1,
+      "21": 2,
+      "17": 1,
+      "27": 1,
+      "16": 1
+    },
+    "contrastive_labeling": false,
+    "top_h_neurons": [
+      {
+        "layer": 32,
+        "neuron": 1559
+      },
+      {
+        "layer": 21,
+        "neuron": 6800
+      },
+      {
+        "layer": 17,
+        "neuron": 8998
+      },
+      {
+        "layer": 27,
+        "neuron": 6629
+      },
+      {
+        "layer": 16,
+        "neuron": 2232
+      },
+      {
+        "layer": 21,
+        "neuron": 7665
+      }
+    ],
+    "accuracy_alpha_0.0": 0.45,
+    "accuracy_alpha_0.5": 0.45,
+    "accuracy_alpha_1.0": 0.45,
+    "accuracy_alpha_1.5": 0.45,
+    "accuracy_alpha_2.0": 0.45
+  },
+  "raw_outputs": {
+    "per_sample": [
+      {
+        "sample_idx": 912,
+        "predicted": "B",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 204,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2253,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2006,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1828,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1143,
+        "predicted": "A",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 839,
+        "predicted": "C",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 712,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3456,
+        "predicted": "A",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 260,
+        "predicted": "B",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 244,
+        "predicted": "C",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 767,
+        "predicted": "C",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1791,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1905,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 4139,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 217,
+        "predicted": "B",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1628,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3436,
+        "predicted": "C",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1805,
+        "predicted": "C",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3679,
+        "predicted": "D",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2278,
+        "predicted": "C",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 53,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1307,
+        "predicted": "B",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3462,
+        "predicted": "B",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2787,
+        "predicted": "D",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2276,
+        "predicted": "A",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1273,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1763,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2757,
+        "predicted": "B",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 837,
+        "predicted": "B",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 759,
+        "predicted": "B",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3112,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 792,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2940,
+        "predicted": "D",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2817,
+        "predicted": "C",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2166,
+        "predicted": "C",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 355,
+        "predicted": "D",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3763,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1022,
+        "predicted": "B",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3100,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 645,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2401,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2962,
+        "predicted": "A",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1575,
+        "predicted": "B",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 569,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 375,
+        "predicted": "C",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1866,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2370,
+        "predicted": "D",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 653,
+        "predicted": "D",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1907,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 827,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3113,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2277,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3714,
+        "predicted": "A",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2988,
+        "predicted": "B",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1332,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3032,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2910,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1716,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2187,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 584,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1401,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2005,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1338,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3786,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3108,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2211,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1799,
+        "predicted": "C",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2656,
+        "predicted": "D",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 458,
+        "predicted": "C",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1876,
+        "predicted": "C",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 262,
+        "predicted": "C",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2584,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3286,
+        "predicted": "C",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2193,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 542,
+        "predicted": "C",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1728,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2577,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1741,
+        "predicted": "D",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 4089,
+        "predicted": "D",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3241,
+        "predicted": "B",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3758,
+        "predicted": "A",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1170,
+        "predicted": "B",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2169,
+        "predicted": "C",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 2020,
+        "predicted": "D",
+        "ground_truth": "D",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2152,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3509,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3271,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 2965,
+        "predicted": "B",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1796,
+        "predicted": "B",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1133,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 4174,
+        "predicted": "B",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 4042,
+        "predicted": "C",
+        "ground_truth": "C",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 744,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 385,
+        "predicted": "B",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 898,
+        "predicted": "A",
+        "ground_truth": "A",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 1252,
+        "predicted": "B",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1310,
+        "predicted": "B",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3458,
+        "predicted": "B",
+        "ground_truth": "C",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 520,
+        "predicted": "B",
+        "ground_truth": "D",
+        "is_correct": false
+      }
+    ]
+  },
+  "num_samples": 0,
+  "samples": [],
+  "end_time": "2026-03-18T09:19:15.422824",
+  "duration_seconds": 286.018683
+}

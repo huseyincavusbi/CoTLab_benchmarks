@@ -1,0 +1,52 @@
+{
+  "backend": {
+    "_target_": "cotlab.backends.TransformersBackend",
+    "device": "mps",
+    "dtype": "bfloat16",
+    "enable_hooks": true,
+    "trust_remote_code": true
+  },
+  "model": {
+    "name": "google/medgemma-4b-it",
+    "max_new_tokens": 512,
+    "temperature": 0.7,
+    "top_p": 0.9
+  },
+  "prompt": {
+    "_target_": "cotlab.prompts.ChainOfThoughtStrategy",
+    "name": "chain_of_thought",
+    "system_role": "You are a medical expert. Think through problems carefully and\nexplain your reasoning step by step before giving your final answer.\n",
+    "include_examples": false,
+    "cot_trigger": "Let's think through this step by step:",
+    "output_format": "plain"
+  },
+  "dataset": {
+    "_target_": "cotlab.datasets.loaders.MedQADataset",
+    "name": "medmcqa",
+    "filename": "medmcqa/validation.jsonl",
+    "split": "validation"
+  },
+  "experiment": {
+    "_target_": "cotlab.experiments.HNeuronAnalysisExperiment",
+    "name": "h_neuron_analysis",
+    "description": "CETT-based H-Neuron discovery and causal validation",
+    "num_samples": 2000,
+    "validation_split": 0.2,
+    "l1_C": 0.01,
+    "alpha_values": [
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0
+    ],
+    "layer_stride": 1,
+    "seed": 42,
+    "max_input_tokens": 1024,
+    "answer_cue": "\n\nAnswer:",
+    "contrastive_labeling": true
+  },
+  "seed": 42,
+  "verbose": true,
+  "dry_run": false
+}

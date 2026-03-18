@@ -1,0 +1,136 @@
+============================================================
+Configuration:
+============================================================
+backend:
+  _target_: cotlab.backends.TransformersBackend
+  device: mps
+  dtype: bfloat16
+  enable_hooks: true
+  trust_remote_code: true
+model:
+  name: google/gemma-3-270m-it
+  max_new_tokens: 512
+  temperature: 0.7
+  top_p: 0.9
+prompt:
+  _target_: cotlab.prompts.ChainOfThoughtStrategy
+  name: chain_of_thought
+  system_role: 'You are a medical expert. Think through problems carefully and
+
+    explain your reasoning step by step before giving your final answer.
+
+    '
+  include_examples: false
+  cot_trigger: 'Let''s think through this step by step:'
+  output_format: plain
+dataset:
+  _target_: cotlab.datasets.loaders.MedQADataset
+  name: afrimedqa
+  filename: afrimedqa/mcq.jsonl
+  split: mcq
+experiment:
+  _target_: cotlab.experiments.HNeuronAnalysisExperiment
+  name: h_neuron_analysis
+  description: CETT-based H-Neuron discovery and causal validation
+  num_samples: 10
+  validation_split: 0.2
+  l1_C: 0.1
+  alpha_values:
+  - 0.0
+  - 0.5
+  - 1.0
+  - 1.5
+  - 2.0
+  layer_stride: 1
+  seed: 42
+  max_input_tokens: 1024
+  answer_cue: '
+
+
+    Answer:'
+  contrastive_labeling: false
+seed: 42
+verbose: true
+dry_run: false
+
+============================================================
+Created experiment documentation: /Users/huseyin/Documents/CoT/CoTLab/outputs/2026-03-18/09-10-30_h_neuron_analysis_afrimedqa_chain_of_thought/EXPERIMENT.md
+Loading backend: cotlab.backends.TransformersBackend
+Loading model: google/gemma-3-270m-it
+  Device map: mps
+  Dtype: torch.bfloat16
+  Cache: ~/.cache/huggingface (HF default)
+  Resolved device: mps
+Creating prompt strategy: chain_of_thought
+Loading dataset: afrimedqa
+Creating experiment: h_neuron_analysis
+============================================================
+Running experiment: h_neuron_analysis
+============================================================
+
+============================================================
+H-NEURON ANALYSIS — afrimedqa
+============================================================
+  Layers          : 18 (stride 1)
+  Samples         : 10
+  L1 C            : 0.1
+  Alpha vals      : [0.0, 0.5, 1.0, 1.5, 2.0]
+  Paper labeling  : False
+
+[1/3] Precomputing W_down column norms...
+  Intermediate dim : 2048
+  Total features   : 36,864
+
+[2/3] Extracting CETT features...
+CETT extraction:   0%|          | 0/10 [00:00<?, ?it/s]CETT extraction:  10%|█         | 1/10 [00:00<00:01,  4.89it/s]CETT extraction:  30%|███       | 3/10 [00:00<00:00,  8.77it/s]CETT extraction:  50%|█████     | 5/10 [00:00<00:00,  9.98it/s]CETT extraction:  70%|███████   | 7/10 [00:00<00:00, 10.29it/s]CETT extraction:  90%|█████████ | 9/10 [00:00<00:00, 11.28it/s]CETT extraction: 100%|██████████| 10/10 [00:00<00:00, 10.45it/s]
+  Valid QA samples : 10  (skipped 0)
+  Training rows    : 10
+  Accuracy         : 0.200
+  WARNING: too few valid samples for reliable probing.
+
+[3/3] Training L1 probe...
+  Pre-selected top-5000 features by CETT variance (from 36,864)
+/Users/huseyin/Documents/CoT/CoTLab/cotlab/lib/python3.12/site-packages/sklearn/linear_model/_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+/Users/huseyin/Documents/CoT/CoTLab/cotlab/lib/python3.12/site-packages/sklearn/linear_model/_logistic.py:1160: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.
+  warnings.warn(
+/Users/huseyin/Documents/CoT/CoTLab/cotlab/lib/python3.12/site-packages/sklearn/metrics/_classification.py:620: UserWarning: A single label was found in 'y_true' and 'y_pred'. For the confusion matrix to have the correct shape, use the 'labels' parameter to pass all known labels.
+  warnings.warn(
+  Probe balanced acc : 1.000
+  H-Neurons found    : 0
+  H-Neuron ratio     : 0.000‰
+/Users/huseyin/Documents/CoT/CoTLab/cotlab/lib/python3.12/site-packages/sklearn/metrics/_ranking.py:442: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+  warnings.warn(
+
+============================================================
+H-NEURON SUMMARY — afrimedqa
+============================================================
+  Accuracy (no intervention)  : 0.200
+  Probe balanced accuracy     : 1.000
+  Probe AUROC                 : nan
+  Random baseline AUROC       : None
+  H-Neurons identified        : 0
+
+Results saved to: /Users/huseyin/Documents/CoT/CoTLab/outputs/2026-03-18/09-10-30_h_neuron_analysis_afrimedqa_chain_of_thought/results.json
+
+Metrics:
+  dataset: afrimedqa
+  n_samples: 10
+  n_training_rows: 10
+  n_layers: 18
+  intermediate_dim: 2048
+  n_features: 36864
+  accuracy: 0.2
+  probe_balanced_accuracy: 1.0
+  probe_auroc: nan
+  random_baseline_balanced_accuracy: None
+  random_baseline_auroc: None
+  n_h_neurons: 0
+  h_neuron_ratio_permille: 0.0
+  layer_distribution: {}
+  contrastive_labeling: False
+  top_h_neurons: []
+
+Experiment documentation updated: /Users/huseyin/Documents/CoT/CoTLab/outputs/2026-03-18/09-10-30_h_neuron_analysis_afrimedqa_chain_of_thought/EXPERIMENT.md
+
+Experiment complete.

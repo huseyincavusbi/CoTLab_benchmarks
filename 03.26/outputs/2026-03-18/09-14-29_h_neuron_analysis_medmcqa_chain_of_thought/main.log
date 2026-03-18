@@ -1,0 +1,166 @@
+============================================================
+Configuration:
+============================================================
+backend:
+  _target_: cotlab.backends.TransformersBackend
+  device: mps
+  dtype: bfloat16
+  enable_hooks: true
+  trust_remote_code: true
+model:
+  name: google/medgemma-4b-it
+  max_new_tokens: 512
+  temperature: 0.7
+  top_p: 0.9
+prompt:
+  _target_: cotlab.prompts.ChainOfThoughtStrategy
+  name: chain_of_thought
+  system_role: 'You are a medical expert. Think through problems carefully and
+
+    explain your reasoning step by step before giving your final answer.
+
+    '
+  include_examples: false
+  cot_trigger: 'Let''s think through this step by step:'
+  output_format: plain
+dataset:
+  _target_: cotlab.datasets.loaders.MedQADataset
+  name: medmcqa
+  filename: medmcqa/validation.jsonl
+  split: validation
+experiment:
+  _target_: cotlab.experiments.HNeuronAnalysisExperiment
+  name: h_neuron_analysis
+  description: CETT-based H-Neuron discovery and causal validation
+  num_samples: 100
+  validation_split: 0.2
+  l1_C: 0.1
+  alpha_values:
+  - 0.0
+  - 0.5
+  - 1.0
+  - 1.5
+  - 2.0
+  layer_stride: 1
+  seed: 42
+  max_input_tokens: 1024
+  answer_cue: '
+
+
+    Answer:'
+  contrastive_labeling: false
+seed: 42
+verbose: true
+dry_run: false
+
+============================================================
+Created experiment documentation: /Users/huseyin/Documents/CoT/CoTLab/outputs/2026-03-18/09-14-29_h_neuron_analysis_medmcqa_chain_of_thought/EXPERIMENT.md
+Loading backend: cotlab.backends.TransformersBackend
+Loading model: google/medgemma-4b-it
+  Device map: mps
+  Dtype: torch.bfloat16
+  Cache: ~/.cache/huggingface (HF default)
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]Fetching 2 files:  50%|█████     | 1/2 [03:06<03:06, 186.00s/it]Fetching 2 files: 100%|██████████| 2/2 [03:06<00:00, 93.00s/it] 
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:20<00:20, 20.27s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:23<00:00, 10.47s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:23<00:00, 11.94s/it]
+  Resolved device: mps
+Creating prompt strategy: chain_of_thought
+Loading dataset: medmcqa
+Creating experiment: h_neuron_analysis
+============================================================
+Running experiment: h_neuron_analysis
+============================================================
+
+============================================================
+H-NEURON ANALYSIS — medmcqa
+============================================================
+  Layers          : 34 (stride 1)
+  Samples         : 100
+  L1 C            : 0.1
+  Alpha vals      : [0.0, 0.5, 1.0, 1.5, 2.0]
+  Contrastive     : False
+
+[1/3] Precomputing W_down column norms...
+  Intermediate dim : 10240
+  Total features   : 348,160
+
+[2/3] Extracting CETT features...
+CETT extraction:   0%|          | 0/100 [00:00<?, ?it/s]CETT extraction:   1%|          | 1/100 [00:00<01:09,  1.43it/s]CETT extraction:   2%|▏         | 2/100 [00:00<00:45,  2.17it/s]CETT extraction:   3%|▎         | 3/100 [00:01<00:38,  2.52it/s]CETT extraction:   4%|▍         | 4/100 [00:01<00:39,  2.43it/s]CETT extraction:   5%|▌         | 5/100 [00:02<00:38,  2.44it/s]CETT extraction:   6%|▌         | 6/100 [00:02<00:36,  2.60it/s]CETT extraction:   7%|▋         | 7/100 [00:02<00:36,  2.52it/s]CETT extraction:   8%|▊         | 8/100 [00:03<00:34,  2.70it/s]CETT extraction:   9%|▉         | 9/100 [00:03<00:35,  2.53it/s]CETT extraction:  10%|█         | 10/100 [00:04<00:33,  2.66it/s]CETT extraction:  11%|█         | 11/100 [00:04<00:32,  2.77it/s]CETT extraction:  12%|█▏        | 12/100 [00:04<00:30,  2.88it/s]CETT extraction:  13%|█▎        | 13/100 [00:05<00:33,  2.59it/s]CETT extraction:  14%|█▍        | 14/100 [00:05<00:35,  2.43it/s]CETT extraction:  15%|█▌        | 15/100 [00:05<00:32,  2.59it/s]CETT extraction:  16%|█▌        | 16/100 [00:06<00:33,  2.49it/s]CETT extraction:  17%|█▋        | 17/100 [00:06<00:31,  2.67it/s]CETT extraction:  18%|█▊        | 18/100 [00:06<00:28,  2.87it/s]CETT extraction:  19%|█▉        | 19/100 [00:07<00:27,  2.98it/s]CETT extraction:  20%|██        | 20/100 [00:07<00:29,  2.75it/s]CETT extraction:  21%|██        | 21/100 [00:07<00:27,  2.90it/s]CETT extraction:  22%|██▏       | 22/100 [00:08<00:25,  3.01it/s]CETT extraction:  23%|██▎       | 23/100 [00:08<00:27,  2.81it/s]CETT extraction:  24%|██▍       | 24/100 [00:09<00:27,  2.72it/s]CETT extraction:  25%|██▌       | 25/100 [00:09<00:26,  2.79it/s]CETT extraction:  26%|██▌       | 26/100 [00:09<00:25,  2.87it/s]CETT extraction:  27%|██▋       | 27/100 [00:10<00:28,  2.60it/s]CETT extraction:  28%|██▊       | 28/100 [00:10<00:27,  2.66it/s]CETT extraction:  29%|██▉       | 29/100 [00:11<00:27,  2.58it/s]CETT extraction:  30%|███       | 30/100 [00:11<00:28,  2.46it/s]CETT extraction:  31%|███       | 31/100 [00:11<00:25,  2.66it/s]CETT extraction:  32%|███▏      | 32/100 [00:12<00:23,  2.85it/s]CETT extraction:  33%|███▎      | 33/100 [00:12<00:22,  2.97it/s]CETT extraction:  34%|███▍      | 34/100 [00:12<00:22,  2.94it/s]CETT extraction:  35%|███▌      | 35/100 [00:13<00:22,  2.86it/s]CETT extraction:  36%|███▌      | 36/100 [00:13<00:21,  2.99it/s]CETT extraction:  37%|███▋      | 37/100 [00:13<00:20,  3.11it/s]CETT extraction:  38%|███▊      | 38/100 [00:14<00:20,  3.00it/s]CETT extraction:  39%|███▉      | 39/100 [00:14<00:22,  2.69it/s]CETT extraction:  40%|████      | 40/100 [00:14<00:21,  2.80it/s]CETT extraction:  41%|████      | 41/100 [00:15<00:19,  3.03it/s]CETT extraction:  42%|████▏     | 42/100 [00:15<00:19,  3.05it/s]CETT extraction:  43%|████▎     | 43/100 [00:15<00:18,  3.04it/s]CETT extraction:  44%|████▍     | 44/100 [00:16<00:17,  3.23it/s]CETT extraction:  45%|████▌     | 45/100 [00:16<00:19,  2.85it/s]CETT extraction:  46%|████▌     | 46/100 [00:16<00:18,  2.89it/s]CETT extraction:  47%|████▋     | 47/100 [00:17<00:16,  3.13it/s]CETT extraction:  48%|████▊     | 48/100 [00:17<00:17,  2.90it/s]CETT extraction:  49%|████▉     | 49/100 [00:17<00:19,  2.68it/s]CETT extraction:  50%|█████     | 50/100 [00:18<00:18,  2.68it/s]CETT extraction:  51%|█████     | 51/100 [00:18<00:20,  2.40it/s]CETT extraction:  52%|█████▏    | 52/100 [00:19<00:19,  2.50it/s]CETT extraction:  53%|█████▎    | 53/100 [00:19<00:19,  2.41it/s]CETT extraction:  54%|█████▍    | 54/100 [00:19<00:18,  2.44it/s]CETT extraction:  55%|█████▌    | 55/100 [00:20<00:17,  2.62it/s]CETT extraction:  56%|█████▌    | 56/100 [00:20<00:16,  2.74it/s]CETT extraction:  57%|█████▋    | 57/100 [00:20<00:14,  2.95it/s]CETT extraction:  58%|█████▊    | 58/100 [00:21<00:13,  3.11it/s]CETT extraction:  59%|█████▉    | 59/100 [00:21<00:13,  3.06it/s]CETT extraction:  60%|██████    | 60/100 [00:21<00:12,  3.18it/s]CETT extraction:  61%|██████    | 61/100 [00:22<00:13,  2.95it/s]CETT extraction:  62%|██████▏   | 62/100 [00:22<00:12,  3.00it/s]CETT extraction:  63%|██████▎   | 63/100 [00:22<00:12,  2.87it/s]CETT extraction:  64%|██████▍   | 64/100 [00:23<00:13,  2.69it/s]CETT extraction:  65%|██████▌   | 65/100 [00:23<00:13,  2.55it/s]CETT extraction:  66%|██████▌   | 66/100 [00:24<00:12,  2.81it/s]CETT extraction:  67%|██████▋   | 67/100 [00:24<00:12,  2.73it/s]CETT extraction:  68%|██████▊   | 68/100 [00:24<00:11,  2.78it/s]CETT extraction:  69%|██████▉   | 69/100 [00:25<00:10,  3.03it/s]CETT extraction:  70%|███████   | 70/100 [00:25<00:10,  2.88it/s]CETT extraction:  71%|███████   | 71/100 [00:25<00:10,  2.71it/s]CETT extraction:  72%|███████▏  | 72/100 [00:26<00:10,  2.73it/s]CETT extraction:  73%|███████▎  | 73/100 [00:26<00:10,  2.63it/s]CETT extraction:  74%|███████▍  | 74/100 [00:26<00:09,  2.82it/s]CETT extraction:  75%|███████▌  | 75/100 [00:27<00:09,  2.69it/s]CETT extraction:  76%|███████▌  | 76/100 [00:27<00:08,  2.81it/s]CETT extraction:  77%|███████▋  | 77/100 [00:27<00:07,  2.98it/s]CETT extraction:  78%|███████▊  | 78/100 [00:28<00:07,  3.11it/s]CETT extraction:  79%|███████▉  | 79/100 [00:28<00:06,  3.13it/s]CETT extraction:  80%|████████  | 80/100 [00:28<00:06,  2.96it/s]CETT extraction:  81%|████████  | 81/100 [00:29<00:06,  2.72it/s]CETT extraction:  82%|████████▏ | 82/100 [00:29<00:06,  2.80it/s]CETT extraction:  83%|████████▎ | 83/100 [00:29<00:05,  3.00it/s]CETT extraction:  84%|████████▍ | 84/100 [00:30<00:05,  3.06it/s]CETT extraction:  85%|████████▌ | 85/100 [00:30<00:04,  3.12it/s]CETT extraction:  86%|████████▌ | 86/100 [00:31<00:04,  2.83it/s]CETT extraction:  87%|████████▋ | 87/100 [00:31<00:04,  2.94it/s]CETT extraction:  88%|████████▊ | 88/100 [00:31<00:04,  2.90it/s]CETT extraction:  89%|████████▉ | 89/100 [00:31<00:03,  3.09it/s]CETT extraction:  90%|█████████ | 90/100 [00:32<00:03,  3.22it/s]CETT extraction:  91%|█████████ | 91/100 [00:32<00:02,  3.26it/s]CETT extraction:  92%|█████████▏| 92/100 [00:32<00:02,  2.90it/s]CETT extraction:  93%|█████████▎| 93/100 [00:33<00:02,  2.80it/s]CETT extraction:  94%|█████████▍| 94/100 [00:33<00:02,  2.83it/s]CETT extraction:  95%|█████████▌| 95/100 [00:33<00:01,  2.98it/s]CETT extraction:  96%|█████████▌| 96/100 [00:34<00:01,  3.18it/s]CETT extraction:  97%|█████████▋| 97/100 [00:34<00:01,  2.82it/s]CETT extraction:  98%|█████████▊| 98/100 [00:34<00:00,  3.04it/s]CETT extraction:  99%|█████████▉| 99/100 [00:35<00:00,  3.16it/s]CETT extraction: 100%|██████████| 100/100 [00:35<00:00,  2.47it/s]CETT extraction: 100%|██████████| 100/100 [00:35<00:00,  2.79it/s]
+  Valid QA samples : 100  (skipped 0)
+  Training rows    : 100
+  Accuracy         : 0.470
+
+[3/3] Training L1 probe...
+  Pre-selected top-5000 features by CETT variance (from 348,160)
+/Users/huseyin/Documents/CoT/CoTLab/cotlab/lib/python3.12/site-packages/sklearn/linear_model/_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+/Users/huseyin/Documents/CoT/CoTLab/cotlab/lib/python3.12/site-packages/sklearn/linear_model/_logistic.py:1160: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.
+  warnings.warn(
+/Users/huseyin/Documents/CoT/CoTLab/cotlab/lib/python3.12/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/Users/huseyin/Documents/CoT/CoTLab/cotlab/lib/python3.12/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/Users/huseyin/Documents/CoT/CoTLab/cotlab/lib/python3.12/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+  Probe balanced acc : 0.641
+  H-Neurons found    : 6
+  H-Neuron ratio     : 0.017‰
+  Top layers (H-neurons): [(21, 2), (32, 1), (17, 1), (27, 1), (16, 1)]
+/Users/huseyin/Documents/CoT/CoTLab/cotlab/lib/python3.12/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: divide by zero encountered in matmul
+  ret = a @ b
+/Users/huseyin/Documents/CoT/CoTLab/cotlab/lib/python3.12/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: overflow encountered in matmul
+  ret = a @ b
+/Users/huseyin/Documents/CoT/CoTLab/cotlab/lib/python3.12/site-packages/sklearn/utils/extmath.py:227: RuntimeWarning: invalid value encountered in matmul
+  ret = a @ b
+/Users/huseyin/Documents/CoT/CoTLab/cotlab/lib/python3.12/site-packages/sklearn/linear_model/_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+/Users/huseyin/Documents/CoT/CoTLab/cotlab/lib/python3.12/site-packages/sklearn/linear_model/_logistic.py:1160: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.
+  warnings.warn(
+  Random baseline acc  : 0.515
+  Random baseline AUROC: 0.5353535353535354
+  H-Neuron AUROC gap   : +0.040  (paper claims >0.10)
+
+  Causal validation on 20 held-out QA samples...
+  (Default labeling: suppression should LOWER accuracy, amplification should RAISE it)
+    α=0.0 → accuracy 0.450
+    α=0.5 → accuracy 0.450
+    α=1.0 → accuracy 0.450
+    α=1.5 → accuracy 0.450
+    α=2.0 → accuracy 0.450
+
+============================================================
+H-NEURON SUMMARY — medmcqa
+============================================================
+  Accuracy (no intervention)  : 0.470
+  Probe balanced accuracy     : 0.641
+  Probe AUROC                 : 0.5757575757575758
+  Random baseline AUROC       : 0.5353535353535354
+  H-Neurons identified        : 6
+
+Results saved to: /Users/huseyin/Documents/CoT/CoTLab/outputs/2026-03-18/09-14-29_h_neuron_analysis_medmcqa_chain_of_thought/results.json
+
+Metrics:
+  dataset: medmcqa
+  n_samples: 100
+  n_training_rows: 100
+  n_layers: 34
+  intermediate_dim: 10240
+  n_features: 348160
+  accuracy: 0.47
+  probe_balanced_accuracy: 0.6414141414141414
+  probe_auroc: 0.5757575757575758
+  random_baseline_balanced_accuracy: 0.5151515151515151
+  random_baseline_auroc: 0.5353535353535354
+  n_h_neurons: 6
+  h_neuron_ratio_permille: 0.017233455882352942
+  layer_distribution: {32: 1, 21: 2, 17: 1, 27: 1, 16: 1}
+  contrastive_labeling: False
+  top_h_neurons: [{'layer': 32, 'neuron': 1559}, {'layer': 21, 'neuron': 6800}, {'layer': 17, 'neuron': 8998}, {'layer': 27, 'neuron': 6629}, {'layer': 16, 'neuron': 2232}, {'layer': 21, 'neuron': 7665}]
+  accuracy_alpha_0.0: 0.45
+  accuracy_alpha_0.5: 0.45
+  accuracy_alpha_1.0: 0.45
+  accuracy_alpha_1.5: 0.45
+  accuracy_alpha_2.0: 0.45
+
+Experiment documentation updated: /Users/huseyin/Documents/CoT/CoTLab/outputs/2026-03-18/09-14-29_h_neuron_analysis_medmcqa_chain_of_thought/EXPERIMENT.md
+
+Experiment complete.

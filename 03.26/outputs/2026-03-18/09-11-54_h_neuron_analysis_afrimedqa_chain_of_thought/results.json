@@ -1,0 +1,146 @@
+{
+  "metadata": {
+    "config": {
+      "backend": {
+        "_target_": "cotlab.backends.TransformersBackend",
+        "device": "mps",
+        "dtype": "bfloat16",
+        "enable_hooks": true,
+        "trust_remote_code": true
+      },
+      "model": {
+        "name": "google/gemma-3-270m-it",
+        "max_new_tokens": 512,
+        "temperature": 0.7,
+        "top_p": 0.9
+      },
+      "prompt": {
+        "_target_": "cotlab.prompts.ChainOfThoughtStrategy",
+        "name": "chain_of_thought",
+        "system_role": "You are a medical expert. Think through problems carefully and\nexplain your reasoning step by step before giving your final answer.\n",
+        "include_examples": false,
+        "cot_trigger": "Let's think through this step by step:",
+        "output_format": "plain"
+      },
+      "dataset": {
+        "_target_": "cotlab.datasets.loaders.MedQADataset",
+        "name": "afrimedqa",
+        "filename": "afrimedqa/mcq.jsonl",
+        "split": "mcq"
+      },
+      "experiment": {
+        "_target_": "cotlab.experiments.HNeuronAnalysisExperiment",
+        "name": "h_neuron_analysis",
+        "description": "CETT-based H-Neuron discovery and causal validation",
+        "num_samples": 10,
+        "validation_split": 0.2,
+        "l1_C": 0.1,
+        "alpha_values": [
+          0.0,
+          0.5,
+          1.0,
+          1.5,
+          2.0
+        ],
+        "layer_stride": 1,
+        "seed": 42,
+        "max_input_tokens": 1024,
+        "answer_cue": "\n\nAnswer:",
+        "contrastive_labeling": true
+      },
+      "seed": 42,
+      "verbose": true,
+      "dry_run": false
+    },
+    "start_time": "2026-03-18T09:11:54.635635"
+  },
+  "experiment": "h_neuron_analysis",
+  "model": "google/gemma-3-270m-it",
+  "prompt_strategy": "chain_of_thought",
+  "metrics": {
+    "dataset": "afrimedqa",
+    "n_samples": 10,
+    "n_training_rows": 20,
+    "n_layers": 18,
+    "intermediate_dim": 2048,
+    "n_features": 36864,
+    "accuracy": 0.2,
+    "probe_balanced_accuracy": 0.5,
+    "probe_auroc": 0.5,
+    "random_baseline_balanced_accuracy": null,
+    "random_baseline_auroc": null,
+    "n_h_neurons": 0,
+    "h_neuron_ratio_permille": 0.0,
+    "layer_distribution": {},
+    "contrastive_labeling": true,
+    "top_h_neurons": []
+  },
+  "raw_outputs": {
+    "per_sample": [
+      {
+        "sample_idx": 2619,
+        "predicted": "B",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 456,
+        "predicted": "B",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 102,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      },
+      {
+        "sample_idx": 3037,
+        "predicted": "B",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1126,
+        "predicted": "B",
+        "ground_truth": "E",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 1003,
+        "predicted": "B",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 914,
+        "predicted": "C",
+        "ground_truth": "B",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 571,
+        "predicted": "B",
+        "ground_truth": "D",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 3016,
+        "predicted": "B",
+        "ground_truth": "A",
+        "is_correct": false
+      },
+      {
+        "sample_idx": 419,
+        "predicted": "B",
+        "ground_truth": "B",
+        "is_correct": true
+      }
+    ]
+  },
+  "num_samples": 0,
+  "samples": [],
+  "end_time": "2026-03-18T09:12:00.681158",
+  "duration_seconds": 6.045524
+}
