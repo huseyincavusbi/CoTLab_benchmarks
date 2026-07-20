@@ -1,0 +1,91 @@
+============================================================
+Configuration:
+============================================================
+backend:
+  _target_: cotlab.backends.TransformersBackend
+  device: mps
+  dtype: bfloat16
+  enable_hooks: true
+  trust_remote_code: true
+model:
+  name: openai-community/gpt2
+  max_new_tokens: 512
+  temperature: 0.7
+  top_p: 0.9
+prompt:
+  _target_: cotlab.prompts.SimplePromptStrategy
+  name: simple
+  system_role: null
+  include_instructions: false
+  output_format: plain
+dataset:
+  _target_: cotlab.datasets.SyntheticMedicalDataset
+  name: synthetic
+  path: data/Synthetic_Medical_Data.csv
+  repeat: 1
+experiment:
+  _target_: cotlab.experiments.JacobianLensExperiment
+  name: jacobian_lens
+  description: Jacobian lens for causal concept readout from residuals
+  mode: fit
+  lens_path: null
+  corpus_path: null
+  n_corpus_prompts: 100
+  source_layers: null
+  target_layer: null
+  layer_stride: 1
+  dim_batch: 8
+  skip_first_n: 16
+  top_k: 10
+  num_samples: 100
+  max_input_tokens: 512
+  answer_cue: '
+
+
+    Answer:'
+  seed: 42
+seed: 42
+verbose: true
+dry_run: false
+n_corpus_prompts: 5
+max_input_tokens: 64
+dim_batch: 4
+source_layers:
+- 10
+num_samples: 1
+
+============================================================
+Created experiment documentation: /Users/huseyin/Documents/fromrx/cot/CoTLab/outputs/2026-07-18/15-15-57_jacobian_lens_synthetic_simple/EXPERIMENT.md
+Loading backend: cotlab.backends.TransformersBackend
+/Users/huseyin/Documents/fromrx/cot/CoTLab/src/cotlab/backends/transformers_backend.py:53: UserWarning: trust_remote_code is set to True. This will execute code downloaded from the Hugging Face Hub. Ensure you trust the repository before proceeding!
+  warnings.warn(
+Loading model: openai-community/gpt2
+  Device map: mps
+  Dtype: torch.bfloat16
+  Cache: ~/.cache/huggingface (HF default)
+[2026-07-18 15:15:59,850][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/openai-community/gpt2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-07-18 15:15:59,896][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/openai-community/gpt2/607a30d783dfa663caf39e06633721c8d4cfcd7e/config.json "HTTP/1.1 200 OK"
+[2026-07-18 15:16:00,066][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/openai-community/gpt2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-07-18 15:16:00,111][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/openai-community/gpt2/607a30d783dfa663caf39e06633721c8d4cfcd7e/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-07-18 15:16:00,288][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/openai-community/gpt2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[2026-07-18 15:16:00,532][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/openai-community/gpt2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[2026-07-18 15:16:00,808][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/openai-community/gpt2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-07-18 15:16:00,853][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/openai-community/gpt2/607a30d783dfa663caf39e06633721c8d4cfcd7e/config.json "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights:  26%|██▋       | 39/148 [00:00<00:00, 388.92it/s]Loading weights:  97%|█████████▋| 143/148 [00:00<00:00, 706.13it/s]Loading weights: 100%|██████████| 148/148 [00:00<00:00, 412.09it/s]
+[2026-07-18 15:16:01,618][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/openai-community/gpt2/resolve/main/generation_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-07-18 15:16:01,664][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/openai-community/gpt2/607a30d783dfa663caf39e06633721c8d4cfcd7e/generation_config.json "HTTP/1.1 200 OK"
+[2026-07-18 15:16:01,835][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/openai-community/gpt2/resolve/main/custom_generate/generate.py "HTTP/1.1 404 Not Found"
+  Resolved device: mps
+Creating prompt strategy: simple
+Loading dataset: synthetic
+[2026-07-18 15:16:02,011][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/datasets/huseyincavus/CoTLab_data/resolve/main/Synthetic_Medical_Data.csv "HTTP/1.1 307 Temporary Redirect"
+[2026-07-18 15:16:02,104][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/datasets/huseyincavus/CoTLab_data/365ba597a468fdc40f6ebcf30d118364a10cad31/Synthetic_Medical_Data.csv "HTTP/1.1 200 OK"
+Creating experiment: jacobian_lens
+============================================================
+Running experiment: jacobian_lens
+============================================================
+Mode: fit | Model: openai-community/gpt2
+Target layer: 11 | Source layers: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+Corpus prompts: 100
+Valid prompts: 100
+Fitting J-lens:   0%|          | 0/100 [00:00<?, ?it/s]Fitting J-lens:   1%|          | 1/100 [00:08<14:01,  8.50s/it]Fitting J-lens:   2%|▏         | 2/100 [00:15<12:32,  7.68s/it]Fitting J-lens:   3%|▎         | 3/100 [00:22<11:48,  7.30s/it]Fitting J-lens:   4%|▍         | 4/100 [00:29<11:26,  7.15s/it]Fitting J-lens:   5%|▌         | 5/100 [00:35<10:52,  6.86s/it]Fitting J-lens:   6%|▌         | 6/100 [00:43<11:02,  7.05s/it]Fitting J-lens:   7%|▋         | 7/100 [00:49<10:39,  6.88s/it]Fitting J-lens:   8%|▊         | 8/100 [00:56<10:18,  6.73s/it]Fitting J-lens:   9%|▉         | 9/100 [01:03<10:19,  6.80s/it]Fitting J-lens:  10%|█         | 10/100 [01:09<10:16,  6.85s/it]Fitting J-lens:  11%|█         | 11/100 [01:17<10:14,  6.91s/it]Fitting J-lens:  12%|█▏        | 12/100 [01:23<09:52,  6.73s/it]Fitting J-lens:  13%|█▎        | 13/100 [01:30<09:49,  6.78s/it]Fitting J-lens:  14%|█▍        | 14/100 [01:37<09:44,  6.79s/it]Fitting J-lens:  15%|█▌        | 15/100 [01:43<09:33,  6.75s/it]Fitting J-lens:  16%|█▌        | 16/100 [01:50<09:23,  6.71s/it]Fitting J-lens:  17%|█▋        | 17/100 [01:57<09:25,  6.81s/it]Fitting J-lens:  18%|█▊        | 18/100 [02:03<09:08,  6.69s/it]Fitting J-lens:  19%|█▉        | 19/100 [02:10<09:00,  6.68s/it]Fitting J-lens:  20%|██        | 20/100 [02:17<09:07,  6.84s/it]Fitting J-lens:  21%|██        | 21/100 [02:24<08:50,  6.71s/it]Fitting J-lens:  22%|██▏       | 22/100 [02:31<09:09,  7.04s/it]Fitting J-lens:  23%|██▎       | 23/100 [02:38<08:53,  6.93s/it]Fitting J-lens:  24%|██▍       | 24/100 [02:45<08:45,  6.92s/it]Fitting J-lens:  25%|██▌       | 25/100 [02:51<08:30,  6.81s/it]Fitting J-lens:  26%|██▌       | 26/100 [02:58<08:20,  6.76s/it]Fitting J-lens:  27%|██▋       | 27/100 [03:05<08:20,  6.86s/it]Fitting J-lens:  28%|██▊       | 28/100 [03:12<08:19,  6.94s/it]Fitting J-lens:  29%|██▉       | 29/100 [03:19<08:16,  6.99s/it]Fitting J-lens:  30%|███       | 30/100 [03:26<08:00,  6.86s/it]Fitting J-lens:  31%|███       | 31/100 [03:33<07:58,  6.94s/it]Fitting J-lens:  32%|███▏      | 32/100 [03:40<07:47,  6.88s/it]Fitting J-lens:  33%|███▎      | 33/100 [03:47<07:36,  6.81s/it]Fitting J-lens:  34%|███▍      | 34/100 [03:54<07:36,  6.92s/it]Fitting J-lens:  35%|███▌      | 35/100 [04:01<07:32,  6.97s/it]Fitting J-lens:  36%|███▌      | 36/100 [04:07<07:16,  6.82s/it]Fitting J-lens:  37%|███▋      | 37/100 [04:14<07:13,  6.88s/it]Fitting J-lens:  38%|███▊      | 38/100 [04:21<07:02,  6.81s/it]Fitting J-lens:  39%|███▉      | 39/100 [04:28<07:00,  6.90s/it]

@@ -1,0 +1,113 @@
+============================================================
+Configuration:
+============================================================
+backend:
+  _target_: cotlab.backends.TransformersBackend
+  device: cuda
+  dtype: bfloat16
+  enable_hooks: true
+  trust_remote_code: true
+model:
+  name: openai-community/gpt2
+  max_new_tokens: 512
+  temperature: 0.7
+  top_p: 0.9
+prompt:
+  _target_: cotlab.prompts.SimplePromptStrategy
+  name: simple
+  system_role: null
+  include_instructions: false
+  output_format: plain
+dataset:
+  _target_: cotlab.datasets.SyntheticMedicalDataset
+  name: synthetic
+  path: data/Synthetic_Medical_Data.csv
+  repeat: 1
+experiment:
+  _target_: cotlab.experiments.JacobianLensExperiment
+  name: jacobian_lens
+  description: Jacobian lens for causal concept readout from residuals
+  mode: apply
+  lens_path: null
+  corpus_path: null
+  n_corpus_prompts: 100
+  source_layers: null
+  target_layer: null
+  layer_stride: 1
+  dim_batch: 8
+  skip_first_n: 16
+  top_k: 10
+  num_samples: 100
+  max_input_tokens: 512
+  answer_cue: '
+
+
+    Answer:'
+  seed: 42
+seed: 42
+verbose: true
+dry_run: false
+mode: fit
+n_corpus_prompts: 5
+max_input_tokens: 64
+dim_batch: 4
+source_layers:
+- 10
+num_samples: 3
+
+============================================================
+Created experiment documentation: /Users/huseyin/Documents/fromrx/cot/CoTLab/outputs/2026-07-18/15-15-27_jacobian_lens_synthetic_simple/EXPERIMENT.md
+Loading backend: cotlab.backends.TransformersBackend
+/Users/huseyin/Documents/fromrx/cot/CoTLab/src/cotlab/backends/transformers_backend.py:53: UserWarning: trust_remote_code is set to True. This will execute code downloaded from the Hugging Face Hub. Ensure you trust the repository before proceeding!
+  warnings.warn(
+Loading model: openai-community/gpt2
+  Device map: cuda
+  Dtype: torch.bfloat16
+  Cache: ~/.cache/huggingface (HF default)
+[2026-07-18 15:15:30,454][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/openai-community/gpt2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-07-18 15:15:30,498][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/openai-community/gpt2/607a30d783dfa663caf39e06633721c8d4cfcd7e/config.json "HTTP/1.1 200 OK"
+[2026-07-18 15:15:30,668][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/openai-community/gpt2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-07-18 15:15:30,712][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/openai-community/gpt2/607a30d783dfa663caf39e06633721c8d4cfcd7e/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-07-18 15:15:30,879][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/openai-community/gpt2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[2026-07-18 15:15:31,056][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/openai-community/gpt2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[2026-07-18 15:15:31,333][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/openai-community/gpt2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-07-18 15:15:31,379][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/openai-community/gpt2/607a30d783dfa663caf39e06633721c8d4cfcd7e/config.json "HTTP/1.1 200 OK"
+Traceback (most recent call last):
+  File "/Users/huseyin/Documents/fromrx/cot/CoTLab/src/cotlab/main.py", line 207, in _hydra_main
+    backend.load_model(cfg.model.name, **_extract_backend_load_kwargs(cfg.backend))
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/huseyin/Documents/fromrx/cot/CoTLab/src/cotlab/backends/transformers_backend.py", line 104, in load_model
+    self._model = AutoModelForCausalLM.from_pretrained(
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        model_name,
+        ^^^^^^^^^^^
+    ...<4 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "/Users/huseyin/Documents/fromrx/cot/CoTLab/.venv/lib/python3.13/site-packages/transformers/models/auto/auto_factory.py", line 402, in from_pretrained
+    return model_class.from_pretrained(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        pretrained_model_name_or_path, *model_args, config=config, **hub_kwargs, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/huseyin/Documents/fromrx/cot/CoTLab/.venv/lib/python3.13/site-packages/transformers/modeling_utils.py", line 4456, in from_pretrained
+    loading_info, disk_offload_index = cls._load_pretrained_model(model, state_dict, checkpoint_files, load_config)
+                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/huseyin/Documents/fromrx/cot/CoTLab/.venv/lib/python3.13/site-packages/transformers/modeling_utils.py", line 4536, in _load_pretrained_model
+    caching_allocator_warmup(model, expanded_device_map, load_config.hf_quantizer)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/huseyin/Documents/fromrx/cot/CoTLab/.venv/lib/python3.13/site-packages/transformers/modeling_utils.py", line 5158, in caching_allocator_warmup
+    free_device_memory, total_device_memory = accelerator_module.mem_get_info(index)
+                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "/Users/huseyin/Documents/fromrx/cot/CoTLab/.venv/lib/python3.13/site-packages/torch/cuda/memory.py", line 838, in mem_get_info
+    return torch.cuda.cudart().cudaMemGetInfo(device)
+           ~~~~~~~~~~~~~~~~~^^
+  File "/Users/huseyin/Documents/fromrx/cot/CoTLab/.venv/lib/python3.13/site-packages/torch/cuda/__init__.py", line 489, in cudart
+    _lazy_init()
+    ~~~~~~~~~~^^
+  File "/Users/huseyin/Documents/fromrx/cot/CoTLab/.venv/lib/python3.13/site-packages/torch/cuda/__init__.py", line 403, in _lazy_init
+    raise AssertionError("Torch not compiled with CUDA enabled")
+AssertionError: Torch not compiled with CUDA enabled
